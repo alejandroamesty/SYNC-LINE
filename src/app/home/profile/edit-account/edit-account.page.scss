@@ -1,0 +1,100 @@
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+}
+
+.title {
+  position: absolute;
+  left: 30px;
+  top: 101px;
+  font-family: "BROmnySemiBold";
+  font-size: 25px;
+  color: #ffffff;
+}
+
+.subtitle1 {
+  position: absolute;
+  left: 31px;
+  top: 158px;
+  font-family: "BROmnyMedium";
+  font-size: 18px;
+  color: #ffffff;
+}
+
+app-border-input.email {
+  position: absolute;
+  left: 30px;
+  top: 192px;
+}
+
+.subtitle2 {
+  position: absolute;
+  left: 31px;
+  top: 268px;
+  font-family: "BROmnyMedium";
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.undertitle1 {
+  position: absolute;
+  left: 31px;
+  top: 304px;
+  font-family: "BROmnyRegular";
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.undertitle2 {
+  position: absolute;
+  left: 31px;
+  top: 412px;
+  font-family: "BROmnyRegular";
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.undertitle3 {
+  position: absolute;
+  left: 31px;
+  top: 520px;
+  font-family: "BROmnyRegular";
+  font-size: 15px;
+  color: #ffffff;
+}
+
+app-border-input.password {
+  position: absolute;
+  left: 30px;
+  top: 338px;
+}
+
+app-border-input.newPassword {
+  position: absolute;
+  left: 30px;
+  top: 446px;
+}
+
+app-border-input.confirmPassword {
+  position: absolute;
+  left: 30px;
+  top: 554px;
+}
+
+.uploadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 640px;
+}
+
+app-save-button {
+  width: 335px;
+}
+
+.arrow {
+  position: absolute;
+  left: 25px;
+  top: 42px;
+}

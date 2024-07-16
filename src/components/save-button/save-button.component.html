@@ -1,0 +1,9 @@
+<button
+  class="save-button"
+  [style.width.px]="width"
+  [ngClass]="{ disabled: disabled }"
+  (click)="handleClick()"
+  [disabled]="disabled"
+>
+  {{ title }}
+</button>

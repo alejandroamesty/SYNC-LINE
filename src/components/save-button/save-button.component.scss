@@ -1,0 +1,26 @@
+.save-button {
+    position: absolute;
+    height: 55px;
+    background-color: #61DA5E;
+    border: none;
+    border-radius: 100px;
+    font-family: 'BROmnySemiBold';
+    font-size: 18px;
+    text-align: center;
+    color: #030B38;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .save-button.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  
+  .save-button.clicked {
+    opacity: 0.7;
+  }
+  

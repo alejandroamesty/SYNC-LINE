@@ -1,0 +1,32 @@
+<div *ngIf="visible" class="modal-overlay">
+  <div class="modal-container" [@modalAnimation]>
+    <div class="modal-content">
+      <img *ngIf="image" [src]="image" alt="Modal Image" class="modal-image" />
+      <h2 *ngIf="title" class="modal-title">{{ title }}</h2>
+      <p *ngIf="text" class="modal-text">{{ text }}</p>
+      <div class="button-container">
+        <button
+          *ngIf="cancelButtonText"
+          (click)="handleCancel()"
+          class="cancel-button"
+        >
+          {{ cancelButtonText }}
+        </button>
+        <button
+          *ngIf="acceptButtonText"
+          (click)="handleAccept()"
+          class="accept-button"
+        >
+          {{ acceptButtonText }}
+        </button>
+        <button
+          *ngIf="!cancelButtonText && acceptButtonText"
+          (click)="handleAccept()"
+          class="single-button"
+        >
+          {{ acceptButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

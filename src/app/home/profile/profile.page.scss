@@ -1,0 +1,108 @@
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  position: absolute;
+  width: 184px;
+  left: 23px;
+  top: 46px;
+
+  font-family: "BROmnySemiBold";
+  font-size: 25px;
+  color: #ffffff;
+}
+
+.card {
+  position: absolute;
+  width: 368px;
+  height: 86px;
+  top: 110px;
+  background: #212121;
+  border-radius: 20px;
+}
+
+.pfp {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  left: calc(50% - 48px / 2 - 139px);
+  top: 19px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.pfp-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userData {
+  position: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 25px;
+  gap: 10px;
+  left: 88px;
+}
+
+.name {
+  width: 185px;
+  font-family: "BROmnySemiBold";
+  font-size: 18px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userType {
+  width: 175px;
+  font-family: "BROmnyRegular";
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.editButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 21px;
+  top: 19px;
+}
+
+.option-2 {
+  // position: absolute;
+  top: 74px;
+}
+
+.option-3 {
+  // position: absolute;
+  top: 148px;
+}
+
+.option-4 {
+  // position: absolute;
+  top: 222px;
+}
+
+.option-cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 210px;
+  gap: 15px;
+}

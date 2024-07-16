@@ -1,0 +1,73 @@
+.container {
+  position: relative;
+  width: 350px;
+  height: 55px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.input {
+  flex: 1;
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.17);
+  border-radius: 100px;
+  padding: 0 20px;
+  color: white;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  font-family: "BROmnyRegular";
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+}
+
+.input-with-image {
+  padding-right: 55px;
+}
+
+.input-error {
+  border-color: #f4385a;
+}
+
+.image {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.eye-button {
+  position: absolute;
+  right: 20px;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.error {
+  color: #f4385a;
+  font-size: 12px;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  margin-top: 5px;
+  font-family: "BROmnyRegular";
+}

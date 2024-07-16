@@ -1,0 +1,48 @@
+<ion-content scroll-y="false">
+  <div class="arrow">
+    <app-control-button
+      source="../../../assets/images/arrow-go-back.png"
+      [size]="40"
+      (onPress)="navigateToStartScreen()"
+    >
+    </app-control-button>
+  </div>
+  <div class="title">Let's sign you in</div>
+  <div class="subtitle">Welcome back.</div>
+  <div class="undertitle">You've been missed!</div>
+  <div class="captionInput">Email</div>
+  <div class="emailInput">
+    <app-border-input
+      [placeholder]="'Enter your email'"
+      [value]="'email'"
+      [fontSize]="14"
+      [backgroundColor]="'#212121'"
+      [isPassword]="false"
+      [type]="'email'"
+      (valueChange)="emailChange($event)"
+    ></app-border-input>
+  </div>
+  <div class="captionInput2">Password</div>
+  <div class="passwordInput">
+    <app-border-input
+      [placeholder]="'Enter your password'"
+      [value]="'password'"
+      [fontSize]="14"
+      [backgroundColor]="'#212121'"
+      [isPassword]="true"
+      [type]="'password'"
+      (valueChange)="passwordChange($event)"
+    ></app-border-input>
+  </div>
+  <div class="forgotPassword" (click)="navigateToForgotPassword()">
+    Forgot password?
+  </div>
+  <div class="signInButton">
+    <app-save-button title="Sign in" [width]="350" (onPress)="navigateToHome()">
+    </app-save-button>
+  </div>
+  <span class="normal-text" (click)="navigateToSignUp()">
+    Don't have an account?
+    <span class="bold-text">Sign up</span>
+  </span>
+</ion-content>

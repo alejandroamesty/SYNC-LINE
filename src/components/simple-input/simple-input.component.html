@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="input-container" [ngStyle]="containerStyles">
+    <input
+      type="text"
+      [ngStyle]="inputStyles"
+      [placeholder]="placeholder"
+      [value]="value"
+      (input)="handleChange($event)"
+      [class.input-with-image]="image"
+      [class.multiline-input]="height > 40"
+    />
+    <img *ngIf="image" [src]="image" class="image" alt="Input icon" />
+  </div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>

@@ -1,0 +1,61 @@
+<ion-content scroll-y="false">
+  <div id="container">
+    <div class="title">Profile</div>
+    <div class="card">
+      <div class="pfp">
+        <img src="{{image}}" alt="profile" class="pfp-img" />
+      </div>
+      <div class="userData">
+        <div class="name">{{name}}</div>
+        <div class="userType">{{userType}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="option-cards">
+    <app-option-card
+      *ngIf="userType === 'Artist'"
+      class="option-1"
+      source="../../../assets/images/profile/upload-music.png"
+      [title]="'Upload music'"
+      (onPress)="navigateToUpload()"
+    ></app-option-card>
+    <app-option-card
+      class="option-2"
+      source="../../../assets/images/profile/edit-account.png"
+      [title]="'Edit account'"
+      (onPress)="navigateToEdit()"
+    ></app-option-card>
+    <app-option-card
+      class="option-3"
+      source="../../../assets/images/profile/delete-account.png"
+      [title]="'Delete account'"
+      (onPress)="handleDeletePress()"
+    ></app-option-card>
+    <app-option-card
+      class="option-4"
+      source="../../../assets/images/profile/log-out.png"
+      [title]="'Log out'"
+      (onPress)="handleLogoutPress()"
+    ></app-option-card>
+  </div>
+  <app-confirmation-modal
+    [visible]="showModal"
+    [image]="'../../../assets/images/log-out-icon.png'"
+    [title]="'See you soon!'"
+    [text]="'You are about to logout. Are you sure this is what you want?'"
+    [cancelButtonText]="'CANCEL'"
+    [acceptButtonText]="'ACCEPT'"
+    (onCancel)="handleCancel()"
+    (onAccept)="handleAccept()"
+  ></app-confirmation-modal>
+  <app-confirmation-modal
+    [visible]="showDeleteModal"
+    [image]="'../../../assets/images/warning.png'"
+    [title]="'Deleting account'"
+    [text]="'You are about to delete your account. Are you sure this is what you want?'"
+    [cancelButtonText]="'CANCEL'"
+    [acceptButtonText]="'ACCEPT'"
+    (onCancel)="handleDeleteCancel()"
+    (onAccept)="handleDeleteAccept()"
+  ></app-confirmation-modal>
+</ion-content>

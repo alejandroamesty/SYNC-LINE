@@ -1,0 +1,96 @@
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+ion-content {
+  --ion-background-color: white;
+}
+
+.text-container {
+  .first-line,
+  .second-line,
+  .third-line,
+  .sign-up-button,
+  .sign-in-button {
+    animation: slideUp 1s ease-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.first-line {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 22px;
+  top: 495px;
+  gap: 15px;
+  animation-delay: 0s;
+}
+
+.first-line .one {
+  font-family: "BROmnySemiBold";
+  font-size: 46px;
+  color: #292b2e;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+.first-line .two {
+  font-family: "BROmnySemiBold";
+  font-size: 46px;
+  color: #292b2e;
+}
+
+.second-line {
+  position: absolute;
+  width: 347px;
+  left: 22px;
+  top: 546px;
+  font-family: "BROmnySemiBold";
+  font-size: 46px;
+  display: flex;
+  align-items: center;
+  color: #292b2e;
+  animation-delay: 0.2s;
+}
+
+.second-line-variant {
+  color: #8e9fa9;
+}
+
+.third-line {
+  position: absolute;
+  width: 347px;
+  left: 22px;
+  top: 597px;
+  font-family: "BROmnySemiBold";
+  font-size: 46px;
+  display: flex;
+  align-items: center;
+  color: #292b2e;
+  animation-delay: 0.4s;
+}
+
+.sign-up-button {
+  position: absolute;
+  left: 22px;
+  top: 700px;
+  animation-delay: 0.6s;
+}
+
+.sign-in-button {
+  position: absolute;
+  left: 22px;
+  top: 774px;
+  animation-delay: 0.8s;
+}

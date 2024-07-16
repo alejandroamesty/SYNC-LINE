@@ -1,0 +1,13 @@
+<div class="search-container" [style.width]="width" [style.backgroundColor]="backgroundColor">
+  <img
+    src="../../assets/images/search.png"
+    class="search-icon"
+    alt="Search Icon"
+  />
+  <input
+    type="text"
+    class="search-input"
+    [placeholder]="placeholder"
+    (input)="onInputChange($event)"
+  />
+</div>

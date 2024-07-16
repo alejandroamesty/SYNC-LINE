@@ -1,0 +1,8 @@
+<div
+  class="round-button-container"
+  [style.background-color]="color"
+  [@scaleAnimation]="animationState"
+  (click)="handleClick()"
+>
+  <div class="round-button-caption">{{ caption }}</div>
+</div>

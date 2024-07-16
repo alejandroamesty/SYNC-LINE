@@ -1,0 +1,6 @@
+<div class="button-container" [@scaleAnimation]="animationState" (click)="handleClick()">
+  <div class="button-data">
+    <img *ngIf="source" [src]="source" alt="Icon" class="button-icon" />
+    <span class="button-caption">{{ caption }}</span>
+  </div>
+</div>
