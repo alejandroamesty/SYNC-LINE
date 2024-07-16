@@ -49,35 +49,10 @@ export class ForgotPasswordPage implements OnInit {
   }
 
   navigateToVerifyCode() {
-    if (this.email === '' || this.fetching) return;
-    this.fetching = true;
-    fetch(
-      'https://beatsyncserver.onrender.com/passwordRecovery/forgotPassword',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: this.email,
-        }),
-      }
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          this.fetching = false;
-          localStorage.setItem('email', this.email);
-          this.navCtrl.navigateForward('verify-code', {
-            animated: true,
-            animationDirection: 'forward',
-          });
-        } else {
-          console.log('Email not sent');
-        }
-      })
-      .catch((error) => {
-        console.log('Error: ', error);
-      });
+    this.navCtrl.navigateForward('verify-code', {
+      animated: true,
+      animationDirection: 'forward',
+    });
   }
 
   navigateToSignUp() {

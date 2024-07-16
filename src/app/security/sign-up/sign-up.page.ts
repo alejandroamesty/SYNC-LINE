@@ -64,44 +64,6 @@ export class SignUpPage implements OnInit {
   }
 
   navigateToHome() {
-    if (this.email === '' || this.password === '' || this.password.length < 8) {
-      console.error('Invalid email or password');
-      return;
-    }
-    //regex for email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.email)) {
-      console.error('Invalid email');
-      return;
-    }
-    if (this.password !== this.confirmPassword) {
-      console.error('Passwords do not match');
-      return;
-    }
-    if (this.fetching) return;
-    this.fetching = true;
-    fetch(`https://beatsyncserver.onrender.com/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.email,
-        password: this.password,
-      }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          this.fetching = false;
-          this.router.navigate(['sign-in']);
-        } else {
-          this.fetching = false;
-          console.error('Not able to register user');
-        }
-      })
-      .catch((error) => {
-        this.fetching = false;
-        console.error('Error while registering user', error);
-      });
+    this.router.navigate(['home']);
   }
 }

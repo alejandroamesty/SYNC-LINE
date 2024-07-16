@@ -15,10 +15,10 @@
     </div>
     <div class="third-line">valuable people</div>
     <div class="sign-up-button">
-      <app-round-button></app-round-button>
+      <app-round-button (onPress)="navigateToSignUp()"></app-round-button>
     </div>
     <div class="sign-in-button">
-      <app-round-button caption="I have an account" color="#8E9FA9"></app-round-button>
+      <app-round-button caption="I have an account" color="#8E9FA9" (onPress)="navigateToSignIn()"></app-round-button>
     </div>
   </div>
 </ion-content>

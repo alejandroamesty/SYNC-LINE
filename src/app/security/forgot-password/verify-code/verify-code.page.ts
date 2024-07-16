@@ -52,29 +52,9 @@ export class VerifyCodePage implements OnInit {
   }
 
   navigateToResetPassword() {
-    console.log(localStorage.getItem('email'));
-    console.log(this.code);
-    fetch(`https://beatsyncserver.onrender.com/passwordRecovery/recoveryCode`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: localStorage.getItem('email'),
-        code: Number(this.code),
-      }),
-    }).then((response) => {
-      if (response.status === 200) {
-        localStorage.setItem('code', this.code);
-        this.navCtrl.navigateForward('reset-password', {
-          animated: true,
-          animationDirection: 'forward',
-        });
-      } else {
-        response.json().then((data) => {
-          console.log(data);
-        });
-      }
+    this.navCtrl.navigateForward('reset-password', {
+      animated: true,
+      animationDirection: 'forward',
     });
   }
 

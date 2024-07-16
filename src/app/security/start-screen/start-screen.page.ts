@@ -18,11 +18,11 @@ export class StartScreenPage implements OnInit {
 
   ngOnInit() {}
 
-  // navigateToSignIn() {
-  //   this.router.navigate(['sign-in']);
-  // }
+  navigateToSignIn() {
+    this.router.navigate(['sign-in']);
+  }
 
-  // navigateToSignUp() {
-  //   this.router.navigate(['sign-up']);
-  // }
+  navigateToSignUp() {
+    this.router.navigate(['sign-up']);
+  }
 }
