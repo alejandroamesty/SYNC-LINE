@@ -9,10 +9,10 @@ import {
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 
-import { BorderInputComponent } from 'src/components/border-input/border-input.component';
-import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
-import { SaveButtonComponent } from 'src/components/save-button/save-button.component';
-import { VerificationInputComponent } from 'src/components/verification-input/verification-input.component';
+import { BorderInputComponent } from 'src/components/inputs/border-input/border-input.component';
+import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
+import { SaveButtonComponent } from 'src/components/buttons/save-button/save-button.component';
+import { VerificationInputComponent } from 'src/components/inputs/verification-input/verification-input.component';
 
 @Component({
   selector: 'app-verify-code',

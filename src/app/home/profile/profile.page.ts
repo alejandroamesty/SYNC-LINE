@@ -9,9 +9,9 @@ import {
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 
-import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
+import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
 import { OptionCardComponent } from 'src/components/option-card/option-card.component';
-import { ConfirmationModalComponent } from 'src/components/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from 'src/components/modals/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-profile',
