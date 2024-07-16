@@ -1,5 +1,5 @@
 ion-content {
-  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+  --ion-background-color: white;
 }
 
 .title {
@@ -9,7 +9,7 @@ ion-content {
   top: 101px;
   font-family: "BROmnySemiBold";
   font-size: 30px;
-  color: #ffffff;
+  color: #292B2E;
 }
 
 .subtitle {
@@ -19,7 +19,7 @@ ion-content {
   top: 149px;
   font-family: "BROmnyRegular";
   font-size: 30px;
-  color: #a3a3a9;
+  color: #8E9FA9;
 }
 
 .undertitle {
@@ -30,7 +30,7 @@ ion-content {
   top: 188px;
   font-family: "BROmnyRegular";
   font-size: 30px;
-  color: #a3a3a9;
+  color: #8E9FA9;
 }
 
 .captionInput {
@@ -41,7 +41,7 @@ ion-content {
 
   font-family: "BROmnyRegular";
   font-size: 15px;
-  color: #ffffff;
+  color: #292B2E;
 }
 
 .captionInput2 {
@@ -52,7 +52,7 @@ ion-content {
 
   font-family: "BROmnyRegular";
   font-size: 15px;
-  color: #ffffff;
+  color: #292B2E;
 }
 
 .captionInput3 {
@@ -63,7 +63,7 @@ ion-content {
 
   font-family: "BROmnyRegular";
   font-size: 15px;
-  color: #ffffff;
+  color: #292B2E;
 }
 
 .normal-text {
@@ -71,17 +71,17 @@ ion-content {
   width: 414px;
   height: 22px;
   left: calc(50% - 414px / 2);
-  top: 692px;
+  top: 805px;
   font-family: "BROmnyRegular";
   font-size: 15px;
   text-align: center;
 
-  color: #ffffff;
+  color: #292B2E;
 }
 
 .bold-text {
   font-family: "BROmnySemiBold";
-  color: #61da5e;
+  color: #8E9FA9;
 }
 
 .emailInput {
