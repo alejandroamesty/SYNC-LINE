@@ -3,13 +3,13 @@
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 664px;
+  bottom: 0;
   left: 37px;
-  transition: top 0.5s ease-in-out;
+  transition: bottom 0.5s ease-in-out;
 }
 
 .nav-bar.hide {
-  top: 860px;
+  bottom: -120px;
 }
 
 * {
