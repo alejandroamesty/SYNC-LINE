@@ -5,18 +5,11 @@
   position: fixed;
   top: 737px;
   left: 37px;
-  opacity: 1;
-  
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -moz-transition: opacity 0.5s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
+  transition: top 0.5s ease-in-out;
 }
 
 .nav-bar.hide {
-  opacity: 0;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -moz-transition: opacity 0.5s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
+  top: 900px;
 }
 
 * {
@@ -41,4 +34,3 @@
 .hidden {
   display: none;
 }
-
