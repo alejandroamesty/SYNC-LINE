@@ -50,7 +50,7 @@ export class SignInPage implements OnInit {
   }
 
   navigateToHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['main-tab']);
   }
 
   passwordChange(event: any) {

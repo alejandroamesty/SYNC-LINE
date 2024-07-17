@@ -31,7 +31,28 @@ export const routes: Routes = [
     loadComponent: () => import('./security/forgot-password/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
   },
   {
+    path: 'chats',
+    loadComponent: () => import('./home/chats/chats.page').then( m => m.ChatsPage)
+  },
+  {
+    path: 'updates',
+    loadComponent: () => import('./home/updates/updates.page').then( m => m.UpdatesPage)
+  },
+  {
+    path: 'contacts',
+    loadComponent: () => import('./home/contacts/contacts.page').then( m => m.ContactsPage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./home/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
     path: 'edit-account',
     loadComponent: () => import('./home/profile/edit-account/edit-account.page').then( m => m.EditAccountPage)
   },
+  {
+    path: 'main-tab',
+    loadComponent: () => import('./home/main-tab/main-tab.page').then( m => m.MainTabPage)
+  },
+
 ];

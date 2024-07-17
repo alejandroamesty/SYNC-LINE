@@ -64,6 +64,6 @@ export class SignUpPage implements OnInit {
   }
 
   navigateToHome() {
-    this.router.navigate(['home']);
+    this.router.navigate(['main-tab']);
   }
 }
