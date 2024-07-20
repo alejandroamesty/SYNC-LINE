@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIcon, IonContent } from '@ionic/angular/standalone';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,6 +17,7 @@ export class NavBarComponent {
   @Output() tabChanged = new EventEmitter<number>();
 
   setActive(index: number) {
+    Haptics.impact({ style: ImpactStyle.Light });
     this.activeIndex = index;
     this.tabChanged.emit(this.activeIndex);
   }
