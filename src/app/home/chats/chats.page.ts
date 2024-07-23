@@ -9,8 +9,7 @@ import {
   IonSearchbar,
 } from '@ionic/angular/standalone';
 import { SpecialInputComponent } from 'src/components/inputs/special-input/special-input.component';
-import { ChatItemComponent } from 'src/components/lists/chat-list/chat-item/chat-item.component';
-import { ChatListComponent } from 'src/components/lists/chat-list/chat-list.component';
+import { ChatItemComponent } from 'src/components/items/chat-item/chat-item.component';
 
 @Component({
   selector: 'app-chats',
@@ -27,11 +26,9 @@ import { ChatListComponent } from 'src/components/lists/chat-list/chat-list.comp
     FormsModule,
     SpecialInputComponent,
     ChatItemComponent,
-    ChatListComponent,
   ],
 })
 export class ChatsPage implements OnInit {
-
   chats = [
     {
       id: '1',
@@ -87,7 +84,6 @@ export class ChatsPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('Chats:', this.chats);
   }
 
   handleInputValue(value: string): void {

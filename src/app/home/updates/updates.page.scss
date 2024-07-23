@@ -2,11 +2,68 @@ ion-content {
   --ion-background-color: linear-gradient(180deg, #8e9fa9 0%, #d8cbc1 100%);
 }
 
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-special-input {
+  position: absolute;
+  top: 133px;
+}
+
 .title {
   position: absolute;
   left: 18px;
   top: 65px;
   font-family: "BROmnyMedium";
   font-size: 40px;
+  color: #ffffff;
+}
+
+.lists {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 211px;
+  gap: 24px;
+}
+
+.recent-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 8px;
+}
+
+.viewed-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 8px;
+}
+
+.viewed-item:last-child {
+  margin-bottom: 120px;
+}
+
+.subtitle-1 {
+  position: relative;
+  width: 358px;
+  font-family: "BROmnySemiBold";
+  font-size: 18px;
+
+  color: #ffffff;
+}
+
+.subtitle-2 {
+  position: relative;
+  width: 358px;
+  font-family: "BROmnySemiBold";
+  font-size: 18px;
+
   color: #ffffff;
 }

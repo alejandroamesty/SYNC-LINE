@@ -19,12 +19,15 @@ ion-content {
 
 .card {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 368px;
   height: 86px;
   top: 133px;
   background: rgba(79, 84, 88, 0.5);
   border-radius: 20px;
-  color: #292b2e;
+  color: #ffffff;
 }
 
 .pfp {
@@ -44,14 +47,13 @@ ion-content {
 }
 
 .userData {
-  position: inherit;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  top: 25px;
+  // align-items: center;
   gap: 10px;
-  left: 88px;
+  // left: 88px;
 }
 
 .name {
@@ -66,7 +68,7 @@ ion-content {
 }
 
 .userType {
-  width: 175px;
+  // width: 175px;
   font-family: "BROmnyRegular";
   font-size: 14px;
   color: #ffffff;

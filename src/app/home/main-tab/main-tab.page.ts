@@ -12,7 +12,7 @@ import { UpdatesPage } from '../updates/updates.page';
 import { ContactsPage } from '../contacts/contacts.page';
 import { ProfilePage } from '../profile/profile.page';
 
-import { NavBarComponent } from 'src/components/nav-bar/nav-bar.component';
+import { NavBarComponent } from 'src/components/items/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-main-tab',

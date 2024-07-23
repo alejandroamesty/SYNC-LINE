@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 
 import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
-import { OptionCardComponent } from 'src/components/option-card/option-card.component';
+import { OptionCardComponent } from 'src/components/items/option-card/option-card.component';
 import { ConfirmationModalComponent } from 'src/components/modals/confirmation-modal/confirmation-modal.component';
 
 @Component({
@@ -35,13 +35,13 @@ export class ProfilePage implements OnInit {
   showDeleteModal: boolean = false;
   fetching: boolean = false;
   image: string = '';
-  name: string = '';
-  userType: string = '';
+  name: string = 'Alejandro Ávila';
+  userType: string = 'Disponible';
 
   constructor(private router: Router) {
-    this.image = localStorage.getItem('pfp') || '';
-    this.name = localStorage.getItem('name') || '';
-    this.userType = localStorage.getItem('userType') || '';
+    // this.image = localStorage.getItem('pfp') || '';
+    // this.name = localStorage.getItem('name') || '';
+    // this.userType = localStorage.getItem('userType') || '';
   }
 
   ngOnInit() {}

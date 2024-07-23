@@ -1,0 +1,14 @@
+<div class="container" (click)="handlePress()">
+  <div
+    class="status-circle"
+    [ngStyle]="{ 'border-color': viewed ? '#E1E1E1' : '#72CAAF' }"
+    [@scaleAnimation]="animationState"
+    (click)="handleClick()"
+  >
+    <div class="icon"></div>
+  </div>
+  <div class="status-details">
+    <div class="name">{{ nombre }}</div>
+    <div class="time">{{ time }}</div>
+  </div>
+</div>
