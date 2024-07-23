@@ -1,21 +1,19 @@
 ion-content {
-  --ion-background-color: white;
+  --ion-background-color: linear-gradient(180deg, #8e9fa9 0%, #d8cbc1 100%);
 }
 
 #container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
 .title {
   position: absolute;
-  width: 184px;
-  left: 23px;
-  top: 46px;
-
-  font-family: "BROmnySemiBold";
-  font-size: 25px;
+  left: 18px;
+  top: 65px;
+  font-family: "BROmnyMedium";
+  font-size: 40px;
   color: #ffffff;
 }
 
@@ -23,10 +21,10 @@ ion-content {
   position: absolute;
   width: 368px;
   height: 86px;
-  top: 110px;
-  background: #E1E1E1;
+  top: 133px;
+  background: rgba(79, 84, 88, 0.5);
   border-radius: 20px;
-  color: #292B2E;
+  color: #292b2e;
 }
 
 .pfp {
@@ -82,21 +80,6 @@ ion-content {
   top: 19px;
 }
 
-.option-2 {
-  // position: absolute;
-  top: 74px;
-}
-
-.option-3 {
-  // position: absolute;
-  top: 148px;
-}
-
-.option-4 {
-  // position: absolute;
-  top: 222px;
-}
-
 .option-cards {
   display: flex;
   flex-direction: column;
@@ -104,6 +87,6 @@ ion-content {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 210px;
+  top: 235px;
   gap: 15px;
 }

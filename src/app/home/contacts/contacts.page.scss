@@ -1,12 +1,30 @@
 ion-content {
-  --ion-background-color: white;
+  --ion-background-color: linear-gradient(180deg, #8e9fa9 0%, #d8cbc1 100%);
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
   position: absolute;
   left: 18px;
   top: 65px;
-  font-family: "BROmnySemiBold";
+  font-family: "BROmnyMedium";
   font-size: 40px;
-  color: #292b2e;
+  color: #ffffff;
+}
+
+.contacts {
+  position: absolute;
+  top: 211px;
+  // left: 18px;
+  // width: 353px;
+}
+
+app-special-input {
+  position: absolute;
+  top: 133px;
 }
