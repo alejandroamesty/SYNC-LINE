@@ -1,4 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -25,10 +32,13 @@ import { ConfirmationModalComponent } from 'src/components/modals/confirmation-m
     FormsModule,
     ContactListComponent,
     SpecialInputComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
   ],
 })
 export class ContactsPage implements OnInit, AfterViewInit {
+  @Output() scrollUp = new EventEmitter<void>();
+  @Output() scrollDown = new EventEmitter<void>();
+
   showDeleteModal: boolean = false;
   contacts = [
     { id: '1', name: 'Alice', phoneNumber: '123-456-7890' },
@@ -75,5 +85,13 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
   handleInputValue(value: string): void {
     console.log('Input value:', value);
+  }
+
+  onScroll(event: CustomEvent): void {
+    if (event.detail.deltaY > 0) {
+      this.scrollDown.emit();
+    } else {
+      this.scrollUp.emit();
+    }
   }
 }

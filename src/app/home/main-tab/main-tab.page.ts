@@ -34,44 +34,25 @@ import { NavBarComponent } from 'src/components/items/nav-bar/nav-bar.component'
 })
 export class MainTabPage implements OnInit, AfterViewInit, OnDestroy {
   activeIndex: number = 0;
-  private mainContentElement: HTMLElement | null = null;
   private navBarElement: HTMLElement | null = null;
-  private lastScrollTop = 0;
 
   ngOnInit() {}
 
+  ngOnDestroy(): void {}
+
   ngAfterViewInit() {
-    this.mainContentElement = document.getElementById('main-content');
     this.navBarElement = document.querySelector('.nav-bar');
-
-    if (this.mainContentElement) {
-      this.mainContentElement.addEventListener('scroll', this.onContentScroll);
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.mainContentElement) {
-      this.mainContentElement.removeEventListener(
-        'scroll',
-        this.onContentScroll
-      );
-    }
   }
 
   onTabChanged(index: number) {
     this.activeIndex = index;
   }
 
-  onContentScroll = (event: Event) => {
-    const target = event.target as HTMLElement;
-    const scrollTop = target.scrollTop;
+  handleScrollUp() {
+    this.navBarElement?.classList.remove('hide');
+  }
 
-    if (scrollTop > this.lastScrollTop) {
-      this.navBarElement?.classList.add('hide');
-    } else {
-      this.navBarElement?.classList.remove('hide');
-    }
-
-    this.lastScrollTop = scrollTop;
-  };
+  handleScrollDown() {
+    this.navBarElement?.classList.add('hide');
+  }
 }

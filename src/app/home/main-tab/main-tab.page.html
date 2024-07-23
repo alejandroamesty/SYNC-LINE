@@ -1,7 +1,19 @@
 <div class="content-container" id="main-content">
-  <app-chats [ngClass]="{'hidden': activeIndex !== 0}"></app-chats>
-  <app-updates [ngClass]="{'hidden': activeIndex !== 1}"></app-updates>
-  <app-contacts [ngClass]="{'hidden': activeIndex !== 2}"></app-contacts>
+  <app-chats
+    *ngIf="activeIndex === 0"
+    (scrollUp)="handleScrollUp()"
+    (scrollDown)="handleScrollDown()"
+  ></app-chats>
+  <app-updates
+    [ngClass]="{'hidden': activeIndex !== 1}"
+    (scrollUp)="handleScrollUp()"
+    (scrollDown)="handleScrollDown()"
+  ></app-updates>
+  <app-contacts
+    [ngClass]="{'hidden': activeIndex !== 2}"
+    (scrollUp)="handleScrollUp()"
+    (scrollDown)="handleScrollDown()"
+  ></app-contacts>
   <app-profile [ngClass]="{'hidden': activeIndex !== 3}"></app-profile>
 </div>
 <div class="nav-bar">

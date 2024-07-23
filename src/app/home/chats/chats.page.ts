@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -29,6 +36,9 @@ import { ChatItemComponent } from 'src/components/items/chat-item/chat-item.comp
   ],
 })
 export class ChatsPage implements OnInit {
+  @Output() scrollUp = new EventEmitter<void>();
+  @Output() scrollDown = new EventEmitter<void>();
+
   chats = [
     {
       id: '1',
@@ -83,7 +93,14 @@ export class ChatsPage implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  onScroll(event: CustomEvent): void {
+    if (event.detail.deltaY > 0) {
+      this.scrollDown.emit();
+    } else {
+      this.scrollUp.emit();
+    }
   }
 
   handleInputValue(value: string): void {

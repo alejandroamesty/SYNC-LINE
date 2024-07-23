@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -29,6 +29,9 @@ import { MyStatusItemComponent } from 'src/components/items/my-status-item/my-st
   ],
 })
 export class UpdatesPage implements OnInit {
+  @Output() scrollUp = new EventEmitter<void>();
+  @Output() scrollDown = new EventEmitter<void>();
+
   userStatus = {
     id: '10',
     nombre: 'Alejandro Ávila',
@@ -80,6 +83,14 @@ export class UpdatesPage implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onScroll(event: CustomEvent): void {
+    if (event.detail.deltaY > 0) {
+      this.scrollDown.emit();
+    } else {
+      this.scrollUp.emit();
+    }
+  }
 
   handleStatusPress(id: string) {
     console.log('Status item pressed:', id);
