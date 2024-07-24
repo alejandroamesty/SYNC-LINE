@@ -1,0 +1,25 @@
+.record-button-container {
+  width: 48px;
+  height: 48px;
+  background: rgba(79, 84, 88, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  user-select: none;
+  transition: background-color 300ms ease-in;
+
+  &.is-pressed {
+    background: #f4385a;
+  }
+
+  .icon {
+    width: 24px;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

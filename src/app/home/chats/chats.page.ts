@@ -15,6 +15,7 @@ import {
   IonToolbar,
   IonSearchbar,
 } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 import { SpecialInputComponent } from 'src/components/inputs/special-input/special-input.component';
 import { ChatItemComponent } from 'src/components/items/chat-item/chat-item.component';
 
@@ -91,7 +92,7 @@ export class ChatsPage implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -105,5 +106,9 @@ export class ChatsPage implements OnInit {
 
   handleInputValue(value: string): void {
     console.log('Input value:', value);
+  }
+
+  handleChatPress(): void {
+    this.router.navigate(['chat']);
   }
 }

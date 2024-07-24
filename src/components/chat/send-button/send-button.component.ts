@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import {
   trigger,
   state,
@@ -6,12 +8,12 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-chat-item',
-  templateUrl: './chat-item.component.html',
-  styleUrls: ['./chat-item.component.scss'],
+  selector: 'app-send-button',
+  standalone: true,
+  templateUrl: './send-button.component.html',
+  styleUrls: ['./send-button.component.scss'],
   animations: [
     trigger('scaleAnimation', [
       state(
@@ -32,24 +34,18 @@ import { CommonModule } from '@angular/common';
       ),
     ]),
   ],
-  standalone: true,
-  imports: [CommonModule],
+  imports: [IonicModule, CommonModule],
 })
-export class ChatItemComponent {
-  @Input() id!: string;
-  @Input() name!: string;
-  @Input() preview!: string;
-  @Input() time!: string;
-  @Input() icon!: string;
-  @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
+export class SendButtonComponent {
+  @Output() sendClicked = new EventEmitter<void>();
 
   animationState: string = 'normal';
 
-  handleClick() {
+  send() {
     this.animationState = 'scaled';
     setTimeout(() => {
       this.animationState = 'normal';
-      this.onPress.emit();
+      this.sendClicked.emit();
     }, 200);
   }
 }

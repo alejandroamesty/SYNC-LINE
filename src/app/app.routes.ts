@@ -53,6 +53,10 @@ export const routes: Routes = [
   {
     path: 'main-tab',
     loadComponent: () => import('./home/main-tab/main-tab.page').then( m => m.MainTabPage)
+  },  {
+    path: 'chat',
+    loadComponent: () => import('./home/chats/chat/chat.page').then( m => m.ChatPage)
   },
+
 
 ];

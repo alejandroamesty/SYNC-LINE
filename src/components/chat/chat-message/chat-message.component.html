@@ -1,0 +1,12 @@
+<div
+  class="container"
+  [ngClass]="{ 'sent-container': isSent, 'received-container': !isSent }"
+>
+  <div class="message-time">{{ time }}</div>
+  <div
+    [ngClass]="{ sent: isSent, received: !isSent }"
+    class="message-container"
+  >
+    <div class="message-text">{{ text }}</div>
+  </div>
+</div>
