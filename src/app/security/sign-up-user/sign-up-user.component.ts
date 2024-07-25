@@ -9,8 +9,8 @@ import { ControlButtonComponent } from 'src/components/buttons/control-button/co
 
 @Component({
 	selector: 'app-sign-up',
-	templateUrl: './sign-up.page.html',
-	styleUrls: ['./sign-up.page.scss'],
+	templateUrl: './sign-up-user.component.html',
+	styleUrls: ['./sign-up-user.component.scss'],
 	standalone: true,
 	imports: [
 		IonButton,
@@ -25,11 +25,19 @@ import { ControlButtonComponent } from 'src/components/buttons/control-button/co
 		ControlButtonComponent
 	]
 })
-export class SignUpPage implements OnInit {
-	constructor(private router: Router) {}
-	email: string = '';
+export class SignUpUserComponent implements OnInit {
+	constructor(private router: Router) {
+		// get the email and password from the queryParams
+		const queryParams = this.router.getCurrentNavigation()?.extractedUrl.queryParams;
+		if (queryParams) {
+			const { email, password } = queryParams;
+			this.email = email;
+			this.password = password;
+		}
+	}
+	username: string = '';
 	password: string = '';
-	confirmPassword: string = '';
+	email: string = '';
 	fetching: boolean = false;
 	ngOnInit() {}
 
@@ -38,44 +46,36 @@ export class SignUpPage implements OnInit {
 	}
 
 	navigateToStartScreen() {
-		this.router.navigate(['start-screen']);
+		this.router.navigate(['sign-up']);
 	}
 
 	navigateToForgotPassword() {
 		this.router.navigate(['forgot-password']);
 	}
 
-	handleEmailChange(event: any) {
-		this.email = event;
-	}
-
-	handlePasswordChange(event: any) {
-		this.password = event;
-	}
-
-	handleConfirmPasswordChange(event: any) {
-		this.confirmPassword = event;
+	handleUserChange(event: any) {
+		this.username = event;
 	}
 
 	async navigateToHome() {
-		await fetch('http://localhost:8000/profile/checkEmail', {
+		await fetch('http://localhost:8000/auth/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				email: this.email
+				username: this.username,
+				email: this.email,
+				password: this.password,
+				url: null
 			})
 		}).then((response) => {
-			if (response.status == 200) {
-				this.router.navigate(['sign-up-user'], {
-					queryParams: {
-						email: this.email,
-						password: this.password
-					}
-				});
+			if (response.status === 200) {
+				this.router.navigate(['start-screen']);
 			} else {
-				alert('Email already in use');
+				response.json().then((data) => {
+					alert('Error: ' + data.message);
+				});
 			}
 		});
 	}

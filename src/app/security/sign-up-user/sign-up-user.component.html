@@ -1,0 +1,33 @@
+<ion-content scroll-y="false">
+	<div class="arrow">
+		<app-control-button
+			source="../../../assets/images/arrow-go-back.png"
+			[size]="40"
+			(onPress)="navigateToStartScreen()"
+		></app-control-button>
+	</div>
+	<div class="title">Create your account</div>
+	<div class="subtitle">How do you want to be known as?</div>
+	<div class="captionInput">Username</div>
+	<div class="emailInput">
+		<app-border-input
+			[placeholder]="'Enter your new username'"
+			[value]="'email'"
+			[fontSize]="14"
+			[backgroundColor]="'#E1E1E1'"
+			[isPassword]="false"
+			[type]="'text'"
+			(valueChange)="handleUserChange($event)"
+		></app-border-input>
+	</div>
+	<div class="signInButton">
+		<app-save-button
+			title="Sign up"
+			[width]="350"
+			(onPress)="navigateToHome()"
+		></app-save-button>
+	</div>
+	<span class="normal-text" (click)="navigateToSignIn()"
+		>Already have an account?<span class="bold-text"> Sign in</span></span
+	>
+</ion-content>
