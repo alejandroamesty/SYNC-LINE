@@ -57,6 +57,14 @@ export const routes: Routes = [
     path: 'chat',
     loadComponent: () => import('./home/chats/chat/chat.page').then( m => m.ChatPage)
   },
+  {
+    path: 'status',
+    loadComponent: () => import('./home/updates/status/status.page').then( m => m.StatusPage)
+  },
+  {
+    path: 'status',
+    loadComponent: () => import('./home/updates/status/status.page').then( m => m.StatusPage)
+  },
 
 
 ];

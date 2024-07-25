@@ -7,6 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 import { StatusItemComponent } from 'src/components/items/status-item/status-item.component';
 import { SpecialInputComponent } from 'src/components/inputs/special-input/special-input.component';
 import { MyStatusItemComponent } from 'src/components/items/my-status-item/my-status-item.component';
@@ -29,6 +30,7 @@ import { MyStatusItemComponent } from 'src/components/items/my-status-item/my-st
   ],
 })
 export class UpdatesPage implements OnInit {
+
   @Output() scrollUp = new EventEmitter<void>();
   @Output() scrollDown = new EventEmitter<void>();
 
@@ -80,7 +82,7 @@ export class UpdatesPage implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -94,6 +96,8 @@ export class UpdatesPage implements OnInit {
 
   handleStatusPress(id: string) {
     console.log('Status item pressed:', id);
+    // this.openStatus = true;
+    this.router.navigate(['status']);
   }
 
   handleInputValue(value: string): void {

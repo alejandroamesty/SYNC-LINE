@@ -7,6 +7,14 @@
     [ngClass]="{ sent: isSent, received: !isSent }"
     class="message-container"
   >
-    <div class="message-text">{{ text }}</div>
+    <ng-container *ngIf="!isAudio; else audioTemplate">
+      <div class="message-text">{{ text }}</div>
+    </ng-container>
+    <ng-template #audioTemplate>
+      <audio controls>
+        <source [src]="text" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    </ng-template>
   </div>
 </div>
