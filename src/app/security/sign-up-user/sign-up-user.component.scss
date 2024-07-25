@@ -37,40 +37,7 @@ ion-content {
 	position: absolute;
 	height: 22px;
 	left: 32px;
-	top: 261px;
-
-	font-family: 'BROmnyRegular';
-	font-size: 15px;
-	color: #292b2e;
-}
-
-.captionInput2 {
-	position: absolute;
-	height: 22px;
-	left: 32px;
-	top: 371px;
-
-	font-family: 'BROmnyRegular';
-	font-size: 15px;
-	color: #292b2e;
-}
-
-.captionInput3 {
-	position: absolute;
-	height: 22px;
-	left: 32px;
-	top: 481px;
-	font-family: 'BROmnyRegular';
-	font-size: 15px;
-	color: #292b2e;
-}
-
-.captionInput4 {
-	position: absolute;
-	height: 22px;
-	left: 32px;
-	top: 591px;
-
+	top: 300px;
 	font-family: 'BROmnyRegular';
 	font-size: 15px;
 	color: #292b2e;
@@ -100,25 +67,7 @@ ion-content {
 	align-items: center;
 	width: 100%;
 	position: absolute;
-	top: 294px;
-}
-
-.passwordInput {
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	position: absolute;
-	top: 404px;
-}
-
-.confirmInput {
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	position: absolute;
-	top: 514px;
+	top: 335px;
 }
 
 .forgot-password-button {

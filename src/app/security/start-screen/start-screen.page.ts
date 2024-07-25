@@ -21,7 +21,23 @@ import { Router } from '@angular/router';
 	]
 })
 export class StartScreenPage implements OnInit {
-	constructor(private router: Router) {}
+	constructor(private router: Router) {
+		const token = localStorage.getItem('token') || '';
+
+		fetch('http://localhost:8000/auth/checkSession', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: token
+			}
+		}).then((response) => {
+			if (response.status == 200) {
+				this.router.navigate(['main-tab']);
+			} else {
+				console.log('No valid session', response);
+			}
+		});
+	}
 
 	ngOnInit() {}
 
