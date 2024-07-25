@@ -1,61 +1,61 @@
 .container {
-  overflow-y: auto;
+	overflow-y: auto;
 }
 
 .container::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .letter {
-  font-family: "BROmnySemiBold";
-  font-size: 16px;
-  color: #7d7d7d;
-  margin-top: 16px;
+	font-family: 'BROmnySemiBold';
+	font-size: 16px;
+	color: #7d7d7d;
+	margin-top: 16px;
 }
 
 .separator {
-  width: 100%;
-  height: 1px;
-  background-color: #747474;
-  margin: 8px 0;
+	width: 100%;
+	height: 1px;
+	background-color: #747474;
+	margin: 8px 0;
 }
 
 .item-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 0;
+	width: 100%;
 }
 
 .item-text {
-  font-family: "BROmnyMedium";
-  font-size: 14px;
-  color: #ffffff;
+	font-family: 'BROmnyMedium';
+	font-size: 14px;
+	color: #ffffff;
 }
 
 .custom-checkbox {
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 2px solid #33be99;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+	width: 17px;
+	height: 17px;
+	border-radius: 50%;
+	border: 2px solid #33be99;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
 
 .custom-checkbox.checked {
-  background-color: #33be99;
+	background-color: #33be99;
 }
 
 .custom-checkbox ion-icon {
-  color: white;
-  font-size: 14px;
-  display: none;
+	color: white;
+	font-size: 14px;
+	display: none;
 }
 
 .custom-checkbox.checked ion-icon {
-  display: block;
+	display: block;
 }

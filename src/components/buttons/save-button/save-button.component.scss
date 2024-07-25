@@ -1,26 +1,25 @@
 .save-button {
-    position: absolute;
-    height: 55px;
-    background-color: #8E9FA9;
-    border: none;
-    border-radius: 100px;
-    font-family: 'BROmnySemiBold';
-    font-size: 18px;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.3s ease;
-  }
-  
-  .save-button.disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-  
-  .save-button.clicked {
-    opacity: 0.7;
-  }
-  
+	position: absolute;
+	height: 55px;
+	background-color: #8e9fa9;
+	border: none;
+	border-radius: 100px;
+	font-family: 'BROmnySemiBold';
+	font-size: 18px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity 0.3s ease;
+}
+
+.save-button.disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.save-button.clicked {
+	opacity: 0.7;
+}

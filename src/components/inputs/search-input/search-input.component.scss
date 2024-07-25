@@ -1,34 +1,34 @@
 .search-container {
-  position: absolute;
-  height: 44px;
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
+	position: absolute;
+	height: 44px;
+	border-radius: 100px;
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
 }
 
 .search-icon {
-  width: 18px;
-  height: 18px;
-  margin-left: 10px;
+	width: 18px;
+	height: 18px;
+	margin-left: 10px;
 }
 
 .search-input {
-  width: 100%;
-  height: 24px;
-  border: none;
-  outline: none;
-  background: none;
-  font-family: "BROmnyRegular";
-  font-size: 17px;
-  color: #ffffff;
-  margin-left: 8px;
+	width: 100%;
+	height: 24px;
+	border: none;
+	outline: none;
+	background: none;
+	font-family: 'BROmnyRegular';
+	font-size: 17px;
+	color: #ffffff;
+	margin-left: 8px;
 }
 
 .search-input::placeholder {
-  color: #8e8e93;
+	color: #8e8e93;
 }
 
 .search-input:focus {
-  color: #ffffff;
+	color: #ffffff;
 }

@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { MyStatusItemComponent } from './my-status-item.component';
 
 describe('MyStatusItemComponent', () => {
-  let component: MyStatusItemComponent;
-  let fixture: ComponentFixture<MyStatusItemComponent>;
+	let component: MyStatusItemComponent;
+	let fixture: ComponentFixture<MyStatusItemComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MyStatusItemComponent ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+	beforeEach(waitForAsync(() => {
+		TestBed.configureTestingModule({
+			declarations: [MyStatusItemComponent],
+			imports: [IonicModule.forRoot()]
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(MyStatusItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+		fixture = TestBed.createComponent(MyStatusItemComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	}));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -1,21 +1,21 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <div id="container">
-    <div class="title">Chats</div>
-    <app-special-input
-      [placeholder]="'Search'"
-      (inputValue)="handleInputValue($event)"
-    ></app-special-input>
-    <div class="chat-list">
-      <app-chat-item
-        *ngFor="let chat of chats"
-        [id]="chat.id"
-        [name]="chat.name"
-        [preview]="chat.preview"
-        [time]="chat.time"
-        [icon]="chat.icon"
-        (onPress)="handleChatPress()"
-        class="chat-item"
-      ></app-chat-item>
-    </div>
-  </div>
+	<div id="container">
+		<div class="title">Chats</div>
+		<app-special-input
+			[placeholder]="'Search'"
+			(inputValue)="handleInputValue($event)"
+		></app-special-input>
+		<div class="chat-list">
+			<app-chat-item
+				*ngFor="let chat of chats"
+				[id]="chat.id"
+				[name]="chat.name"
+				[preview]="chat.preview"
+				[time]="chat.time"
+				[icon]="chat.icon"
+				(onPress)="handleChatPress()"
+				class="chat-item"
+			></app-chat-item>
+		</div>
+	</div>
 </ion-content>

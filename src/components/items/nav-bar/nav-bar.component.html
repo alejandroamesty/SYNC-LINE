@@ -1,84 +1,84 @@
 <div class="navigation">
-  <ul class="nav-container">
-    <li
-      class="nav-item"
-      (click)="setActive(0); $event.preventDefault()"
-      [ngClass]="{ 'selected-option': activeIndex === 0 }"
-    >
-      <a href="#">
-        <span class="icon">
-          <img
-            src="../../assets/images/nav-bar/chats-selected.png"
-            *ngIf="activeIndex === 0"
-            alt="Active Icon"
-          />
-          <img
-            src="../../assets/images/nav-bar/chats.png"
-            *ngIf="activeIndex !== 0"
-            alt="Inactive Icon"
-          />
-        </span>
-      </a>
-    </li>
-    <li
-      class="nav-item"
-      (click)="setActive(1); $event.preventDefault()"
-      [ngClass]="{ 'selected-option': activeIndex === 1 }"
-    >
-      <a href="#">
-        <span class="icon">
-          <img
-            src="../../assets/images/nav-bar/updates-selected.png"
-            *ngIf="activeIndex === 1"
-            alt="Active Icon"
-          />
-          <img
-            src="../../assets/images/nav-bar/updates.png"
-            *ngIf="activeIndex !== 1"
-            alt="Inactive Icon"
-          />
-        </span>
-      </a>
-    </li>
-    <li
-      class="nav-item"
-      (click)="setActive(2); $event.preventDefault()"
-      [ngClass]="{ 'selected-option': activeIndex === 2 }"
-    >
-      <a href="#">
-        <span class="icon">
-          <img
-            src="../../assets/images/nav-bar/contacts-selected.png"
-            *ngIf="activeIndex === 2"
-            alt="Active Icon"
-          />
-          <img
-            src="../../assets/images/nav-bar/contacts.png"
-            *ngIf="activeIndex !== 2"
-            alt="Inactive Icon"
-          />
-        </span>
-      </a>
-    </li>
-    <li
-      class="nav-item"
-      (click)="setActive(3); $event.preventDefault()"
-      [ngClass]="{ 'selected-option': activeIndex === 3 }"
-    >
-      <a href="#">
-        <span class="icon">
-          <img
-            src="../../assets/images/nav-bar/profile-selected.png"
-            *ngIf="activeIndex === 3"
-            alt="Active Icon"
-          />
-          <img
-            src="../../assets/images/nav-bar/profile.png"
-            *ngIf="activeIndex !== 3"
-            alt="Inactive Icon"
-          />
-        </span>
-      </a>
-    </li>
-  </ul>
+	<ul class="nav-container">
+		<li
+			class="nav-item"
+			(click)="setActive(0); $event.preventDefault()"
+			[ngClass]="{ 'selected-option': activeIndex === 0 }"
+		>
+			<a href="#">
+				<span class="icon">
+					<img
+						src="../../assets/images/nav-bar/chats-selected.png"
+						*ngIf="activeIndex === 0"
+						alt="Active Icon"
+					/>
+					<img
+						src="../../assets/images/nav-bar/chats.png"
+						*ngIf="activeIndex !== 0"
+						alt="Inactive Icon"
+					/>
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item"
+			(click)="setActive(1); $event.preventDefault()"
+			[ngClass]="{ 'selected-option': activeIndex === 1 }"
+		>
+			<a href="#">
+				<span class="icon">
+					<img
+						src="../../assets/images/nav-bar/updates-selected.png"
+						*ngIf="activeIndex === 1"
+						alt="Active Icon"
+					/>
+					<img
+						src="../../assets/images/nav-bar/updates.png"
+						*ngIf="activeIndex !== 1"
+						alt="Inactive Icon"
+					/>
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item"
+			(click)="setActive(2); $event.preventDefault()"
+			[ngClass]="{ 'selected-option': activeIndex === 2 }"
+		>
+			<a href="#">
+				<span class="icon">
+					<img
+						src="../../assets/images/nav-bar/contacts-selected.png"
+						*ngIf="activeIndex === 2"
+						alt="Active Icon"
+					/>
+					<img
+						src="../../assets/images/nav-bar/contacts.png"
+						*ngIf="activeIndex !== 2"
+						alt="Inactive Icon"
+					/>
+				</span>
+			</a>
+		</li>
+		<li
+			class="nav-item"
+			(click)="setActive(3); $event.preventDefault()"
+			[ngClass]="{ 'selected-option': activeIndex === 3 }"
+		>
+			<a href="#">
+				<span class="icon">
+					<img
+						src="../../assets/images/nav-bar/profile-selected.png"
+						*ngIf="activeIndex === 3"
+						alt="Active Icon"
+					/>
+					<img
+						src="../../assets/images/nav-bar/profile.png"
+						*ngIf="activeIndex !== 3"
+						alt="Inactive Icon"
+					/>
+				</span>
+			</a>
+		</li>
+	</ul>
 </div>

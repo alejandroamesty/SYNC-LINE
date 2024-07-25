@@ -1,31 +1,31 @@
 .button-container {
-  position: relative;
-  width: 350px;
-  height: 41px;
-  background: #212121;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+	position: relative;
+	width: 350px;
+	height: 41px;
+	background: #212121;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
 
 .button-data {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
 }
 
 .button-icon {
-  width: 16px;
-  height: 16px;
+	width: 16px;
+	height: 16px;
 }
 
 .button-caption {
-  font-family: "BROmnySemiBold";
-  align-self: center;
-  text-align: center;
-  font-size: 15px;
-  color: #61da5e;
+	font-family: 'BROmnySemiBold';
+	align-self: center;
+	text-align: center;
+	font-size: 15px;
+	color: #61da5e;
 }

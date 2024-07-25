@@ -1,58 +1,58 @@
 <ion-content scroll-y="false">
-  <div class="arrow">
-    <app-control-button
-      source="../../../assets/images/arrow-go-back.png"
-      [size]="40"
-      (onPress)="navigateToStartScreen()"
-    ></app-control-button>
-  </div>
-  <div class="title">Create your account</div>
-  <div class="subtitle">Welcome aboard.</div>
-  <div class="undertitle">Ready to begin?</div>
-  <div class="captionInput">Email</div>
-  <div class="emailInput">
-    <app-border-input
-      [placeholder]="'Enter your email'"
-      [value]="'email'"
-      [fontSize]="14"
-      [backgroundColor]="'#E1E1E1'"
-      [isPassword]="false"
-      [type]="'email'"
-      (valueChange)="handleEmailChange($event)"
-    ></app-border-input>
-  </div>
-  <div class="captionInput2">Password</div>
-  <div class="passwordInput">
-    <app-border-input
-      [placeholder]="'Enter your password'"
-      [value]="'password'"
-      [fontSize]="14"
-      [backgroundColor]="'#E1E1E1'"
-      [isPassword]="true"
-      [type]="'password'"
-      (valueChange)="handlePasswordChange($event)"
-    ></app-border-input>
-  </div>
-  <div class="captionInput3">Confirm password</div>
-  <div class="confirmInput">
-    <app-border-input
-      [placeholder]="'Confirm your password'"
-      [value]="'password'"
-      [fontSize]="14"
-      [backgroundColor]="'#E1E1E1'"
-      [isPassword]="true"
-      [type]="'password'"
-      (valueChange)="handleConfirmPasswordChange($event)"
-    ></app-border-input>
-  </div>
-  <div class="signInButton">
-    <app-save-button
-      title="Sign up"
-      [width]="350"
-      (onPress)="navigateToHome()"
-    ></app-save-button>
-  </div>
-  <span class="normal-text" (click)="navigateToSignIn()"
-    >Already have an account?<span class="bold-text"> Sign in</span></span
-  >
+	<div class="arrow">
+		<app-control-button
+			source="../../../assets/images/arrow-go-back.png"
+			[size]="40"
+			(onPress)="navigateToStartScreen()"
+		></app-control-button>
+	</div>
+	<div class="title">Create your account</div>
+	<div class="subtitle">Welcome aboard.</div>
+	<div class="undertitle">Ready to begin?</div>
+	<div class="captionInput">Email</div>
+	<div class="emailInput">
+		<app-border-input
+			[placeholder]="'Enter your email'"
+			[value]="'email'"
+			[fontSize]="14"
+			[backgroundColor]="'#E1E1E1'"
+			[isPassword]="false"
+			[type]="'email'"
+			(valueChange)="handleEmailChange($event)"
+		></app-border-input>
+	</div>
+	<div class="captionInput2">Password</div>
+	<div class="passwordInput">
+		<app-border-input
+			[placeholder]="'Enter your password'"
+			[value]="'password'"
+			[fontSize]="14"
+			[backgroundColor]="'#E1E1E1'"
+			[isPassword]="true"
+			[type]="'password'"
+			(valueChange)="handlePasswordChange($event)"
+		></app-border-input>
+	</div>
+	<div class="captionInput3">Confirm password</div>
+	<div class="confirmInput">
+		<app-border-input
+			[placeholder]="'Confirm your password'"
+			[value]="'password'"
+			[fontSize]="14"
+			[backgroundColor]="'#E1E1E1'"
+			[isPassword]="true"
+			[type]="'password'"
+			(valueChange)="handleConfirmPasswordChange($event)"
+		></app-border-input>
+	</div>
+	<div class="signInButton">
+		<app-save-button
+			title="Sign up"
+			[width]="350"
+			(onPress)="navigateToHome()"
+		></app-save-button>
+	</div>
+	<span class="normal-text" (click)="navigateToSignIn()"
+		>Already have an account?<span class="bold-text"> Sign in</span></span
+	>
 </ion-content>

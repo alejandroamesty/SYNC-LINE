@@ -1,14 +1,18 @@
 <div class="container" [style.height]="containerHeight + 'px'">
-  <div *ngFor="let letter of alphabet">
-    <ion-text class="letter">{{ letter }}</ion-text>
-    <div *ngFor="let item of filteredItemsByLetter(letter)">
-      <div class="item-container">
-        <ion-text class="item-text">{{ item.name }}</ion-text>
-        <div class="custom-checkbox" [class.checked]="item.checked" (click)="handleCheck(item.id)">
-          <ion-icon name="checkmark"></ion-icon>
-        </div>
-      </div>
-      <div *ngIf="!isLastItem(item, letter)" class="separator"></div>
-    </div>
-  </div>
+	<div *ngFor="let letter of alphabet">
+		<ion-text class="letter">{{ letter }}</ion-text>
+		<div *ngFor="let item of filteredItemsByLetter(letter)">
+			<div class="item-container">
+				<ion-text class="item-text">{{ item.name }}</ion-text>
+				<div
+					class="custom-checkbox"
+					[class.checked]="item.checked"
+					(click)="handleCheck(item.id)"
+				>
+					<ion-icon name="checkmark"></ion-icon>
+				</div>
+			</div>
+			<div *ngIf="!isLastItem(item, letter)" class="separator"></div>
+		</div>
+	</div>
 </div>

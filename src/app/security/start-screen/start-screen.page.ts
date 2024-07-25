@@ -6,23 +6,30 @@ import { RoundButtonComponent } from 'src/components/buttons/round-button/round-
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-start-screen',
-  templateUrl: './start-screen.page.html',
-  styleUrls: ['./start-screen.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RoundButtonComponent]
+	selector: 'app-start-screen',
+	templateUrl: './start-screen.page.html',
+	styleUrls: ['./start-screen.page.scss'],
+	standalone: true,
+	imports: [
+		IonContent,
+		IonHeader,
+		IonTitle,
+		IonToolbar,
+		CommonModule,
+		FormsModule,
+		RoundButtonComponent
+	]
 })
 export class StartScreenPage implements OnInit {
+	constructor(private router: Router) {}
 
-  constructor(private router: Router) {}
+	ngOnInit() {}
 
-  ngOnInit() {}
+	navigateToSignIn() {
+		this.router.navigate(['sign-in']);
+	}
 
-  navigateToSignIn() {
-    this.router.navigate(['sign-in']);
-  }
-
-  navigateToSignUp() {
-    this.router.navigate(['sign-up']);
-  }
+	navigateToSignUp() {
+		this.router.navigate(['sign-up']);
+	}
 }

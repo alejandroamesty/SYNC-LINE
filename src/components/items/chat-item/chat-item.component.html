@@ -1,13 +1,13 @@
 <div
-  class="chat-container"
-  [ngClass]="{ scaled: animationState === 'scaled' }"
-  (click)="handleClick()"
-  [@scaleAnimation]="animationState"
+	class="chat-container"
+	[ngClass]="{ scaled: animationState === 'scaled' }"
+	(click)="handleClick()"
+	[@scaleAnimation]="animationState"
 >
-  <img [src]="icon" alt="Chat Icon" class="chat-icon" />
-  <div class="chat-details">
-    <div class="chat-name">{{ name }}</div>
-    <div class="chat-preview">{{ preview }}</div>
-  </div>
-  <div class="chat-time">{{ time }}</div>
+	<img [src]="icon" alt="Chat Icon" class="chat-icon" />
+	<div class="chat-details">
+		<div class="chat-name">{{ name }}</div>
+		<div class="chat-preview">{{ preview }}</div>
+	</div>
+	<div class="chat-time">{{ time }}</div>
 </div>

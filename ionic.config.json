@@ -1,7 +1,7 @@
 {
-  "name": "SyncLine",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
+	"name": "SyncLine",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "angular-standalone"
 }

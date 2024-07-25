@@ -1,21 +1,21 @@
 <div class="content-container" id="main-content">
-  <app-chats
-    *ngIf="activeIndex === 0"
-    (scrollUp)="handleScrollUp()"
-    (scrollDown)="handleScrollDown()"
-  ></app-chats>
-  <app-updates
-    [ngClass]="{'hidden': activeIndex !== 1}"
-    (scrollUp)="handleScrollUp()"
-    (scrollDown)="handleScrollDown()"
-  ></app-updates>
-  <app-contacts
-    [ngClass]="{'hidden': activeIndex !== 2}"
-    (scrollUp)="handleScrollUp()"
-    (scrollDown)="handleScrollDown()"
-  ></app-contacts>
-  <app-profile [ngClass]="{'hidden': activeIndex !== 3}"></app-profile>
+	<app-chats
+		*ngIf="activeIndex === 0"
+		(scrollUp)="handleScrollUp()"
+		(scrollDown)="handleScrollDown()"
+	></app-chats>
+	<app-updates
+		[ngClass]="{'hidden': activeIndex !== 1}"
+		(scrollUp)="handleScrollUp()"
+		(scrollDown)="handleScrollDown()"
+	></app-updates>
+	<app-contacts
+		[ngClass]="{'hidden': activeIndex !== 2}"
+		(scrollUp)="handleScrollUp()"
+		(scrollDown)="handleScrollDown()"
+	></app-contacts>
+	<app-profile [ngClass]="{'hidden': activeIndex !== 3}"></app-profile>
 </div>
 <div class="nav-bar">
-  <app-nav-bar (tabChanged)="onTabChanged($event)"></app-nav-bar>
+	<app-nav-bar (tabChanged)="onTabChanged($event)"></app-nav-bar>
 </div>

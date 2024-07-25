@@ -1,49 +1,49 @@
 .search-container {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3px;
-  width: 358px;
-  height: 48px;
-  background: rgba(79, 84, 88, 0.5);
-  backdrop-filter: blur(26.2px);
-  border-radius: 100px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 3px;
+	width: 358px;
+	height: 48px;
+	background: rgba(79, 84, 88, 0.5);
+	backdrop-filter: blur(26.2px);
+	border-radius: 100px;
 }
 
 .search-input {
-  width: 338px;
-  height: 22px;
-  font-family: "BROmnyRegular";
-  font-size: 15px;
-  color: #ffffff;
-  background: none;
-  border: none;
-  outline: none;
-  padding-left: 62px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  justify-content: center;
+	width: 338px;
+	height: 22px;
+	font-family: 'BROmnyRegular';
+	font-size: 15px;
+	color: #ffffff;
+	background: none;
+	border: none;
+	outline: none;
+	padding-left: 62px;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	justify-content: center;
 
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-  }
+	&::placeholder {
+		color: rgba(255, 255, 255, 0.6);
+	}
 }
 
 .icon-container {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  left: 0px;
-  background: #d9d9d9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	left: 0px;
+	background: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
 }
 
 .icon {
-  width: 43px;
-  height: 23px;
+	width: 43px;
+	height: 23px;
 }

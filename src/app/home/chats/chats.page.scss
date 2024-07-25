@@ -1,36 +1,36 @@
 ion-content {
-  --ion-background-color: linear-gradient(180deg, #8e9fa9 0%, #d8cbc1 100%);
+	--ion-background-color: linear-gradient(180deg, #8e9fa9 0%, #d8cbc1 100%);
 }
 
 #container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .title {
-  position: absolute;
-  left: 18px;
-  top: 65px;
-  font-family: "BROmnyMedium";
-  font-size: 40px;
-  color: #ffffff;
+	position: absolute;
+	left: 18px;
+	top: 65px;
+	font-family: 'BROmnyMedium';
+	font-size: 40px;
+	color: #ffffff;
 }
 
 app-special-input {
-  position: absolute;
-  top: 133px;
+	position: absolute;
+	top: 133px;
 }
 
 .chat-list {
-  position: relative;
-  top: 238px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  gap: 8px;
+	position: relative;
+	top: 238px;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	gap: 8px;
 }
 
 .chat-item:last-child {
-  margin-bottom: 18px;
+	margin-bottom: 18px;
 }

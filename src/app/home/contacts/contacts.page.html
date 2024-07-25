@@ -1,26 +1,26 @@
-<ion-content  [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <div id="container">
-    <div class="title">Friends</div>
-    <app-special-input
-      [placeholder]="'Search'"
-      (inputValue)="handleInputValue($event)"
-    ></app-special-input>
-    <div class="contacts">
-      <app-contact-list
-        [contacts]="contacts"
-        (onDelete)="handleDelete($event)"
-        (onAddToGroup)="handleAddToGroup($event)"
-      ></app-contact-list>
-    </div>
-    <app-confirmation-modal
-      [visible]="showDeleteModal"
-      [image]="'../../../assets/images/warning.png'"
-      [title]="'Deleting account'"
-      [text]="'You are about to delete your account. Are you sure this is what you want?'"
-      [cancelButtonText]="'CANCEL'"
-      [acceptButtonText]="'ACCEPT'"
-      (onCancel)="handleDeleteCancel()"
-      (onAccept)="handleDeleteAccept()"
-    ></app-confirmation-modal>
-  </div>
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
+	<div id="container">
+		<div class="title">Friends</div>
+		<app-special-input
+			[placeholder]="'Search'"
+			(inputValue)="handleInputValue($event)"
+		></app-special-input>
+		<div class="contacts">
+			<app-contact-list
+				[contacts]="contacts"
+				(onDelete)="handleDelete($event)"
+				(onAddToGroup)="handleAddToGroup($event)"
+			></app-contact-list>
+		</div>
+		<app-confirmation-modal
+			[visible]="showDeleteModal"
+			[image]="'../../../assets/images/warning.png'"
+			[title]="'Deleting account'"
+			[text]="'You are about to delete your account. Are you sure this is what you want?'"
+			[cancelButtonText]="'CANCEL'"
+			[acceptButtonText]="'ACCEPT'"
+			(onCancel)="handleDeleteCancel()"
+			(onAccept)="handleDeleteAccept()"
+		></app-confirmation-modal>
+	</div>
 </ion-content>

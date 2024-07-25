@@ -1,24 +1,16 @@
 <div class="modal-container" *ngIf="visible" (click)="closeModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="button-container">
-      <div
-        (click)="onCancel()"
-        [ngStyle]="{ color: cancelButtonColor }"
-        class="button-left"
-      >
-        {{ cancelButtonName }}
-    </div>
-      <div
-        (click)="onDone()"
-        [ngStyle]="{ color: doneButtonColor }"
-        class="button-right"
-      >
-        {{ doneButtonName }}
-  </div>
-    </div>
-    <h2 class="modal-text">{{ title }}</h2>
-    <div class="modal-content-body">
-      <ng-container *ngTemplateOutlet="modalContent"></ng-container>
-    </div>
-  </div>
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="button-container">
+			<div (click)="onCancel()" [ngStyle]="{ color: cancelButtonColor }" class="button-left">
+				{{ cancelButtonName }}
+			</div>
+			<div (click)="onDone()" [ngStyle]="{ color: doneButtonColor }" class="button-right">
+				{{ doneButtonName }}
+			</div>
+		</div>
+		<h2 class="modal-text">{{ title }}</h2>
+		<div class="modal-content-body">
+			<ng-container *ngTemplateOutlet="modalContent"></ng-container>
+		</div>
+	</div>
 </div>

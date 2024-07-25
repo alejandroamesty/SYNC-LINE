@@ -1,15 +1,15 @@
 <div class="container">
-  <div *ngFor="let digit of code; let i = index" class="inputContainer">
-    <input
-      #input
-      class="input"
-      type="text"
-      [formControl]="form.get('digit' + i) | ensureFormControl"
-      (input)="handleChangeText($event, i)"
-      (keydown)="handleKeyPress($event, i)"
-      maxlength="1"
-      inputmode="numeric"
-      pattern="[0-9]"
-    />
-  </div>
+	<div *ngFor="let digit of code; let i = index" class="inputContainer">
+		<input
+			#input
+			class="input"
+			type="text"
+			[formControl]="form.get('digit' + i) | ensureFormControl"
+			(input)="handleChangeText($event, i)"
+			(keydown)="handleKeyPress($event, i)"
+			maxlength="1"
+			inputmode="numeric"
+			pattern="[0-9]"
+		/>
+	</div>
 </div>

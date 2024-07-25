@@ -1,35 +1,21 @@
-<div
-  [ngStyle]="{ width: width + 'px', height: height + 'px' }"
-  class="container"
-  [ngClass]="style"
->
-  <div class="input-container">
-    <input
-      [type]="
-        !isPasswordVisible && (isPassword || type === 'password')
-          ? 'password'
-          : 'text'
-      "
-      [placeholder]="placeholder"
-      [ngStyle]="{
-        fontSize: fontSize + 'px',
-        backgroundColor: backgroundColor
-      }"
-      [formControl]="inputControl"
-      class="input"
-      [class.input-with-image]="image"
-      [class.input-error]="error"
-    />
-    <img *ngIf="image" [src]="image" class="image" />
-    <button
-      *ngIf="isPassword"
-      (click)="togglePasswordVisibility()"
-      class="eye-button"
-    >
-      <mat-icon>{{
-        isPasswordVisible ? "visibility" : "visibility_off"
-      }}</mat-icon>
-    </button>
-  </div>
-  <p *ngIf="error" class="error">{{ error }}</p>
+<div [ngStyle]="{ width: width + 'px', height: height + 'px' }" class="container" [ngClass]="style">
+	<div class="input-container">
+		<input
+			[type]="!isPasswordVisible && (isPassword || type === 'password') ? 'password' : 'text'"
+			[placeholder]="placeholder"
+			[ngStyle]="{
+				fontSize: fontSize + 'px',
+				backgroundColor: backgroundColor
+			}"
+			[formControl]="inputControl"
+			class="input"
+			[class.input-with-image]="image"
+			[class.input-error]="error"
+		/>
+		<img *ngIf="image" [src]="image" class="image" />
+		<button *ngIf="isPassword" (click)="togglePasswordVisibility()" class="eye-button">
+			<mat-icon>{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+		</button>
+	</div>
+	<p *ngIf="error" class="error">{{ error }}</p>
 </div>

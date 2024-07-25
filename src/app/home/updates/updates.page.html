@@ -1,41 +1,41 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <div id="container">
-    <div class="title">Updates</div>
-    <app-special-input
-      [placeholder]="'Search'"
-      (inputValue)="handleInputValue($event)"
-    ></app-special-input>
-    <div class="lists">
-      <app-my-status-item
-        [id]="userStatus.id"
-        [nombre]="userStatus.nombre"
-        [time]="userStatus.time"
-        [viewed]="userStatus.viewed"
-        (onPress)="handleStatusPress($event)"
-      ></app-my-status-item>
-      <div class="subtitle-1">Recent updates</div>
-      <div class="recent-list">
-        <app-status-item
-          *ngFor="let status of recentStatus"
-          [id]="status.id"
-          [nombre]="status.nombre"
-          [time]="status.time"
-          [viewed]="status.viewed"
-          (onPress)="handleStatusPress($event)"
-        ></app-status-item>
-      </div>
-      <div class="subtitle-2">Viewed updates</div>
-      <div class="viewed-list">
-        <app-status-item
-          *ngFor="let status of viewedStatus"
-          [id]="status.id"
-          [nombre]="status.nombre"
-          [time]="status.time"
-          [viewed]="status.viewed"
-          (onPress)="handleStatusPress($event)"
-          class="viewed-item"
-        ></app-status-item>
-      </div>
-    </div>
-  </div>
+	<div id="container">
+		<div class="title">Updates</div>
+		<app-special-input
+			[placeholder]="'Search'"
+			(inputValue)="handleInputValue($event)"
+		></app-special-input>
+		<div class="lists">
+			<app-my-status-item
+				[id]="userStatus.id"
+				[nombre]="userStatus.nombre"
+				[time]="userStatus.time"
+				[viewed]="userStatus.viewed"
+				(onPress)="handleStatusPress($event)"
+			></app-my-status-item>
+			<div class="subtitle-1">Recent updates</div>
+			<div class="recent-list">
+				<app-status-item
+					*ngFor="let status of recentStatus"
+					[id]="status.id"
+					[nombre]="status.nombre"
+					[time]="status.time"
+					[viewed]="status.viewed"
+					(onPress)="handleStatusPress($event)"
+				></app-status-item>
+			</div>
+			<div class="subtitle-2">Viewed updates</div>
+			<div class="viewed-list">
+				<app-status-item
+					*ngFor="let status of viewedStatus"
+					[id]="status.id"
+					[nombre]="status.nombre"
+					[time]="status.time"
+					[viewed]="status.viewed"
+					(onPress)="handleStatusPress($event)"
+					class="viewed-item"
+				></app-status-item>
+			</div>
+		</div>
+	</div>
 </ion-content>

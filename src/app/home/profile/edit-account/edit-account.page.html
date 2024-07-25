@@ -1,62 +1,62 @@
 <ion-content scroll-y="false">
-  <div class="arrow">
-    <app-control-button
-      source="../../../assets/images/arrow-go-back.png"
-      [size]="40"
-      (onPress)="goBack()"
-    ></app-control-button>
-  </div>
-  <div class="title">Edit account</div>
-  <div class="subtitle1">Email</div>
-  <app-border-input
-    class="email"
-    [placeholder]="'Enter your email'"
-    [value]="email"
-    [fontSize]="14"
-    [backgroundColor]="'#E1E1E1'"
-    [isPassword]="false"
-    (valueChange)="updateEmail($event)"
-    [width]="335"
-  ></app-border-input>
-  <div class="subtitle2">Password</div>
-  <div class="undertitle1">Current password</div>
-  <app-border-input
-    class="password"
-    [placeholder]="'Enter your current password'"
-    [value]="currentPassword"
-    [fontSize]="14"
-    [backgroundColor]="'#E1E1E1'"
-    [isPassword]="false"
-    (valueChange)="verifyPassword($event)"
-    [width]="335"
-  ></app-border-input>
-  <div class="undertitle2">New password</div>
-  <app-border-input
-    class="newPassword"
-    [placeholder]="'Enter your new password'"
-    [value]="newPassword"
-    [fontSize]="14"
-    [backgroundColor]="'#E1E1E1'"
-    [isPassword]="false"
-    (valueChange)="insertNewPassword($event)"
-    [width]="335"
-  ></app-border-input>
-  <div class="undertitle3">Confirm password</div>
-  <app-border-input
-    class="confirmPassword"
-    [placeholder]="'Confirm your new password'"
-    [value]="confirmPassword"
-    [fontSize]="14"
-    [backgroundColor]="'#E1E1E1'"
-    [isPassword]="false"
-    (valueChange)="confirmNewPassword($event)"
-    [width]="335"
-  ></app-border-input>
-  <div class="uploadButton">
-    <app-save-button
-      title="Save changes"
-      [width]="350"
-      (onPress)="handleSave()"
-    ></app-save-button>
-  </div>
+	<div class="arrow">
+		<app-control-button
+			source="../../../assets/images/arrow-go-back.png"
+			[size]="40"
+			(onPress)="goBack()"
+		></app-control-button>
+	</div>
+	<div class="title">Edit account</div>
+	<div class="subtitle1">Email</div>
+	<app-border-input
+		class="email"
+		[placeholder]="'Enter your email'"
+		[value]="email"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		[isPassword]="false"
+		(valueChange)="updateEmail($event)"
+		[width]="335"
+	></app-border-input>
+	<div class="subtitle2">Password</div>
+	<div class="undertitle1">Current password</div>
+	<app-border-input
+		class="password"
+		[placeholder]="'Enter your current password'"
+		[value]="currentPassword"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		[isPassword]="false"
+		(valueChange)="verifyPassword($event)"
+		[width]="335"
+	></app-border-input>
+	<div class="undertitle2">New password</div>
+	<app-border-input
+		class="newPassword"
+		[placeholder]="'Enter your new password'"
+		[value]="newPassword"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		[isPassword]="false"
+		(valueChange)="insertNewPassword($event)"
+		[width]="335"
+	></app-border-input>
+	<div class="undertitle3">Confirm password</div>
+	<app-border-input
+		class="confirmPassword"
+		[placeholder]="'Confirm your new password'"
+		[value]="confirmPassword"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		[isPassword]="false"
+		(valueChange)="confirmNewPassword($event)"
+		[width]="335"
+	></app-border-input>
+	<div class="uploadButton">
+		<app-save-button
+			title="Save changes"
+			[width]="350"
+			(onPress)="handleSave()"
+		></app-save-button>
+	</div>
 </ion-content>

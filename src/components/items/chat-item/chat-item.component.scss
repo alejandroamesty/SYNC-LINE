@@ -1,55 +1,55 @@
 .chat-container {
-  position: relative;
-  width: 358px;
-  height: 74px;
-  background: rgba(79, 84, 88, 0.5);
-  border-radius: 31px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 10px;
+	position: relative;
+	width: 358px;
+	height: 74px;
+	background: rgba(79, 84, 88, 0.5);
+	border-radius: 31px;
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+	gap: 10px;
 }
 
 .chat-icon {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  left: 14px;
-  top: 13px;
-  border-radius: 100%;
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	left: 14px;
+	top: 13px;
+	border-radius: 100%;
 }
 
 .chat-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
-  gap: 5px;
-  padding-left: 57px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-grow: 1;
+	gap: 5px;
+	padding-left: 57px;
 }
 
 .chat-name {
-  width: 203px;
-  font-family: "BROmnyMedium";
-  font-size: 15px;
-  color: #ffffff;
+	width: 203px;
+	font-family: 'BROmnyMedium';
+	font-size: 15px;
+	color: #ffffff;
 }
 
 .chat-preview {
-  width: 203px;
-  font-family: "BROmnyRegular";
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+	width: 203px;
+	font-family: 'BROmnyRegular';
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.6);
 }
 
 .chat-time {
-  position: absolute;
-  width: 143px;
-  height: 23px;
-  left: 194px;
-  top: 14px;
-  font-family: "BROmnyMedium";
-  font-size: 12px;
-  text-align: right;
-  color: rgba(255, 255, 255, 0.6);
+	position: absolute;
+	width: 143px;
+	height: 23px;
+	left: 194px;
+	top: 14px;
+	font-family: 'BROmnyMedium';
+	font-size: 12px;
+	text-align: right;
+	color: rgba(255, 255, 255, 0.6);
 }

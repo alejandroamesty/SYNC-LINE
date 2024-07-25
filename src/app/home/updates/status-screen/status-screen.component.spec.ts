@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { StatusScreenComponent } from './status-screen.component';
 
 describe('StatusScreenComponent', () => {
-  let component: StatusScreenComponent;
-  let fixture: ComponentFixture<StatusScreenComponent>;
+	let component: StatusScreenComponent;
+	let fixture: ComponentFixture<StatusScreenComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StatusScreenComponent ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+	beforeEach(waitForAsync(() => {
+		TestBed.configureTestingModule({
+			declarations: [StatusScreenComponent],
+			imports: [IonicModule.forRoot()]
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(StatusScreenComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+		fixture = TestBed.createComponent(StatusScreenComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	}));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

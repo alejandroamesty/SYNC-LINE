@@ -1,60 +1,60 @@
 .modal-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
 }
 
 .modal-content {
-  background-color: #212121;
-  padding: 20px;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  width: 100%;
-  max-width: 500px;
-  box-sizing: border-box;
-  animation: slideUp 0.3s ease-out;
+	background-color: #212121;
+	padding: 20px;
+	border-top-left-radius: 40px;
+	border-top-right-radius: 40px;
+	width: 100%;
+	max-width: 500px;
+	box-sizing: border-box;
+	animation: slideUp 0.3s ease-out;
 }
 
 .button-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
-  margin-top: 5px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10px;
+	margin-top: 5px;
 }
 
 .button-left,
 .button-right {
-  font-size: 17px;
-  font-family: "BROmnyMedium";
+	font-size: 17px;
+	font-family: 'BROmnyMedium';
 }
 
 .modal-text {
-  font-size: 21px;
-  font-family: "BROmnySemiBold";
-  margin-bottom: 20px;
-  margin-top: 40px;
-  color: white;
-  padding: 0 10px;
+	font-size: 21px;
+	font-family: 'BROmnySemiBold';
+	margin-bottom: 20px;
+	margin-top: 40px;
+	color: white;
+	padding: 0 10px;
 }
 
 .modal-content-body {
-  margin-top: 10px;
-  padding: 10px 10px;
+	margin-top: 10px;
+	padding: 10px 10px;
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+	from {
+		transform: translateY(100%);
+	}
+	to {
+		transform: translateY(0);
+	}
 }

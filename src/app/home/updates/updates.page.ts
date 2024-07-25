@@ -1,106 +1,100 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { StatusItemComponent } from 'src/components/items/status-item/status-item.component';
 import { SpecialInputComponent } from 'src/components/inputs/special-input/special-input.component';
 import { MyStatusItemComponent } from 'src/components/items/my-status-item/my-status-item.component';
 
 @Component({
-  selector: 'app-updates',
-  templateUrl: './updates.page.html',
-  styleUrls: ['./updates.page.scss'],
-  standalone: true,
-  imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    CommonModule,
-    FormsModule,
-    StatusItemComponent,
-    SpecialInputComponent,
-    MyStatusItemComponent,
-  ],
+	selector: 'app-updates',
+	templateUrl: './updates.page.html',
+	styleUrls: ['./updates.page.scss'],
+	standalone: true,
+	imports: [
+		IonContent,
+		IonHeader,
+		IonTitle,
+		IonToolbar,
+		CommonModule,
+		FormsModule,
+		StatusItemComponent,
+		SpecialInputComponent,
+		MyStatusItemComponent
+	]
 })
 export class UpdatesPage implements OnInit {
+	@Output() scrollUp = new EventEmitter<void>();
+	@Output() scrollDown = new EventEmitter<void>();
 
-  @Output() scrollUp = new EventEmitter<void>();
-  @Output() scrollDown = new EventEmitter<void>();
+	userStatus = {
+		id: '10',
+		nombre: 'Alejandro Ávila',
+		time: 'Add to status',
+		viewed: false
+	};
+	recentStatus = [
+		{
+			id: '1',
+			nombre: 'Prof. Genyelbert',
+			time: '16m ago',
+			viewed: false
+		},
+		{
+			id: '3',
+			nombre: 'Dr. Martinez',
+			time: '3h ago',
+			viewed: false
+		},
+		{
+			id: '5',
+			nombre: 'Prof. Fernandez',
+			time: '1d ago',
+			viewed: false
+		}
+	];
 
-  userStatus = {
-    id: '10',
-    nombre: 'Alejandro Ávila',
-    time: 'Add to status',
-    viewed: false,
-  };
-  recentStatus = [
-    {
-      id: '1',
-      nombre: 'Prof. Genyelbert',
-      time: '16m ago',
-      viewed: false,
-    },
-    {
-      id: '3',
-      nombre: 'Dr. Martinez',
-      time: '3h ago',
-      viewed: false,
-    },
-    {
-      id: '5',
-      nombre: 'Prof. Fernandez',
-      time: '1d ago',
-      viewed: false,
-    },
-  ];
+	viewedStatus = [
+		{
+			id: '2',
+			nombre: 'Prof. Genyelbert',
+			time: '16m ago',
+			viewed: true
+		},
+		{
+			id: '4',
+			nombre: 'Dr. Martinez',
+			time: '3h ago',
+			viewed: true
+		},
+		{
+			id: '6',
+			nombre: 'Prof. Fernandez',
+			time: '1d ago',
+			viewed: true
+		}
+	];
 
-  viewedStatus = [
-    {
-      id: '2',
-      nombre: 'Prof. Genyelbert',
-      time: '16m ago',
-      viewed: true,
-    },
-    {
-      id: '4',
-      nombre: 'Dr. Martinez',
-      time: '3h ago',
-      viewed: true,
-    },
-    {
-      id: '6',
-      nombre: 'Prof. Fernandez',
-      time: '1d ago',
-      viewed: true,
-    },
-  ];
+	constructor(private router: Router) {}
 
-  constructor(private router: Router) {}
+	ngOnInit() {}
 
-  ngOnInit() {}
+	onScroll(event: CustomEvent): void {
+		if (event.detail.deltaY > 0) {
+			this.scrollDown.emit();
+		} else {
+			this.scrollUp.emit();
+		}
+	}
 
-  onScroll(event: CustomEvent): void {
-    if (event.detail.deltaY > 0) {
-      this.scrollDown.emit();
-    } else {
-      this.scrollUp.emit();
-    }
-  }
+	handleStatusPress(id: string) {
+		console.log('Status item pressed:', id);
+		// this.openStatus = true;
+		this.router.navigate(['status']);
+	}
 
-  handleStatusPress(id: string) {
-    console.log('Status item pressed:', id);
-    // this.openStatus = true;
-    this.router.navigate(['status']);
-  }
-
-  handleInputValue(value: string): void {
-    console.log('Input value:', value);
-  }
+	handleInputValue(value: string): void {
+		console.log('Input value:', value);
+	}
 }

@@ -1,50 +1,50 @@
 <ion-content scrollY="false">
-  <div class="container">
-    <div class="header">
-      <app-control-button
-        source="../../../assets/images/arrow-back.png"
-        [size]="24"
-        (onPress)="navigateToMainTab()"
-      ></app-control-button>
-      <img src="{{ icon }}" alt="icon" class="user-icon" />
-      <div class="user-details">
-        <div class="user-name">{{ userName }}</div>
-        <div class="user-status">{{ userStatus }}</div>
-      </div>
-    </div>
-    <div class="chat-container">
-      <div *ngFor="let day of groupedMessages | keyvalue" class="day-group">
-        <div class="section-separator">{{ day.key }}</div>
-        <div class="messages">
-          <div
-            *ngFor="let message of day.value"
-            [ngClass]="{ 'align-end': message.isSent, 'align-start': !message.isSent }"
-          >
-            <app-chat-message
-              [text]="message.text"
-              [time]="message.time"
-              [isSent]="message.isSent"
-              [isAudio]="message.isAudio"
-            ></app-chat-message>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-container">
-      <app-chat-input
-        [placeholder]="'Type a message...'"
-        (inputValue)="handleTextEntered($event)"
-        (inputStarted)="onInputStarted()"
-      ></app-chat-input>
-      <ng-container *ngIf="isInputStarted; else recordButton">
-        <app-send-button (sendClicked)="sendMessage()"></app-send-button>
-      </ng-container>
-      <ng-template #recordButton>
-        <app-record-button
-          (recordStart)="startRecording()"
-          (recordStop)="stopRecording()"
-        ></app-record-button>
-      </ng-template>
-    </div>
-  </div>
+	<div class="container">
+		<div class="header">
+			<app-control-button
+				source="../../../assets/images/arrow-back.png"
+				[size]="24"
+				(onPress)="navigateToMainTab()"
+			></app-control-button>
+			<img src="{{ icon }}" alt="icon" class="user-icon" />
+			<div class="user-details">
+				<div class="user-name">{{ userName }}</div>
+				<div class="user-status">{{ userStatus }}</div>
+			</div>
+		</div>
+		<div class="chat-container">
+			<div *ngFor="let day of groupedMessages | keyvalue" class="day-group">
+				<div class="section-separator">{{ day.key }}</div>
+				<div class="messages">
+					<div
+						*ngFor="let message of day.value"
+						[ngClass]="{ 'align-end': message.isSent, 'align-start': !message.isSent }"
+					>
+						<app-chat-message
+							[text]="message.text"
+							[time]="message.time"
+							[isSent]="message.isSent"
+							[isAudio]="message.isAudio"
+						></app-chat-message>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-container">
+			<app-chat-input
+				[placeholder]="'Type a message...'"
+				(inputValue)="handleTextEntered($event)"
+				(inputStarted)="onInputStarted()"
+			></app-chat-input>
+			<ng-container *ngIf="isInputStarted; else recordButton">
+				<app-send-button (sendClicked)="sendMessage()"></app-send-button>
+			</ng-container>
+			<ng-template #recordButton>
+				<app-record-button
+					(recordStart)="startRecording()"
+					(recordStop)="stopRecording()"
+				></app-record-button>
+			</ng-template>
+		</div>
+	</div>
 </ion-content>

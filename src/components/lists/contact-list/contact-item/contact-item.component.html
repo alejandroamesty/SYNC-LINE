@@ -1,25 +1,17 @@
 <div class="wrapper" #wrapper>
-  <div class="column delete-icon">
-    <img
-      src="assets/images/trash.png"
-      alt="delete"
-      class="icon-img ion-margin-start"
-    />
-  </div>
-  <div class="column add-icon">
-    <img
-      src="assets/images/group.png"
-      alt="add"
-      class="icon-img ion-margin-end"
-    />
-  </div>
+	<div class="column delete-icon">
+		<img src="assets/images/trash.png" alt="delete" class="icon-img ion-margin-start" />
+	</div>
+	<div class="column add-icon">
+		<img src="assets/images/group.png" alt="add" class="icon-img ion-margin-end" />
+	</div>
 </div>
 <ion-item #item class="contact-item" lines="none">
-  <ion-avatar slot="start">
-    <div class="icon">{{ name[0] }}</div>
-  </ion-avatar>
-  <div class="contact-details">
-    <div class="name">{{ name }}</div>
-    <div class="phoneNumber">{{ phoneNumber }}</div>
-  </div>
+	<ion-avatar slot="start">
+		<div class="icon">{{ name[0] }}</div>
+	</ion-avatar>
+	<div class="contact-details">
+		<div class="name">{{ name }}</div>
+		<div class="phoneNumber">{{ phoneNumber }}</div>
+	</div>
 </ion-item>
