@@ -57,6 +57,9 @@ export class SignInPage implements OnInit {
 			if (response.status == 200) {
 				response.json().then((data) => {
 					localStorage.setItem('token', data.token);
+					localStorage.setItem('email', this.email);
+					localStorage.setItem('username', data.userData.username);
+					localStorage.setItem('pfp', data.userData.url);
 					console.log(data.token);
 					this.router.navigate(['main-tab']);
 				});

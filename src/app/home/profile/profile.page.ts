@@ -29,14 +29,17 @@ export class ProfilePage implements OnInit {
 	showModal: boolean = false;
 	showDeleteModal: boolean = false;
 	fetching: boolean = false;
-	image: string = '';
-	name: string = 'Alejandro Ávila';
-	userType: string = 'Disponible';
+	image: string | null = '';
+	name: string = '';
+	description: string = 'Online';
 
 	constructor(private router: Router) {
-		// this.image = localStorage.getItem('pfp') || '';
-		// this.name = localStorage.getItem('name') || '';
-		// this.userType = localStorage.getItem('userType') || '';
+		this.name = localStorage.getItem('username') || '';
+		this.image = localStorage.getItem('pfp') || null;
+		this.description = localStorage.getItem('status') || 'Online';
+		if (this.image === null) {
+			this.image = '../../../assets/images/icon.png';
+		}
 	}
 
 	ngOnInit() {}
@@ -53,9 +56,24 @@ export class ProfilePage implements OnInit {
 		this.showDeleteModal = false;
 	}
 
-	handleDeleteAccept() {
+	async handleDeleteAccept() {
 		this.showDeleteModal = false;
-		this.router.navigate(['start-screen']);
+		const token = localStorage.getItem('token') || '';
+		fetch('http://localhost:8000/auth/unregister', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: token
+			}
+		}).then((res) => {
+			if (res.status === 200) {
+				console.log('Deleted account');
+				localStorage.clear();
+				this.router.navigate(['start-screen']);
+			} else {
+				alert('Failed to delete');
+			}
+		});
 	}
 
 	handleCancel() {
