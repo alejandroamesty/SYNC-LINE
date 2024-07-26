@@ -27,7 +27,6 @@ import { ActionInputComponent } from 'src/components/inputs/action-input/action-
 	]
 })
 export class ChangePasswordPage implements OnInit {
-	email: string = '';
 	currentPassword: string = '';
 	newPassword: string = '';
 	confirmPassword: string = '';
@@ -44,11 +43,34 @@ export class ChangePasswordPage implements OnInit {
 	}
 
 	async handleSave() {
-		this._location.back();
-	}
+		console.log('Save button clicked');
+		if (this.newPassword !== this.confirmPassword) {
+			alert('Passwords do not match');
+			return;
+		}
 
-	updateEmail(event: string) {
-		this.email = event;
+		if (this.newPassword.length < 8) {
+			alert('Password must be at least 8 characters long');
+			return;
+		}
+		fetch('https://synclineserver.onrender.com/auth/changePassword', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				oldPassword: this.currentPassword,
+				newPassword: this.newPassword
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('Password changed successfully');
+				this._location.back();
+			} else {
+				alert('Wrong password');
+			}
+		});
 	}
 
 	verifyPassword(event: string) {
@@ -68,7 +90,6 @@ export class ChangePasswordPage implements OnInit {
 	}
 
 	onSave(value: string) {
-		console.log('Saved value:', value);
 		this.inputValue = value; // Update the value if needed
 	}
 }

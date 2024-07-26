@@ -55,6 +55,27 @@ export class EditAccountPage implements OnInit {
 
 	updateEmail(event: string) {
 		this.email = event;
+		fetch('https://synclineserver.onrender.com/profile/edit', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				email: this.email,
+				username: localStorage.getItem('username') || '',
+				url: localStorage.getItem('pfp') || ''
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('Email updated successfully');
+				localStorage.setItem('email', this.email);
+			} else {
+				response.json().then((data) => {
+					alert(data.message);
+				});
+			}
+		});
 	}
 
 	verifyPassword(event: string) {
@@ -75,7 +96,27 @@ export class EditAccountPage implements OnInit {
 
 	onSave(value: string) {
 		console.log('Saved value:', value);
-		this.inputValue = value; // Update the value if needed
+		fetch('https://synclineserver.onrender.com/profile/edit', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				email: localStorage.getItem('email') || '',
+				username: value,
+				url: localStorage.getItem('pfp') || ''
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('Username updated successfully');
+				localStorage.setItem('username', value);
+			} else {
+				response.json().then((data) => {
+					alert(data.message);
+				});
+			}
+		});
 	}
 
 	onEditEmail() {
