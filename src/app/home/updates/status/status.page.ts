@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
+import { Router } from '@angular/router';
 
 interface Status {
 	imageUrl: string;
@@ -24,34 +25,24 @@ interface Status {
 	imports: [CommonModule, ControlButtonComponent]
 })
 export class StatusPage implements OnInit, OnDestroy {
-	@Input() statuses: Status[] = [
-		{
-			imageUrl: 'assets/images/IMG_2751.png',
-			time: 'Just now'
-		},
-		{
-			imageUrl: 'assets/images/IMG_2751.png',
-			time: '1 hour ago'
-		},
-		{
-			imageUrl: 'assets/images/IMG_2751.png',
-			time: '3 hours ago'
-		},
-		{
-			imageUrl: 'assets/images/IMG_2751.png',
-			time: '6 hours ago'
-		}
-	];
-	@Input() userName: string = 'Alejandro Ávila';
-	@Input() userIcon: string = 'assets/images/IMG_2751.png';
+	@Input() statuses: Status[] = [];
+	@Input() userName: string = '';
+	@Input() userIcon: string = '';
 	@Output() goBack = new EventEmitter<void>();
 
 	currentStatusIndex: number = 0;
 
 	constructor(
 		private renderer: Renderer2,
-		private _location: Location
-	) {}
+		private _location: Location,
+		private router: Router
+	) {
+		const statuses = router.getCurrentNavigation()?.extras?.state?.['status'];
+		this.statuses = statuses || [];
+		console.log(this.statuses);
+		this.userName = router.getCurrentNavigation()?.extras?.state?.['userName'] || '';
+		this.userIcon = router.getCurrentNavigation()?.extras?.state?.['userIcon'] || '';
+	}
 
 	ngOnInit() {
 		// Añadir la clase de entrada cuando el componente se inicializa

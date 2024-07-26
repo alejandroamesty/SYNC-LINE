@@ -86,7 +86,36 @@ export class ChatsPage implements OnInit, AfterViewInit {
 		private socketService: SocketService,
 		private cdr: ChangeDetectorRef
 	) {
-		fetch('http://localhost:8000/chats', {
+		this.fetchChats();
+
+		socketService.chatMessage$.subscribe(
+			(message: {
+				chat: string;
+				message: string;
+				messageType: string;
+				sender: string;
+				timestamp: string;
+			}) => {
+				const chat = this.chats.find((chat) => chat.id === message.chat);
+				if (chat) {
+					chat.preview = message.message;
+					chat.time = new Date(message.timestamp).toLocaleTimeString('en-US', {
+						hour: 'numeric',
+						minute: 'numeric',
+						hour12: true
+					});
+					this.chats = this.chats.filter((chat) => chat.id !== message.chat);
+					this.chats.unshift(chat as any);
+				} else {
+					// fetch chat
+					this.fetchChats();
+				}
+			}
+		);
+	}
+
+	fetchChats() {
+		fetch('https://synclineserver.onrender.com/chats', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -170,8 +199,6 @@ export class ChatsPage implements OnInit, AfterViewInit {
 					}
 				);
 			});
-
-		//
 	}
 
 	friends: Friend[] = [
@@ -198,8 +225,9 @@ export class ChatsPage implements OnInit, AfterViewInit {
 	}
 
 	handleChatPress(event: any) {
+		console.log('Chat pressed:', event);
 		this.router.navigate(['chat'], {
-			queryParams: { id: event }
+			queryParams: { id: event.id, url: event.icon }
 		});
 	}
 

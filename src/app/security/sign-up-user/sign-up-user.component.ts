@@ -58,7 +58,7 @@ export class SignUpUserComponent implements OnInit {
 	}
 
 	async navigateToHome() {
-		await fetch('http://localhost:8000/auth/register', {
+		await fetch('https://synclineserver.onrender.com/auth/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

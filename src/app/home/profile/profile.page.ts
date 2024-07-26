@@ -71,7 +71,7 @@ export class ProfilePage implements OnInit, AfterViewInit {
 	async handleDeleteAccept() {
 		this.showDeleteModal = false;
 		const token = localStorage.getItem('token') || '';
-		fetch('http://localhost:8000/auth/unregister', {
+		fetch('https://synclineserver.onrender.com/auth/unregister', {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

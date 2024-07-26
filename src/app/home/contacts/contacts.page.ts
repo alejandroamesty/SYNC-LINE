@@ -165,7 +165,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 		private router: Router
 	) {
 		this.updateFriends();
-		fetch('http://localhost:8000/groups', {
+		fetch('https://synclineserver.onrender.com/groups', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	ngOnInit() {}
 
 	updateFriends() {
-		fetch('http://localhost:8000/friends', {
+		fetch('https://synclineserver.onrender.com/friends', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -274,7 +274,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 		const checkedGroupChats = this.filteredGroupChats.filter((groupChat) => groupChat.checked);
 
 		checkedGroupChats.forEach((groupChat) => {
-			fetch(`http://localhost:8000/group/addMembers`, {
+			fetch(`https://synclineserver.onrender.com/group/addMembers`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -303,7 +303,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	}
 
 	handleAddFriendAccept(event: any) {
-		fetch(`http://localhost:8000/friends/add`, {
+		fetch(`https://synclineserver.onrender.com/friends/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -333,7 +333,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
 	handleViewChat(event: any) {
 		this.cdr.detectChanges();
-		fetch(`http://localhost:8000/chats/user?member=${event.id}`, {
+		fetch(`https://synclineserver.onrender.com/chats/user?member=${event.id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -362,7 +362,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	handleDeleteAccept() {
 		this.showDeleteModal = false;
 		this.cdr.detectChanges();
-		fetch(`http://localhost:8000/friends/delete`, {
+		fetch(`https://synclineserver.onrender.com/friends/delete`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

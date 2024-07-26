@@ -8,6 +8,8 @@ import { SpecialInputComponent } from 'src/components/inputs/special-input/speci
 import { MyStatusItemComponent } from 'src/components/items/my-status-item/my-status-item.component';
 import { CustomModalComponent } from 'src/components/modals/custom-modal/custom-modal.component';
 import { SimpleInputComponent } from 'src/components/inputs/simple-input/simple-input.component';
+import { RoundButtonComponent } from '../../../components/buttons/round-button/round-button.component';
+import { SendButtonComponent } from '../../../components/chat/send-button/send-button.component';
 
 @Component({
 	selector: 'app-updates',
@@ -25,7 +27,9 @@ import { SimpleInputComponent } from 'src/components/inputs/simple-input/simple-
 		SpecialInputComponent,
 		MyStatusItemComponent,
 		CustomModalComponent,
-		SimpleInputComponent
+		SimpleInputComponent,
+		RoundButtonComponent,
+		SendButtonComponent
 	]
 })
 export class UpdatesPage implements OnInit, AfterViewInit {
@@ -39,34 +43,120 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 	defaultSubtitle: string = 'Open your gallery';
 	selectedFile: File | null = null;
 
-	userStatus = {
-		id: '10',
+	userStatus: any = {
+		id: 'testid',
 		nombre: 'Alejandro Ávila',
-		time: 'Add to status',
-		viewed: false
+		time: 'Add to status'
 	};
 
-	recentStatus = [
-		{ id: '1', nombre: 'Prof. Genyelbert', time: '16m ago', viewed: false },
-		{ id: '3', nombre: 'Dr. Martinez', time: '3h ago', viewed: false },
-		{ id: '5', nombre: 'Prof. Mario', time: '1d ago', viewed: false }
+	recentStatus: Array<{
+		id: string;
+		nombre: string;
+		time: string;
+		url: string;
+		statuses: Array<{
+			imageUrl: string;
+			time: string;
+		}>;
+	}> = [
+		{
+			id: '1',
+			nombre: 'Prof. Genyelbert',
+			time: '16m ago',
+			statuses: [
+				{ imageUrl: 'assets/images/IMG_2751.png', time: 'Just now' },
+				{ imageUrl: 'assets/images/IMG_2751.png', time: '1 hour ago' },
+				{ imageUrl: 'assets/images/IMG_2751.png', time: '3 hours ago' },
+				{ imageUrl: 'assets/images/IMG_2751.png', time: '6 hours ago' }
+			],
+			url: 'assets/images/IMG_2751.png'
+		}
 	];
 
-	viewedStatus = [
-		{ id: '2', nombre: 'Alejandro Ávila', time: '16m ago', viewed: true },
-		{ id: '4', nombre: 'José Chacón', time: '3h ago', viewed: true },
-		{ id: '6', nombre: 'Prof. Jubert', time: '1d ago', viewed: true }
-	];
-
-	filteredRecentStatus = [...this.recentStatus];
-	filteredViewedStatus = [...this.viewedStatus];
+	filteredRecentStatus = this.recentStatus;
 
 	searchValue: string = '';
 	newTitle: string = '';
 	newDescription: string = '';
 	openCustomModal: boolean = false;
 
-	constructor(private router: Router) {}
+	constructor(private router: Router) {
+		this.handleRefresh();
+	}
+
+	handleRefresh() {
+		fetch('https://synclineserver.onrender.com/status', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then(
+				(data: {
+					statuses: Array<{
+						username: string;
+						url: string;
+						statuses: Array<{
+							id: string;
+							content: string;
+							description: string;
+							timestamp: string; // (Date().toISOString()) need to convert to 'x time ago' format
+						}>;
+					}>;
+				}) => {
+					console.log(data);
+					const username = localStorage.getItem('username') || '';
+					this.recentStatus = [];
+					this.userStatus = null;
+
+					data.statuses.forEach((status) => {
+						let newTimestamp = 'No status';
+						if (status.statuses.length > 0) {
+							newTimestamp = new Date(
+								status.statuses[0].timestamp
+							).toLocaleTimeString('en-US', {
+								hour: 'numeric',
+								minute: 'numeric',
+								hour12: true
+							});
+						}
+						const statusObj = {
+							id: status.username,
+							nombre: status.username,
+							time: newTimestamp,
+							statuses: status.statuses.map((status) => {
+								const newTimestamp = new Date(status.timestamp).toLocaleTimeString(
+									'en-US',
+									{
+										hour: 'numeric',
+										minute: 'numeric',
+										hour12: true
+									}
+								);
+								return {
+									imageUrl: status.content,
+									// convert timestamp to 'x time ago' format
+									time: newTimestamp
+								};
+							}),
+							url: status.url
+						};
+
+						if (status.username === username) {
+							this.userStatus = statusObj;
+						} else {
+							this.recentStatus.push(statusObj);
+						}
+					});
+
+					this.filteredRecentStatus = this.recentStatus;
+				}
+			);
+	}
 
 	ngOnInit() {}
 
@@ -83,8 +173,16 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 	}
 
 	handleStatusPress(id: string) {
-		console.log('Status item pressed:', id);
-		this.router.navigate(['status']);
+		let status = this.recentStatus.find((status) => status.id === id) || this.userStatus;
+		console.log(status);
+		if (!status?.statuses || Object.keys(status?.statuses).length === 0) return;
+		this.router.navigate(['status'], {
+			state: {
+				userName: status?.nombre || '',
+				userIcon: status?.url || 'assets/images/icon.png',
+				status: status?.statuses || []
+			}
+		});
 	}
 
 	handleInputValue(value: string): void {
@@ -106,10 +204,6 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 		const search = this.searchValue.toLowerCase();
 
 		this.filteredRecentStatus = this.recentStatus.filter((status) =>
-			status.nombre.toLowerCase().includes(search)
-		);
-
-		this.filteredViewedStatus = this.viewedStatus.filter((status) =>
 			status.nombre.toLowerCase().includes(search)
 		);
 	}
@@ -159,4 +253,47 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 			this.defaultSubtitle = 'Ready to hit the status';
 		}
 	}
+
+	handleAddStatus(event: any) {
+		const formData = new FormData();
+		console.log('Adding status?');
+		if (!this.selectedFile) return;
+		formData.append('file', this.selectedFile);
+		console.log('Adding status:');
+		fetch('https://synclineserver.onrender.com/upload', {
+			method: 'POST',
+			headers: {
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: formData
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data: { message: string; url: string }) => {
+				console.log(data);
+				fetch('https://synclineserver.onrender.com/status', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: localStorage.getItem('token') || ''
+					},
+					body: JSON.stringify({
+						content: data.url,
+						description: 'No description'
+					})
+				})
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						alert(data.message);
+						this.handleRefresh();
+						this.openCustomModal = false;
+						this.moveModalToBody();
+					});
+			});
+	}
+
+	handleCancelStatus(event: any) {}
 }
