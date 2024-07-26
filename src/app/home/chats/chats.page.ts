@@ -218,10 +218,17 @@ export class ChatsPage implements OnInit, AfterViewInit {
 		this.cdr.detectChanges();
 	}
 
+	filterChats(searchTerm: string): void {
+		this.chats = this.chats.filter((chat) =>
+			chat.name.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+	}
+
 	ngOnInit() {}
 
 	handleInputValue(value: string): void {
 		console.log('Input value:', value);
+		this.filterChats(value);
 	}
 
 	handleChatPress(event: any) {

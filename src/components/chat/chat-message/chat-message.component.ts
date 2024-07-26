@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 export class ChatMessageComponent {
 	@Input() user!: boolean;
 	@Input() username: string | undefined;
-	@Input() text: string | undefined; // Can be URL to audio file or text
+	@Input() text: string | undefined;
 	@Input() time: string | undefined;
 	@Input() isSent: boolean | undefined;
-	@Input() isAudio: boolean = false; // New input to handle audio messages
+	@Input() isAudio: boolean = false;
 }
