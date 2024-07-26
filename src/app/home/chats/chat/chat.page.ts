@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ChatInputComponent } from 'src/components/chat/chat-input/chat-input.component';
 import { SendButtonComponent } from 'src/components/chat/send-button/send-button.component';
@@ -37,7 +37,7 @@ interface Message {
 		RecordButtonComponent
 	]
 })
-export class ChatPage {
+export class ChatPage implements AfterViewInit {
 	icon = 'assets/images/IMG_2751.png';
 	yourUsername: string;
 	username = 'John Doe';
@@ -54,6 +54,12 @@ export class ChatPage {
 
 	private mediaRecorder: MediaRecorder | null = null;
 	private audioChunks: Blob[] = [];
+
+	@ViewChild('chatContainer') private chatContainer: ElementRef | undefined;
+
+	ngAfterViewInit() {
+		this.scrollToBottom();
+	}
 
 	constructor(
 		private _location: Location,
@@ -119,6 +125,7 @@ export class ChatPage {
 							};
 						}
 					);
+					this.scrollToBottom();
 				} else {
 					// Group chat case
 					this.user = false;
@@ -161,6 +168,7 @@ export class ChatPage {
 								};
 							}
 						);
+					this.scrollToBottom();
 				}
 			});
 	}
@@ -193,6 +201,7 @@ export class ChatPage {
 						username: message.sender,
 						timestamp: message.timestamp // Add timestamp to Message object
 					});
+					this.scrollToBottom();
 				}
 			}
 		);
@@ -260,6 +269,7 @@ export class ChatPage {
 				type: message.isAudio ? 'audio' : 'text'
 			});
 		}
+		this.scrollToBottom();
 	}
 
 	startRecording() {
@@ -298,6 +308,15 @@ export class ChatPage {
 			this.mediaRecorder.stop();
 			this.isRecording = false;
 		}
+	}
+
+	scrollToBottom() {
+		setTimeout(() => {
+			if (this.chatContainer) {
+				this.chatContainer.nativeElement.scrollTop =
+					this.chatContainer.nativeElement.scrollHeight;
+			}
+		}, 100);
 	}
 
 	navigateToMainTab() {
