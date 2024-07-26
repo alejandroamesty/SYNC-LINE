@@ -21,7 +21,7 @@ export class ContactListComponent implements OnChanges {
 	@Input() contacts: Contact[] = [];
 	@Output() onDelete = new EventEmitter<string>();
 	@Output() onAddToGroup = new EventEmitter<string>();
-	@Output() onViewChat = new EventEmitter<string>();
+	@Output() onViewChat = new EventEmitter<any>();
 
 	sortedContacts: { [key: string]: Contact[] } = {};
 
@@ -51,7 +51,7 @@ export class ContactListComponent implements OnChanges {
 		this.onAddToGroup.emit(id);
 	}
 
-	handleViewChat(id: string) {
-		this.onViewChat.emit(id);
+	handleViewChat(event: any) {
+		this.onViewChat.emit({ id: event.id, url: event.url });
 	}
 }

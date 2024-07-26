@@ -11,6 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { SpecialInputComponent } from 'src/components/inputs/special-input/special-input.component';
 import { ChatItemComponent } from 'src/components/items/chat-item/chat-item.component';
+import { SocketService } from 'src/app/services/socket-service.service';
 
 @Component({
 	selector: 'app-chats',
@@ -42,7 +43,10 @@ export class ChatsPage implements OnInit {
 		user: boolean;
 	}> = [];
 
-	constructor(private router: Router) {
+	constructor(
+		private router: Router,
+		private socketService: SocketService
+	) {
 		fetch('http://localhost:8000/chats', {
 			method: 'GET',
 			headers: {
@@ -54,6 +58,7 @@ export class ChatsPage implements OnInit {
 				return response.json();
 			})
 			.then((data) => {
+				console.log(data);
 				const username = localStorage.getItem('username') || '';
 				this.chats = data.result.map(
 					(
@@ -93,7 +98,10 @@ export class ChatsPage implements OnInit {
 									chat.members[0].username === username
 										? chat.members[1].username
 										: chat.members[0].username,
-								preview: chat.message.messageContent[0]?.message,
+								preview:
+									chat.message.messageContent[0]?.type === 'audio'
+										? 'Audio'
+										: chat.message.messageContent[0]?.message,
 								time: readableDate,
 								icon: newIcon || '../../../assets/images/icon.png',
 								user: true
@@ -111,7 +119,10 @@ export class ChatsPage implements OnInit {
 							return {
 								id: chat._id,
 								name: chat.name,
-								preview: chat.message.messageContent[0]?.message,
+								preview:
+									chat.message.messageContent[0]?.type === 'audio'
+										? 'Audio'
+										: chat.message.messageContent[0]?.message,
 								time: readableDate,
 								icon: chat.url || '../../../assets/images/group.png',
 								user: false
@@ -120,6 +131,8 @@ export class ChatsPage implements OnInit {
 					}
 				);
 			});
+
+		//
 	}
 
 	ngOnInit() {}
