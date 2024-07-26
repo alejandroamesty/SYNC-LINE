@@ -83,5 +83,9 @@ export const routes: Routes = [
 	{
 		path: 'status',
 		loadComponent: () => import('./home/updates/status/status.page').then((m) => m.StatusPage)
-	}
+	},
+  {
+    path: 'change-password',
+    loadComponent: () => import('./home/profile/change-password/change-password.page').then( m => m.ChangePasswordPage)
+  }
 ];

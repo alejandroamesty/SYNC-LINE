@@ -10,20 +10,23 @@ import {
 import { GestureController, AnimationController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
 
 @Component({
 	selector: 'app-contact-item',
 	standalone: true,
 	templateUrl: './contact-item.component.html',
 	styleUrls: ['./contact-item.component.scss'],
-	imports: [IonicModule, CommonModule]
+	imports: [IonicModule, CommonModule, ControlButtonComponent]
 })
 export class ContactItemComponent implements AfterViewInit {
 	@Input() id: string = 'unknownId';
 	@Input() name: string = 'Default Name';
-	@Input() phoneNumber: string = '000-000-0000';
+	@Input() username: string = 'username';
+	@Input() profilePicture: string = 'assets/images/IMG_2751.png';
 	@Output() onDelete = new EventEmitter<string>();
 	@Output() onAddToGroup = new EventEmitter<string>();
+	@Output() onViewChat = new EventEmitter<string>();
 
 	@ViewChild('wrapper', { read: ElementRef })
 	wrapper!: ElementRef;
@@ -98,5 +101,9 @@ export class ContactItemComponent implements AfterViewInit {
 			const style = this.item.nativeElement.style;
 			style.transform = '';
 		}, 300);
+	}
+
+	onViewChatClick() {
+		this.onViewChat.emit(this.id);
 	}
 }

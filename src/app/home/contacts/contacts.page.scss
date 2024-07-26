@@ -28,3 +28,16 @@ app-special-input {
 	position: absolute;
 	top: 133px;
 }
+
+.create-button {
+	position: absolute;
+	top: 17px;
+	right: 15px;
+}
+
+.custom-modal-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+  }

@@ -4,9 +4,11 @@
 		<app-contact-item
 			[id]="contact.id"
 			[name]="contact.name"
-			[phoneNumber]="contact.phoneNumber"
+			[username]="contact.username"
+			[profilePicture]="contact.profilePicture"
 			(onDelete)="handleDelete($event)"
 			(onAddToGroup)="handleAddToGroup($event)"
+			(onViewChat)="handleViewChat($event)"
 		></app-contact-item>
 	</div>
 </div>

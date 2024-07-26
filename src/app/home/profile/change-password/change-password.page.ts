@@ -9,9 +9,9 @@ import { BorderInputComponent } from 'src/components/inputs/border-input/border-
 import { ActionInputComponent } from 'src/components/inputs/action-input/action-input.component';
 
 @Component({
-	selector: 'app-edit-account',
-	templateUrl: './edit-account.page.html',
-	styleUrls: ['./edit-account.page.scss'],
+	selector: 'app-change-password',
+	templateUrl: './change-password.page.html',
+	styleUrls: ['./change-password.page.scss'],
 	standalone: true,
 	imports: [
 		IonContent,
@@ -26,7 +26,7 @@ import { ActionInputComponent } from 'src/components/inputs/action-input/action-
 		ActionInputComponent
 	]
 })
-export class EditAccountPage implements OnInit {
+export class ChangePasswordPage implements OnInit {
 	email: string = '';
 	currentPassword: string = '';
 	newPassword: string = '';
@@ -70,9 +70,5 @@ export class EditAccountPage implements OnInit {
 	onSave(value: string) {
 		console.log('Saved value:', value);
 		this.inputValue = value; // Update the value if needed
-	}
-
-	onEditEmail() {
-		console.log('Edit email button clicked');
 	}
 }

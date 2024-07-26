@@ -1,5 +1,11 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
 	<div id="container">
+		<div class="create-button">
+			<app-send-button
+				source="../../assets/images/add.png"
+				(sendClicked)="openModal($event)"
+			></app-send-button>
+		</div>
 		<div class="title">Friends</div>
 		<app-special-input
 			[placeholder]="'Search'"
@@ -7,20 +13,53 @@
 		></app-special-input>
 		<div class="contacts">
 			<app-contact-list
-				[contacts]="contacts"
+				[contacts]="filteredContacts"
 				(onDelete)="handleDelete($event)"
 				(onAddToGroup)="handleAddToGroup($event)"
+				(onViewChat)="handleViewChat($event)"
 			></app-contact-list>
 		</div>
 		<app-confirmation-modal
 			[visible]="showDeleteModal"
 			[image]="'../../../assets/images/warning.png'"
-			[title]="'Deleting account'"
-			[text]="'You are about to delete your account. Are you sure this is what you want?'"
+			[title]="'Deleting friend'"
+			[text]="'You are about to delete a friend. Are you sure this is what you want?'"
 			[cancelButtonText]="'CANCEL'"
 			[acceptButtonText]="'ACCEPT'"
 			(onCancel)="handleDeleteCancel()"
 			(onAccept)="handleDeleteAccept()"
 		></app-confirmation-modal>
+		<ng-template #modalContent>
+			<div class="custom-modal-content">
+				<app-simple-input
+					[width]="335"
+					placeholder="Name"
+					[characterLimit]="50"
+					(onChangeText)="handleTitleChange($event)"
+				></app-simple-input>
+				<app-simple-input
+					[width]="335"
+					placeholder="Username"
+					[characterLimit]="50"
+					(onChangeText)="handleDescriptionChange($event)"
+				></app-simple-input>
+			</div>
+		</ng-template>
+		<app-custom-modal
+			id="custom-modal"
+			[visible]="openCustomModal"
+			[modalContent]="modalContent"
+			(visibilityChange)="closeModal($event)"
+			title="Add a new friend"
+			(doneButtonAction)="closeModal($event)"
+		></app-custom-modal>
+		<app-custom-modal
+			id="group-modal"
+			[visible]="openGroupModal"
+			[modalContent]="modalContent"
+			(visibilityChange)="closeGroupModalFunc($event)"
+			title="Add friend to group"
+			(doneButtonAction)="closeGroupModalFunc($event)"
+		></app-custom-modal>
 	</div>
 </ion-content>

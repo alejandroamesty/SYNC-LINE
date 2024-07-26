@@ -8,10 +8,17 @@
 </div>
 <ion-item #item class="contact-item" lines="none">
 	<ion-avatar slot="start">
-		<div class="icon">{{ name[0] }}</div>
+		<img [src]="profilePicture" alt="profile picture" />
 	</ion-avatar>
 	<div class="contact-details">
 		<div class="name">{{ name }}</div>
-		<div class="phoneNumber">{{ phoneNumber }}</div>
+		<div class="username">{{ username }}</div>
+	</div>
+	<div class="open-chat">
+		<app-control-button
+			source="assets/images/open-chat.png"
+			[size]="24"
+			(onPress)="onViewChatClick()"
+		></app-control-button>
 	</div>
 </ion-item>
