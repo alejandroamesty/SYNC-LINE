@@ -11,6 +11,7 @@ import { SearchInputComponent } from 'src/components/inputs/search-input/search-
 import { MatIcon } from '@angular/material/icon';
 import { GroupContactListComponent } from 'src/components/lists/group-contact-list/group-contact-list.component';
 import { ConfirmationModalComponent } from 'src/components/modals/confirmation-modal/confirmation-modal.component';
+import { Router } from '@angular/router';
 
 interface Contact {
 	id: string;
@@ -52,12 +53,37 @@ export class GroupchatDetailPage {
 	constructor(
 		private _location: Location,
 		private navCtrl: NavController,
-		private cdr: ChangeDetectorRef
-	) {}
-
+		private cdr: ChangeDetectorRef,
+		private router: Router
+	) {
+		const params = this.router.getCurrentNavigation()?.extras.state;
+		this.groupId = params?.['groupId'] || this.groupId;
+		this.groupIcon = params?.['url'] || this.groupIcon;
+		this.name = params?.['name'] || this.name;
+		this.description = params?.['description'] || this.description;
+		this.members = params?.['members'] || this.members;
+		this.contacts = this.members.map((member) => {
+			return {
+				id: member.username,
+				username: member.username,
+				status: '',
+				profilePicture: member.url || 'assets/images/icon.png'
+			};
+		});
+		this.filteredContacts = this.contacts;
+		console.log(params);
+	}
+	name: string = 'Group Name';
+	groupId: string = '1';
+	description: string = 'Group Description';
+	members: Array<{ username: string; url: string | null }> = [
+		{ username: 'Alice', url: 'assets/images/IMG_2751.png' },
+		{ username: 'Bob', url: 'assets/images/IMG_2751.png' },
+		{ username: 'Charlie', url: 'assets/images/IMG_2751.png' }
+	];
 	showDeleteModal: boolean = false;
 	openGroupModal: boolean = false;
-	selectedContactId: string = '';
+	selectedContactId: string | null = '';
 	newTitle: string = '';
 	newDescription: string = '';
 	openCustomModal: boolean = false;
@@ -220,6 +246,40 @@ export class GroupchatDetailPage {
 	handleDeleteAccept(event: any) {
 		this.showDeleteModal = false;
 		this.cdr.detectChanges();
+		const yourUsername = localStorage.getItem('username');
+		if (yourUsername === this.selectedContactId) {
+			return alert("You can't delete yourself from the group");
+		}
+		fetch('https://synclineserver.onrender.com/group/removeMember', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				groupId: this.groupId,
+				member: this.selectedContactId
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('User removed from group');
+				this.members = this.members.filter(
+					(member) => member.username !== this.selectedContactId
+				);
+				this.contacts = this.members.map((member) => {
+					return {
+						id: member.username,
+						username: member.username,
+						status: '',
+						profilePicture: member.url || 'assets/images/icon.png'
+					};
+				});
+
+				this.filteredContacts = this.contacts;
+			} else {
+				alert('You are not authorized to remove this user');
+			}
+		});
 	}
 
 	handleDeleteCancel(event: any) {
@@ -227,12 +287,13 @@ export class GroupchatDetailPage {
 		this.cdr.detectChanges();
 		// this.moveConfirmationModalToBody();
 		// this.cdr.detectChanges();
-		this.selectedContactId = event;
+		this.selectedContactId = null;
 	}
 
 	handleDelete($event: any) {
 		this.showDeleteModal = true;
 		this.cdr.detectChanges();
+		this.selectedContactId = $event;
 		// this.moveConfirmationModalToBody();
 	}
 
@@ -244,13 +305,98 @@ export class GroupchatDetailPage {
 		this.openGroupModal = false;
 	}
 
-	handleAddFriend(event: any) {
-		console.log('Add friend');
+	doneGroupModalFunc(event: any) {
+		console.log('Done');
+		fetch('https://synclineserver.onrender.com/group/update', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				groupId: this.groupId,
+				name: this.newTitle || this.name,
+				description: this.newDescription || this.description,
+				url: this.groupIcon || null
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('Group updated');
+				this.name = this.newTitle || this.name;
+				this.description = this.newDescription || this.description;
+			} else {
+				alert('Group could not be updated');
+			}
+		});
 	}
+
+	handleAddFriend(event: any) {
+		const members = this.filteredFriends
+			.filter((friend) => friend.checked)
+			.map((friend) => friend.userId);
+		if (members.length === 0) {
+			return alert('Please select at least one friend to add to the group');
+		}
+		fetch('http://localhost:8000/group/addMembers', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				groupId: this.groupId,
+				members: members
+			})
+		}).then((response) => {
+			if (response.status === 200) {
+				alert('Users added to group');
+				this.contacts = this.members.map((member) => {
+					return {
+						id: member.username,
+						username: member.username,
+						status: '',
+						profilePicture: member.url || 'assets/images/icon.png'
+					};
+				});
+				this.filteredContacts = this.contacts;
+			} else {
+				alert('User already in group');
+			}
+		});
+	}
+
+	handleCancelAddFriend(event: any) {}
 
 	openModal(event: any) {
 		this.openCustomModal = true;
-		// this.moveModalToBody();
+		fetch('https://synclineserver.onrender.com/friends', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		}).then((response) => {
+			response.json().then(
+				(data: {
+					friends: Array<{
+						username: string;
+						_id: string;
+						url: string;
+					}>;
+				}) => {
+					this.friends = data.friends.map((friend) => {
+						return {
+							id: friend._id,
+							name: friend.username,
+							userId: friend._id,
+							checked: false,
+							url: friend.url
+						};
+					});
+					this.filteredFriends = this.friends;
+				}
+			);
+		});
 	}
 
 	closeModal(event: any) {

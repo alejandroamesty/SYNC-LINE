@@ -51,8 +51,16 @@ ion-content {
 	height: 121px;
 	left: calc(50% - 121px / 2);
 	top: 83px;
-	background: #ffffff;
+	background: transparent;
 	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.realIcon {
+	align-self: center;
+	justify-self: center;
 }
 
 .name {

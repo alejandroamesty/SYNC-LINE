@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { RecordButtonComponent } from 'src/components/chat/record-button/record-button.component';
 import { Params, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket-service.service';
+import { group } from '@angular/animations';
 
 interface Message {
 	text: string; // URL to audio file or text message
@@ -41,6 +42,8 @@ export class ChatPage {
 	yourUsername: string;
 	username = 'John Doe';
 	user: boolean = true;
+	members: string[] | undefined;
+	description: string | undefined;
 	userStatus = 'Online';
 	newMessage = '';
 	isInputStarted = false;
@@ -120,7 +123,9 @@ export class ChatPage {
 					// Group chat case
 					this.user = false;
 					this.username = data.result[0].name;
+					this.description = data.result[0].description;
 					this.userStatus = data.result[0].members.length + ' members';
+					this.members = data.result[0].members;
 					if (data.result[0].messages[0].length > 0)
 						this.messages = data.result[0].messages.map(
 							(
@@ -297,5 +302,17 @@ export class ChatPage {
 
 	navigateToMainTab() {
 		this._location.back();
+	}
+
+	showDetail() {
+		this.router.navigate(['/groupchat-detail'], {
+			state: {
+				groupId: this.chat,
+				url: this.icon,
+				name: this.username,
+				description: this.description,
+				members: this.members
+			}
+		});
 	}
 }

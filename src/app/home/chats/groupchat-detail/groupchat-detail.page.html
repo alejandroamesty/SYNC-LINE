@@ -3,13 +3,15 @@
 		<div class="background"></div>
 		<div class="left-button" (click)="goToChat()">Back</div>
 		<div class="right-button" (click)="editGroup()">Edit</div>
-		<div class="icon"></div>
-		<div class="name">Universidad</div>
+		<div class="icon">
+			<img class="realIcon" src="{{ groupIcon }}" alt="group-icon" />
+		</div>
+		<div class="name">{{name}}</div>
 		<div class="description-container">
 			<div class="subtitle">description</div>
-			<div class="description">Grupo de compañeros de la Universidad Rafael Urdaneta</div>
+			<div class="description">{{description}}</div>
 		</div>
-		<div class="members">12 members</div>
+		<div class="members">{{members.length}} members</div>
 		<div class="button-container" (click)="openModal($event)">
 			<div class="add-icon"></div>
 			<div class="button-caption">add members</div>
@@ -45,7 +47,7 @@
 			(visibilityChange)="closeModal($event)"
 			title="Add a new friend"
 			(doneButtonActionChange)="handleAddFriend($event)"
-			(cancelButtonActionChange)="handleAddFriend($event)"
+			(cancelButtonActionChange)="handleCancelAddFriend($event)"
 		></app-custom-modal>
 		<app-confirmation-modal
 			[visible]="showDeleteModal"
@@ -96,8 +98,8 @@
 			[modalContent]="groupModalContent"
 			(visibilityChange)="closeGroupModalFunc($event)"
 			title="Edit groupchat"
-			(doneButtonActionChange)="closeGroupModalFunc($event)"
 			(cancelButtonActionChange)="closeGroupModalFunc($event)"
+			(doneButtonActionChange)="doneGroupModalFunc($event)"
 		></app-custom-modal>
 	</div>
 </ion-content>
