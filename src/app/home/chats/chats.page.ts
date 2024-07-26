@@ -33,59 +33,94 @@ export class ChatsPage implements OnInit {
 	@Output() scrollUp = new EventEmitter<void>();
 	@Output() scrollDown = new EventEmitter<void>();
 
-	chats = [
-		{
-			id: '1',
-			name: 'Ingeniería Computación',
-			preview: 'Saludos apreciados miembros de la comunidad estudiantil...',
-			time: '5:01 PM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '2',
-			name: 'Actualización del Proyecto',
-			preview: 'Por favor, revisen los últimos cambios...',
-			time: '4:45 PM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '3',
-			name: 'Notificación',
-			preview: 'La reunión se ha movido a las 3:00 PM...',
-			time: '3:00 PM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '4',
-			name: 'Revisión',
-			preview: 'Aquí está el documento revisado...',
-			time: '11:30 AM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '5',
-			name: 'Revisión',
-			preview: 'Aquí está el documento revisado...',
-			time: '11:30 AM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '6',
-			name: 'Revisión',
-			preview: 'Aquí está el documento revisado...',
-			time: '11:30 AM',
-			icon: 'assets/images/IMG_2751.png'
-		},
-		{
-			id: '7',
-			name: 'Revisión',
-			preview: 'Aquí está el documento revisado...',
-			time: '11:30 AM',
-			icon: 'assets/images/IMG_2751.png'
-		}
-	];
+	chats: Array<{
+		id: string;
+		name: string;
+		preview: string;
+		time: string;
+		icon: string;
+		user: boolean;
+	}> = [];
 
-	constructor(private router: Router) {}
+	constructor(private router: Router) {
+		fetch('http://localhost:8000/chats', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				const username = localStorage.getItem('username') || '';
+				this.chats = data.result.map(
+					(
+						chat:
+							| {
+									_id: string;
+									user: true;
+									members: Array<any>;
+									message: any;
+							  }
+							| {
+									_id: string;
+									user: false;
+									name: string;
+									message: any;
+									url: string | null;
+									description: string;
+							  }
+					) => {
+						if (chat.user) {
+							const readableDate = chat.message.messageContent[0]
+								? new Date(
+										chat.message.messageContent[0].timestamp
+									).toLocaleTimeString('en-US', {
+										hour: 'numeric',
+										minute: 'numeric',
+										hour12: true
+									})
+								: '';
+							const newIcon =
+								chat.members[0].username === username
+									? chat.members[1].url
+									: chat.members[0].url;
+							return {
+								id: chat._id,
+								name:
+									chat.members[0].username === username
+										? chat.members[1].username
+										: chat.members[0].username,
+								preview: chat.message.messageContent[0]?.message,
+								time: readableDate,
+								icon: newIcon || '../../../assets/images/icon.png',
+								user: true
+							};
+						} else {
+							let readableDate = chat.message.messageContent[0]
+								? new Date(
+										chat.message.messageContent[0].timestamp
+									).toLocaleTimeString('en-US', {
+										hour: 'numeric',
+										minute: 'numeric',
+										hour12: true
+									})
+								: '';
+							return {
+								id: chat._id,
+								name: chat.name,
+								preview: chat.message.messageContent[0]?.message,
+								time: readableDate,
+								icon: chat.url || '../../../assets/images/group.png',
+								user: false
+							};
+						}
+					}
+				);
+			});
+	}
 
 	ngOnInit() {}
 
@@ -101,7 +136,9 @@ export class ChatsPage implements OnInit {
 		console.log('Input value:', value);
 	}
 
-	handleChatPress(): void {
-		this.router.navigate(['chat']);
+	handleChatPress(event: any): void {
+		this.router.navigate(['chat'], {
+			queryParams: { id: event.id, url: event.icon }
+		});
 	}
 }

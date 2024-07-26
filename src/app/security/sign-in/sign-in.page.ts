@@ -59,8 +59,7 @@ export class SignInPage implements OnInit {
 					localStorage.setItem('token', data.token);
 					localStorage.setItem('email', this.email);
 					localStorage.setItem('username', data.userData.username);
-					localStorage.setItem('pfp', data.userData.url);
-					console.log(data.token);
+					localStorage.setItem('pfp', data.userData.url || '');
 					this.router.navigate(['main-tab']);
 				});
 			} else {
