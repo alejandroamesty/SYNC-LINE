@@ -192,7 +192,7 @@ export class ChatsPage implements OnInit, AfterViewInit {
 										? 'Audio'
 										: chat.message.messageContent[0]?.message,
 								time: readableDate,
-								icon: chat.url || '../../../assets/images/group.png',
+								icon: chat.url || '../../../assets/images/groupchat-default.png',
 								user: false
 							};
 						}

@@ -12,7 +12,7 @@
 				<div class="user-status">{{ userStatus }}</div>
 			</div>
 		</div>
-		<div class="chat-container">
+		<div class="chat-container" #chatContainer>
 			<div *ngFor="let day of groupedMessages | keyvalue" class="day-group">
 				<div class="section-separator">{{ day.key }}</div>
 				<div class="messages">
