@@ -33,12 +33,6 @@
 			<div class="custom-modal-content">
 				<app-simple-input
 					[width]="335"
-					placeholder="Name"
-					[characterLimit]="50"
-					(onChangeText)="handleTitleChange($event)"
-				></app-simple-input>
-				<app-simple-input
-					[width]="335"
 					placeholder="Username"
 					[characterLimit]="50"
 					(onChangeText)="handleDescriptionChange($event)"
@@ -56,8 +50,11 @@
 					(searchTermChanged)="handleSearchTermChanged($event)"
 				></app-search-input>
 				<div class="group-list">
-					<app-list [data]="filteredGroupChats" (setExternalList)="updateFilteredItems($event)"></app-list>
-				  </div>				  
+					<app-list
+						[data]="filteredGroupChats"
+						(setExternalList)="updateFilteredItems($event)"
+					></app-list>
+				</div>
 			</div>
 		</ng-template>
 		<app-custom-modal
@@ -66,7 +63,8 @@
 			[modalContent]="modalContent"
 			(visibilityChange)="closeModal($event)"
 			title="Add a new friend"
-			(doneButtonAction)="closeModal($event)"
+			(doneButtonActionChange)="handleAddFriendAccept($event)"
+			(cancelButtonActionChange)="handleAddFriendCancel($event)"
 		></app-custom-modal>
 		<app-custom-modal
 			id="group-modal"
@@ -74,7 +72,8 @@
 			[modalContent]="groupModalContent"
 			(visibilityChange)="closeGroupModalFunc($event)"
 			title="Add friend to group"
-			(doneButtonAction)="closeGroupModalFunc($event)"
+			(doneButtonActionChange)="handleAddToGroupAccept($event)"
+			(cancelButtonActionChange)="handleAddToGroupCancel($event)"
 		></app-custom-modal>
 	</div>
 </ion-content>

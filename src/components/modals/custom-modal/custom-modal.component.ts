@@ -15,6 +15,8 @@ export class CustomModalComponent {
 	@Input() doneButtonName: string = 'Done';
 	@Input() cancelButtonAction: () => void = () => {};
 	@Input() doneButtonAction: () => void = () => {};
+	@Output() cancelButtonActionChange = new EventEmitter<() => void>();
+	@Output() doneButtonActionChange = new EventEmitter<() => void>();
 	@Input() cancelButtonColor: string = '#F74040';
 	@Input() doneButtonColor: string = '#33BE99';
 	@Input() modalContent!: TemplateRef<any>;
@@ -27,12 +29,12 @@ export class CustomModalComponent {
 	}
 
 	onCancel() {
-		this.cancelButtonAction();
+		this.cancelButtonActionChange.emit(this.cancelButtonAction);
 		this.closeModal();
 	}
 
 	onDone() {
-		this.doneButtonAction();
+		this.doneButtonActionChange.emit(this.doneButtonAction);
 		this.closeModal();
 	}
 }
