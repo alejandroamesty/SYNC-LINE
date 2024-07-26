@@ -37,7 +37,9 @@ export class EditAccountPage implements OnInit {
 	inputValue: string = '';
 	isEditable: boolean = false; // Track if in editing state
 
-	constructor(private _location: Location) {}
+	constructor(private _location: Location) {
+		this.icon = localStorage.getItem('pfp') || 'assets/images/icon.png';
+	}
 
 	ngOnInit() {}
 
