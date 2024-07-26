@@ -15,7 +15,7 @@ export class SocketService {
 	onlineUsers$ = this.onlineUsers.asObservable();
 
 	constructor() {
-		this.socket = io('http://localhost:8000', {
+		this.socket = io('https://synclineserver.onrender.com', {
 			autoConnect: false,
 			auth: {
 				token: this.token

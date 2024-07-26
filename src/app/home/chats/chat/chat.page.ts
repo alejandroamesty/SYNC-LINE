@@ -62,7 +62,7 @@ export class ChatPage {
 		const { id, url } = queryParams;
 		this.chat = id;
 		this.icon = url;
-		fetch(`http://localhost:8000/chats/messages?chat=${id}`, {
+		fetch(`https://synclineserver.onrender.com/chats/messages?chat=${id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -262,7 +262,7 @@ export class ChatPage {
 				const audioBlob = new Blob(this.audioChunks, { type: 'audio/mp4' });
 				const formData = new FormData();
 				formData.append('audio', audioBlob);
-				await fetch('http://localhost:8000/upload', {
+				await fetch('https://synclineserver.onrender.com/upload', {
 					method: 'POST',
 					headers: {
 						Authorization: localStorage.getItem('token') || ''

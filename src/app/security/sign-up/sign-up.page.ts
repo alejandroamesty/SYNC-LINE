@@ -58,7 +58,7 @@ export class SignUpPage implements OnInit {
 	}
 
 	async navigateToHome() {
-		await fetch('http://localhost:8000/profile/checkEmail', {
+		await fetch('https://synclineserver.onrender.com/profile/checkEmail', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

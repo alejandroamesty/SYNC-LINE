@@ -24,7 +24,7 @@ export class StartScreenPage implements OnInit {
 	constructor(private router: Router) {
 		const token = localStorage.getItem('token') || '';
 
-		fetch('http://localhost:8000/auth/checkSession', {
+		fetch('https://synclineserver.onrender.com/auth/checkSession', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

@@ -85,7 +85,7 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 	}
 
 	handleRefresh() {
-		fetch('http://localhost:8000/status', {
+		fetch('https://synclineserver.onrender.com/status', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -260,7 +260,7 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 		if (!this.selectedFile) return;
 		formData.append('file', this.selectedFile);
 		console.log('Adding status:');
-		fetch('http://localhost:8000/upload', {
+		fetch('https://synclineserver.onrender.com/upload', {
 			method: 'POST',
 			headers: {
 				Authorization: localStorage.getItem('token') || ''
@@ -272,7 +272,7 @@ export class UpdatesPage implements OnInit, AfterViewInit {
 			})
 			.then((data: { message: string; url: string }) => {
 				console.log(data);
-				fetch('http://localhost:8000/status', {
+				fetch('https://synclineserver.onrender.com/status', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
