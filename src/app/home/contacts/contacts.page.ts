@@ -26,6 +26,13 @@ interface Contact {
 	profilePicture: string;
 }
 
+interface GroupChat {
+	id: string;
+	name: string;
+	userId: string;
+	checked: boolean;
+}
+
 @Component({
 	selector: 'app-contacts',
 	templateUrl: './contacts.page.html',
@@ -129,6 +136,26 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
 	filteredContacts = [...this.contacts];
 
+	groupChats: GroupChat[] = [
+		{ id: '1', name: 'Group 1', userId: '1', checked: true },
+		{ id: '2', name: 'Group 2', userId: '2', checked: true },
+		{ id: '3', name: 'Group 3', userId: '3', checked: true },
+		{ id: '4', name: 'Group 4', userId: '4', checked: false },
+		{ id: '5', name: 'Group 5', userId: '5', checked: false },
+		{ id: '6', name: 'Group 6', userId: '6', checked: false },
+		{ id: '7', name: 'Group 7', userId: '7', checked: false },
+		{ id: '8', name: 'Group 8', userId: '8', checked: false },
+		{ id: '9', name: 'Group 9', userId: '9', checked: false },
+		{ id: '10', name: 'Group 10', userId: '10', checked: false }
+	];
+
+	filteredGroupChats = [...this.groupChats];
+
+	updateFilteredItems(updatedItems: GroupChat[]) {
+		this.filteredGroupChats = updatedItems;
+		this.cdr.detectChanges();
+	}
+
 	constructor(private cdr: ChangeDetectorRef) {}
 
 	ngOnInit() {
@@ -198,9 +225,10 @@ export class ContactsPage implements OnInit, AfterViewInit {
 		this.moveModalToBody();
 	}
 
-	openGroupModalFunc(event: any) {
+	openGroupModalFunc() {
 		this.openGroupModal = true;
-		this.moveModalToBody();
+		this.moveGroupModalToBody();
+		this.filteredGroupChats = [...this.groupChats];
 	}
 
 	closeGroupModalFunc(event: any) {
@@ -269,5 +297,12 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
 	handleDescriptionChange(event: string) {
 		this.newDescription = event;
+	}
+
+	handleSearchTermChanged(searchTerm: string) {
+		this.filteredGroupChats = this.groupChats.filter((groupChat) =>
+			groupChat.name.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		this.cdr.detectChanges();
 	}
 }

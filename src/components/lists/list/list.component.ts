@@ -14,9 +14,7 @@ export class ListComponent implements OnChanges {
 	@Input() data: {
 		id: string;
 		name: string;
-		description: string;
 		userId: string;
-		songIds: string[];
 		checked: boolean;
 	}[] = [];
 
@@ -25,9 +23,7 @@ export class ListComponent implements OnChanges {
 	items: {
 		id: string;
 		name: string;
-		description: string;
 		userId: string;
-		songIds: string[];
 		checked: boolean;
 	}[] = [];
 	containerHeight: number = 200;
