@@ -12,6 +12,7 @@
 				[time]="userStatus.time"
 				[viewed]="userStatus.viewed"
 				(onPress)="handleStatusPress($event)"
+				(onAddPress)="handleAddPress($event)"
 			></app-my-status-item>
 			<div class="subtitle-1">Recent updates</div>
 			<div class="recent-list">
@@ -37,5 +38,39 @@
 				></app-status-item>
 			</div>
 		</div>
+		<ng-template #modalContent>
+			<div class="custom-modal-content">
+				<div class="uploadContainer">
+					<div class="uploadFile">
+						<img
+							src="assets/images/cloud.png"
+							alt="Cloud Icon"
+							class="cloud-icon"
+						/>
+						<div class="placeholders">
+							<div class="defaultTitle" (click)="handleClick()">
+								{{ defaultTitle }}
+							</div>
+							<div class="defaultSubtitle">{{ defaultSubtitle }}</div>
+						</div>
+						<input
+							type="file"
+							id="fileInput"
+							accept=".mp3"
+							(change)="handleFileChange($event)"
+							hidden
+						/>
+					</div>
+				</div>
+			</div>
+		</ng-template>
+		<app-custom-modal
+			id="photo-modal"
+			[visible]="openCustomModal"
+			[modalContent]="modalContent"
+			(visibilityChange)="closeModal($event)"
+			title="Add a new photo"
+			(doneButtonAction)="closeModal($event)"
+		></app-custom-modal>
 	</div>
 </ion-content>

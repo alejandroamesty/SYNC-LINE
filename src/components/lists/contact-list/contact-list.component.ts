@@ -5,9 +5,9 @@ import { ContactItemComponent } from './contact-item/contact-item.component';
 
 interface Contact {
 	id: string;
-	name: string;
-	username: string; // Updated to username
-	profilePicture: string; // Updated to profilePicture
+	username: string;
+	status: string;
+	profilePicture: string;
 }
 
 @Component({
@@ -32,10 +32,10 @@ export class ContactListComponent implements OnChanges {
 	}
 
 	sortContacts() {
-		this.sortedContacts = {}; // Reset sorted contacts
-		this.contacts.sort((a, b) => a.name.localeCompare(b.name));
+		this.sortedContacts = {};
+		this.contacts.sort((a, b) => a.username.localeCompare(b.username));
 		this.contacts.forEach((contact) => {
-			const firstLetter = contact.name[0].toUpperCase();
+			const firstLetter = contact.username[0].toUpperCase();
 			if (!this.sortedContacts[firstLetter]) {
 				this.sortedContacts[firstLetter] = [];
 			}
