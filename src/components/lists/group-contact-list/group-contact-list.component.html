@@ -1,0 +1,12 @@
+<div class="list-container" *ngFor="let letter of sortedContacts | keyvalue; let first = first">
+	<div class="alphabet-letter" [ngClass]="{ 'first-letter': first }">{{ letter.key }}</div>
+	<div *ngFor="let contact of letter.value" class="contact-item-wrapper">
+		<app-group-contact-item
+			[id]="contact.id"
+			[username]="contact.username"
+			[status]="contact.status"
+			[profilePicture]="contact.profilePicture"
+			(onDelete)="handleDelete($event)"
+		></app-group-contact-item>
+	</div>
+</div>
