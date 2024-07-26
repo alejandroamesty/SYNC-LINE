@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -25,7 +25,7 @@ import { ConfirmationModalComponent } from 'src/components/modals/confirmation-m
 		ConfirmationModalComponent
 	]
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage implements OnInit, AfterViewInit {
 	showModal: boolean = false;
 	showDeleteModal: boolean = false;
 	fetching: boolean = false;
@@ -33,40 +33,46 @@ export class ProfilePage implements OnInit {
 	name: string = 'Alejandro Ávila';
 	userType: string = 'Disponible';
 
-	constructor(private router: Router) {
-		// this.image = localStorage.getItem('pfp') || '';
-		// this.name = localStorage.getItem('name') || '';
-		// this.userType = localStorage.getItem('userType') || '';
-	}
+	constructor(private router: Router) {}
 
 	ngOnInit() {}
 
+	ngAfterViewInit() {
+		this.moveConfirmationModalToBody('logoutModal', this.showModal);
+		this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
+	}
+
 	handleLogoutPress() {
 		this.showModal = true;
+		this.moveConfirmationModalToBody('logoutModal', this.showModal);
 	}
 
 	handleDeletePress() {
 		this.showDeleteModal = true;
+		this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
 	}
 
 	handleDeleteCancel() {
 		this.showDeleteModal = false;
+		this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
 	}
 
 	handleDeleteAccept() {
 		this.showDeleteModal = false;
 		this.router.navigate(['start-screen']);
+		this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
 	}
 
 	handleCancel() {
 		this.showModal = false;
+		this.moveConfirmationModalToBody('logoutModal', this.showModal);
 	}
 
 	handleAccept() {
 		this.showModal = false;
 		localStorage.clear();
-
 		this.router.navigate(['start-screen']);
+		this.moveConfirmationModalToBody('logoutModal', this.showModal);
 	}
 
 	navigateToUpload() {
@@ -75,5 +81,25 @@ export class ProfilePage implements OnInit {
 
 	navigateToEdit() {
 		this.router.navigate(['edit-account']);
+	}
+
+	navigateToChangePassword() {
+		this.router.navigate(['change-password']);
+	}
+
+	private moveConfirmationModalToBody(modalId: string, isVisible: boolean) {
+		const confirmationModalElement = document.querySelector(
+			`app-confirmation-modal#${modalId}`
+		) as HTMLElement;
+		if (confirmationModalElement) {
+			if (isVisible) {
+				document.body.appendChild(confirmationModalElement);
+				confirmationModalElement.style.display = 'block';
+			} else {
+				if (confirmationModalElement.parentElement === document.body) {
+					confirmationModalElement.style.display = 'none';
+				}
+			}
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ContactItemComponent } from './contact-item/contact-item.component';
@@ -6,7 +6,8 @@ import { ContactItemComponent } from './contact-item/contact-item.component';
 interface Contact {
 	id: string;
 	name: string;
-	phoneNumber: string;
+	username: string; // Updated to username
+	profilePicture: string; // Updated to profilePicture
 }
 
 @Component({
@@ -16,18 +17,22 @@ interface Contact {
 	styleUrls: ['./contact-list.component.scss'],
 	imports: [CommonModule, IonicModule, ContactItemComponent]
 })
-export class ContactListComponent implements OnInit {
+export class ContactListComponent implements OnChanges {
 	@Input() contacts: Contact[] = [];
 	@Output() onDelete = new EventEmitter<string>();
 	@Output() onAddToGroup = new EventEmitter<string>();
+	@Output() onViewChat = new EventEmitter<string>();
 
 	sortedContacts: { [key: string]: Contact[] } = {};
 
-	ngOnInit() {
-		this.sortContacts();
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes['contacts']) {
+			this.sortContacts();
+		}
 	}
 
 	sortContacts() {
+		this.sortedContacts = {}; // Reset sorted contacts
 		this.contacts.sort((a, b) => a.name.localeCompare(b.name));
 		this.contacts.forEach((contact) => {
 			const firstLetter = contact.name[0].toUpperCase();
@@ -44,5 +49,9 @@ export class ContactListComponent implements OnInit {
 
 	handleAddToGroup(id: string) {
 		this.onAddToGroup.emit(id);
+	}
+
+	handleViewChat(id: string) {
+		this.onViewChat.emit(id);
 	}
 }

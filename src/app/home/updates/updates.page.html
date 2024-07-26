@@ -16,7 +16,7 @@
 			<div class="subtitle-1">Recent updates</div>
 			<div class="recent-list">
 				<app-status-item
-					*ngFor="let status of recentStatus"
+					*ngFor="let status of filteredRecentStatus"
 					[id]="status.id"
 					[nombre]="status.nombre"
 					[time]="status.time"
@@ -27,7 +27,7 @@
 			<div class="subtitle-2">Viewed updates</div>
 			<div class="viewed-list">
 				<app-status-item
-					*ngFor="let status of viewedStatus"
+					*ngFor="let status of filteredViewedStatus"
 					[id]="status.id"
 					[nombre]="status.nombre"
 					[time]="status.time"

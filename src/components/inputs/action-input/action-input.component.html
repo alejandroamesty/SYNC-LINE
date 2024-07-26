@@ -1,0 +1,23 @@
+<div [ngStyle]="{ width: width + 'px', height: height + 'px' }" class="container" [ngClass]="style">
+  <div class="input-container">
+    <input
+      [type]="!isPasswordVisible && (isPassword || type === 'password') ? 'password' : 'text'"
+      [placeholder]="placeholder"
+      [ngStyle]="{
+        fontSize: fontSize + 'px',
+        backgroundColor: backgroundColor
+      }"
+      [formControl]="inputControl"
+      class="input"
+      [disabled]="!isEditable"
+      (blur)="save()"
+    />
+    <button (click)="toggleEdit(true)" *ngIf="!isEditable" class="action-button">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="save()" *ngIf="isEditable" class="action-button">
+      <mat-icon>check</mat-icon>
+    </button>
+  </div>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</div>

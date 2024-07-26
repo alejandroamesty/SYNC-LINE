@@ -22,6 +22,7 @@
 			class="option-2"
 			source="../../../assets/images/lock.png"
 			[title]="'Change password'"
+			(onPress)="navigateToChangePassword()"
 		></app-option-card>
 		<app-option-card
 			class="option-3"
@@ -37,6 +38,7 @@
 		></app-option-card>
 	</div>
 	<app-confirmation-modal
+		id="logoutModal"
 		[visible]="showModal"
 		[image]="'../../../assets/images/log-out-icon.png'"
 		[title]="'See you soon!'"
@@ -47,6 +49,7 @@
 		(onAccept)="handleAccept()"
 	></app-confirmation-modal>
 	<app-confirmation-modal
+		id="deleteModal"
 		[visible]="showDeleteModal"
 		[image]="'../../../assets/images/warning.png'"
 		[title]="'Deleting account'"
