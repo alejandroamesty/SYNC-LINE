@@ -8,6 +8,7 @@ import { ContactsPage } from '../contacts/contacts.page';
 import { ProfilePage } from '../profile/profile.page';
 
 import { NavBarComponent } from 'src/components/items/nav-bar/nav-bar.component';
+import { SocketService } from 'src/app/services/socket-service.service';
 
 @Component({
 	selector: 'app-main-tab',
@@ -30,6 +31,10 @@ import { NavBarComponent } from 'src/components/items/nav-bar/nav-bar.component'
 export class MainTabPage implements OnInit, AfterViewInit, OnDestroy {
 	activeIndex: number = 0;
 	private navBarElement: HTMLElement | null = null;
+
+	constructor(private socketService: SocketService) {
+		this.socketService.connect();
+	}
 
 	ngOnInit() {}
 

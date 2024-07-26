@@ -8,6 +8,7 @@ import { ControlButtonComponent } from 'src/components/buttons/control-button/co
 import { Location } from '@angular/common';
 import { RecordButtonComponent } from 'src/components/chat/record-button/record-button.component';
 import { Params, Router } from '@angular/router';
+import { SocketService } from 'src/app/services/socket-service.service';
 
 interface Message {
 	text: string; // URL to audio file or text message
@@ -43,86 +44,22 @@ export class ChatPage {
 	newMessage = '';
 	isInputStarted = false;
 	isRecording = false;
-	audioFile: Blob | null = null;
 	audioUrl: string | null = null;
 	messages: Message[] = [];
-	testMessages = [
-		{
-			text: 'Hello!',
-			time: '10:00 AM',
-			isSent: true,
-			date: 'Tuesday, 15',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'Hi there!',
-			time: '10:01 AM',
-			isSent: false,
-			date: 'Tuesday, 15',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'How are you?',
-			time: '10:02 AM',
-			isSent: true,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'I am good, thank you!',
-			time: '10:03 AM',
-			isSent: false,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'What about you?',
-			time: '10:04 AM',
-			isSent: true,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'I am doing great!',
-			time: '10:05 AM',
-			isSent: false,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'How can I help you?',
-			time: '10:06 AM',
-			isSent: true,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		},
-		{
-			text: 'I need help with my homework.',
-			time: '10:07 AM',
-			isSent: false,
-			date: 'Wednesday, 16',
-			isAudio: false,
-			user: false
-		}
-	];
+	chat: string;
 
 	private mediaRecorder: MediaRecorder | null = null;
 	private audioChunks: Blob[] = [];
 
 	constructor(
 		private _location: Location,
-		private router: Router
+		private router: Router,
+		private socketService: SocketService
 	) {
 		this.yourUsername = localStorage.getItem('username') || '';
 		const queryParams = this.router.getCurrentNavigation()?.extractedUrl.queryParams as Params;
 		const { id, url } = queryParams;
+		this.chat = id;
 		this.icon = url;
 		fetch(`http://localhost:8000/chats/messages?chat=${id}`, {
 			method: 'GET',
@@ -205,6 +142,38 @@ export class ChatPage {
 			});
 	}
 
+	ngOnInit() {
+		this.socketService.chatMessage$.subscribe(
+			(message: {
+				chat: string;
+				message: string;
+				messageType: string;
+				sender: string;
+				timestamp: string;
+			}) => {
+				console.log(message);
+				if (message.chat === this.chat) {
+					this.messages.push({
+						text: message.message,
+						time: new Date().toLocaleTimeString(undefined, {
+							hour: 'numeric',
+							minute: 'numeric',
+							hour12: true
+						}),
+						isSent: false,
+						date: new Date().toLocaleDateString('en-US', {
+							weekday: 'long',
+							day: 'numeric'
+						}),
+						isAudio: message.messageType === 'audio',
+						user: this.user,
+						username: message.sender
+					});
+				}
+			}
+		);
+	}
+
 	get groupedMessages() {
 		return this.messages.reduce((groups: { [key: string]: Message[] }, message) => {
 			const date = message.date;
@@ -218,6 +187,9 @@ export class ChatPage {
 
 	handleTextEntered(text: string) {
 		this.newMessage = text;
+		if (this.newMessage === '') {
+			this.isInputStarted = false;
+		}
 	}
 
 	onInputStarted() {
@@ -225,24 +197,35 @@ export class ChatPage {
 	}
 
 	sendMessage() {
-		if (this.newMessage.trim() || this.audioFile) {
+		if (this.newMessage.trim() || this.audioUrl) {
 			const message: Message = {
 				text: this.audioUrl ? this.audioUrl : this.newMessage,
-				time: new Date().toLocaleTimeString(),
+				time: new Date().toLocaleTimeString(undefined, {
+					hour: 'numeric',
+					minute: 'numeric',
+					hour12: true
+				}),
 				isSent: true,
 				date: new Date().toLocaleDateString('en-US', {
 					weekday: 'long',
 					day: 'numeric'
 				}),
-				isAudio: !!this.audioFile,
+				isAudio: !!this.audioUrl,
 				user: this.user
 			};
 
 			this.messages.push(message);
+			console.log(message);
 			this.newMessage = '';
 			this.isInputStarted = false;
-			this.audioFile = null;
 			this.audioUrl = null;
+
+			// Send the message to the server
+			this.socketService.sendChatMessage({
+				chat: this.chat,
+				message: message.text,
+				type: message.isAudio ? 'audio' : 'text'
+			});
 		}
 	}
 
@@ -254,19 +237,24 @@ export class ChatPage {
 			this.mediaRecorder.ondataavailable = (event) => {
 				this.audioChunks.push(event.data);
 			};
-			this.mediaRecorder.onstop = () => {
+			this.mediaRecorder.onstop = async () => {
 				const audioBlob = new Blob(this.audioChunks, { type: 'audio/mp4' });
-				this.audioFile = audioBlob;
-				this.audioUrl = URL.createObjectURL(audioBlob);
-
-				// Simulate file download for testing
-				const downloadLink = document.createElement('a');
-				downloadLink.href = this.audioUrl;
-				downloadLink.download = `recording-${new Date().toISOString()}.mp4`;
-				downloadLink.click();
-
-				// Add the recorded audio as a message
-				this.sendMessage();
+				const formData = new FormData();
+				formData.append('audio', audioBlob);
+				await fetch('http://localhost:8000/upload', {
+					method: 'POST',
+					headers: {
+						Authorization: localStorage.getItem('token') || ''
+					},
+					body: formData
+				})
+					.then((response) => {
+						return response.json();
+					})
+					.then((data) => {
+						this.audioUrl = data.url;
+						this.sendMessage();
+					});
 			};
 			this.mediaRecorder.start();
 		});
