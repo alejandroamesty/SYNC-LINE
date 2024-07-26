@@ -5,12 +5,18 @@
 			[placeholder]="'Search'"
 			(inputValue)="handleInputValue($event)"
 		></app-special-input>
+		<div class="refresh-button">
+			<app-send-button
+				source="/assets/images/refresh.png"
+				(sendClicked)="handleRefresh()"
+			></app-send-button>
+		</div>
 		<div class="lists">
 			<app-my-status-item
 				[id]="userStatus.id"
 				[nombre]="userStatus.nombre"
 				[time]="userStatus.time"
-				[viewed]="userStatus.viewed"
+				[viewed]="false"
 				(onPress)="handleStatusPress($event)"
 				(onAddPress)="handleAddPress($event)"
 			></app-my-status-item>
@@ -21,20 +27,8 @@
 					[id]="status.id"
 					[nombre]="status.nombre"
 					[time]="status.time"
-					[viewed]="status.viewed"
+					[viewed]="false"
 					(onPress)="handleStatusPress($event)"
-				></app-status-item>
-			</div>
-			<div class="subtitle-2">Viewed updates</div>
-			<div class="viewed-list">
-				<app-status-item
-					*ngFor="let status of filteredViewedStatus"
-					[id]="status.id"
-					[nombre]="status.nombre"
-					[time]="status.time"
-					[viewed]="status.viewed"
-					(onPress)="handleStatusPress($event)"
-					class="viewed-item"
 				></app-status-item>
 			</div>
 		</div>
@@ -42,11 +36,7 @@
 			<div class="custom-modal-content">
 				<div class="uploadContainer">
 					<div class="uploadFile">
-						<img
-							src="assets/images/cloud.png"
-							alt="Cloud Icon"
-							class="cloud-icon"
-						/>
+						<img src="assets/images/cloud.png" alt="Cloud Icon" class="cloud-icon" />
 						<div class="placeholders">
 							<div class="defaultTitle" (click)="handleClick()">
 								{{ defaultTitle }}
@@ -56,7 +46,7 @@
 						<input
 							type="file"
 							id="fileInput"
-							accept=".mp3"
+							accept="image/*"
 							(change)="handleFileChange($event)"
 							hidden
 						/>
@@ -70,7 +60,8 @@
 			[modalContent]="modalContent"
 			(visibilityChange)="closeModal($event)"
 			title="Add a new photo"
-			(doneButtonAction)="closeModal($event)"
+			(doneButtonActionChange)="handleAddStatus($event)"
+			(cancelButtonActionChange)="handleCancelStatus($event)"
 		></app-custom-modal>
 	</div>
 </ion-content>
