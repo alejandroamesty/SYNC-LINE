@@ -1,0 +1,103 @@
+<ion-content>
+	<div class="container">
+		<div class="background"></div>
+		<div class="left-button" (click)="goToChat()">Back</div>
+		<div class="right-button" (click)="editGroup()">Edit</div>
+		<div class="icon"></div>
+		<div class="name">Universidad</div>
+		<div class="description-container">
+			<div class="subtitle">description</div>
+			<div class="description">Grupo de compañeros de la Universidad Rafael Urdaneta</div>
+		</div>
+		<div class="members">12 members</div>
+		<div class="button-container" (click)="openModal($event)">
+			<div class="add-icon"></div>
+			<div class="button-caption">add members</div>
+		</div>
+		<div class="contacts">
+			<app-group-contact-list
+				[contacts]="filteredContacts"
+				(onDelete)="handleDelete($event)"
+			></app-group-contact-list>
+		</div>
+		<ng-template #modalContent>
+			<div class="custom-modal-content">
+				<app-search-input
+					[width]="'335px'"
+					[placeholder]="'Search for friends'"
+					[focusInput]="false"
+					class="filter-input"
+					backgroundColor="#E1E1E1"
+					(searchTermChanged)="handleSearchTermChanged($event)"
+				></app-search-input>
+				<div class="friends-list">
+					<app-list
+						[data]="filteredFriends"
+						(setExternalList)="updateFilteredItems($event)"
+					></app-list>
+				</div>
+			</div>
+		</ng-template>
+		<app-custom-modal
+			id="custom-modal"
+			[visible]="openCustomModal"
+			[modalContent]="modalContent"
+			(visibilityChange)="closeModal($event)"
+			title="Add a new friend"
+			(doneButtonActionChange)="handleAddFriend($event)"
+			(cancelButtonActionChange)="handleAddFriend($event)"
+		></app-custom-modal>
+		<app-confirmation-modal
+			[visible]="showDeleteModal"
+			[image]="'../../../assets/images/warning.png'"
+			[title]="'Removing friend'"
+			[text]="'You are about to remove a friend. Are you sure this is what you want?'"
+			[cancelButtonText]="'CANCEL'"
+			[acceptButtonText]="'ACCEPT'"
+			(onCancel)="handleDeleteCancel($event)"
+			(onAccept)="handleDeleteAccept($event)"
+		></app-confirmation-modal>
+		<ng-template #groupModalContent>
+			<div class="custom-modal-content">
+				<div class="custom-modal-content">
+					<div class="group-icon-container">
+						<div class="overlay">
+							<button
+								(click)="toggleEdit(true)"
+								*ngIf="!isEditable"
+								class="action-button"
+							>
+								<mat-icon>add</mat-icon>
+							</button>
+							<button (click)="save()" *ngIf="isEditable" class="action-button">
+								<mat-icon>check</mat-icon>
+							</button>
+						</div>
+						<img src="{{ groupIcon }}" alt="user-icon" class="user-icon" />
+					</div>
+					<app-simple-input
+						[width]="335"
+						placeholder="Groupchat name"
+						[characterLimit]="50"
+						(onChangeText)="handleTitleChange($event)"
+					></app-simple-input>
+					<app-simple-input
+						[width]="335"
+						placeholder="Description"
+						[characterLimit]="50"
+						(onChangeText)="handleDescriptionChange($event)"
+					></app-simple-input>
+				</div>
+			</div>
+		</ng-template>
+		<app-custom-modal
+			id="group-modal"
+			[visible]="openGroupModal"
+			[modalContent]="groupModalContent"
+			(visibilityChange)="closeGroupModalFunc($event)"
+			title="Edit groupchat"
+			(doneButtonActionChange)="closeGroupModalFunc($event)"
+			(cancelButtonActionChange)="closeGroupModalFunc($event)"
+		></app-custom-modal>
+	</div>
+</ion-content>

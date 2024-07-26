@@ -22,24 +22,23 @@ export class ChatMessageComponent implements OnInit, OnDestroy {
 	progress: number = 0;
 	duration: number = 0;
 	currentTime: number = 0;
-	intervalSubscription: Subscription | undefined;
 
 	ngOnInit() {
 		if (this.isAudio && this.text) {
 			this.audioElement = new Audio(this.text);
 
 			this.audioElement.addEventListener('loadedmetadata', () => {
-				if (
-					this.audioElement &&
-					(this.audioElement.duration === Infinity || isNaN(this.audioElement.duration))
-				) {
-					this.audioElement.currentTime = 1e101; // Fake big time
-					this.audioElement.addEventListener('timeupdate', this.getDuration);
-				} else {
-					if (this.audioElement) {
-					  this.duration = this.audioElement.duration;
+				if (this.audioElement) {
+					if (
+						this.audioElement.duration === Infinity ||
+						isNaN(this.audioElement.duration)
+					) {
+						this.audioElement.currentTime = 1e101; // Fake big time
+						this.audioElement.addEventListener('timeupdate', this.getDuration);
+					} else {
+						this.duration = this.audioElement.duration;
+						console.log('Duración inicial:', this.duration);
 					}
-					console.log('Duración inicial:', this.duration);
 				}
 			});
 
@@ -49,7 +48,6 @@ export class ChatMessageComponent implements OnInit, OnDestroy {
 					if (this.duration > 0) {
 						this.progress = (this.currentTime / this.duration) * 100;
 					}
-					this.updateTimeDisplay();
 				}
 			});
 
@@ -64,20 +62,14 @@ export class ChatMessageComponent implements OnInit, OnDestroy {
 	}
 
 	getDuration = (event: Event) => {
-		const target = event.target as HTMLAudioElement;
-		if (target) {
-			target.currentTime = 0;
-			target.removeEventListener('timeupdate', this.getDuration);
-			this.duration = target.duration;
-			console.log('Duración actualizada:', this.duration);
-		}
+		// const target = event.target as HTMLAudioElement;
+		// if (target) {
+		// 	target.currentTime = 0;
+		// 	target.removeEventListener('timeupdate', this.getDuration);
+		// 	this.duration = target.duration;
+		// 	console.log('Duración actualizada:', this.duration);
+		// }
 	};
-
-	updateTimeDisplay(): void {
-		if (this.audioElement) {
-			this.currentTime = this.audioElement.currentTime;
-		}
-	}
 
 	formatTime(seconds: number): string {
 		if (isNaN(seconds) || seconds < 0) {
@@ -107,9 +99,6 @@ export class ChatMessageComponent implements OnInit, OnDestroy {
 		if (this.audioElement) {
 			this.audioElement.pause();
 			this.audioElement.src = '';
-		}
-		if (this.intervalSubscription) {
-			this.intervalSubscription.unsubscribe();
 		}
 	}
 }

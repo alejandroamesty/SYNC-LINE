@@ -1,0 +1,14 @@
+<div class="wrapper" #wrapper>
+	<div class="column delete-icon">
+		<img src="assets/images/trash.png" alt="delete" class="icon-img ion-margin-start" />
+	</div>
+</div>
+<ion-item #item class="contact-item" lines="none">
+	<ion-avatar slot="start">
+		<img [src]="profilePicture" alt="profile picture" />
+	</ion-avatar>
+	<div class="contact-details">
+		<div class="name">{{ username }}</div>
+		<div class="username">{{ status }}</div>
+	</div>
+</ion-item>

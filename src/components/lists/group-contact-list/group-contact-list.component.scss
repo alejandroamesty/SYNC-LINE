@@ -1,0 +1,23 @@
+.alphabet-letter {
+	position: relative;
+	width: 353px;
+	// height: 33px;
+	// left: 23px;
+	font-family: 'BROmnySemiBold';
+	font-size: 25px;
+	color: #ffffff;
+	margin-top: 18px;
+
+	&.first-letter {
+		margin-top: 0;
+	}
+}
+
+.contact-item-wrapper {
+	margin-top: 12px;
+}
+
+.list-container {
+	width: 100%;
+	margin-bottom: 18px;
+}

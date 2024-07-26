@@ -87,5 +87,9 @@ export const routes: Routes = [
   {
     path: 'change-password',
     loadComponent: () => import('./home/profile/change-password/change-password.page').then( m => m.ChangePasswordPage)
+  },  {
+    path: 'groupchat-detail',
+    loadComponent: () => import('./home/chats/groupchat-detail/groupchat-detail.page').then( m => m.GroupchatDetailPage)
   }
+
 ];
