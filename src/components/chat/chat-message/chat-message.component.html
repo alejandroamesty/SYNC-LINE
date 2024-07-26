@@ -8,12 +8,13 @@
 		<ng-container *ngIf="!isAudio; else audioTemplate">
 			<div class="message-text">{{ text }}</div>
 		</ng-container>
-
 		<ng-template #audioTemplate>
-			<audio controls>
-				<source [src]="text" type="audio/mp3" />
-				Your browser does not support the audio element.
-			</audio>
+			<div class="audio-container">
+				<audio class="audio-player" controls>
+					<source [src]="text" type="audio/mp3" />
+					Your browser does not support the audio element.
+				</audio>
+			</div>
 		</ng-template>
 	</div>
 </div>
