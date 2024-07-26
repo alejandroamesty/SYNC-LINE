@@ -26,7 +26,7 @@ export class ContactItemComponent implements AfterViewInit {
 	@Input() profilePicture: string = 'assets/images/IMG_2751.png';
 	@Output() onDelete = new EventEmitter<string>();
 	@Output() onAddToGroup = new EventEmitter<string>();
-	@Output() onViewChat = new EventEmitter<string>();
+	@Output() onViewChat = new EventEmitter<any>();
 
 	@ViewChild('wrapper', { read: ElementRef })
 	wrapper!: ElementRef;
@@ -104,6 +104,6 @@ export class ContactItemComponent implements AfterViewInit {
 	}
 
 	onViewChatClick() {
-		this.onViewChat.emit(this.id);
+		this.onViewChat.emit({ id: this.id, url: this.profilePicture });
 	}
 }

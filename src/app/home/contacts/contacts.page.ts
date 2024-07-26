@@ -18,6 +18,8 @@ import { CustomModalComponent } from 'src/components/modals/custom-modal/custom-
 import { SimpleInputComponent } from 'src/components/inputs/simple-input/simple-input.component';
 import { ListComponent } from 'src/components/lists/list/list.component';
 import { SearchInputComponent } from 'src/components/inputs/search-input/search-input.component';
+import { SocketService } from 'src/app/services/socket-service.service';
+import { Router } from '@angular/router';
 
 interface Contact {
 	id: string;
@@ -129,11 +131,58 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
 	filteredContacts = [...this.contacts];
 
-	constructor(private cdr: ChangeDetectorRef) {}
+	constructor(
+		private cdr: ChangeDetectorRef,
+		private socketService: SocketService,
+		private router: Router
+	) {
+		fetch('http://localhost:8000/friends', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				const friends: Array<{
+					_id: string;
+					username: string;
+					friends: string[];
+					url: string;
+					status: any[];
+				}> = data.friends;
 
-	ngOnInit() {
-		this.filteredContacts = [...this.contacts];
+				this.contacts = friends.map((friend) => {
+					return {
+						id: friend._id,
+						username: friend.username,
+						status: 'Offline',
+						profilePicture: friend.url || 'assets/images/icon.png'
+					};
+				});
+				this.filteredContacts = [...this.contacts];
+				this.socketService.onlineUsers$.subscribe((users: string[]) => {
+					this.contacts = this.contacts.map((contact) => {
+						if (users.includes(contact.username)) {
+							contact.status = 'Online';
+						} else {
+							contact.status = 'Offline';
+						}
+						return contact;
+					});
+					this.filteredContacts = [...this.contacts];
+					this.cdr.detectChanges();
+				});
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
+
+	ngOnInit() {}
 
 	ngAfterViewInit() {
 		this.moveModalToBody();
@@ -157,10 +206,26 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	}
 
 	handleViewChat(event: any) {
-		this.showDeleteModal = true;
-		this.moveConfirmationModalToBody();
 		this.cdr.detectChanges();
-		console.log('View chat with contact id:', event);
+		fetch(`http://localhost:8000/chats/user?member=${event.id}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				const chatId = data.chatId;
+				this.router.navigate(['/chat'], {
+					queryParams: {
+						id: chatId,
+						url: event.url
+					}
+				});
+			});
 	}
 
 	handleDeleteCancel() {
