@@ -81,6 +81,14 @@ export class ChatPage {
 							member.username !== localStorage.getItem('username')
 					);
 					this.username = user.username;
+					// subscribe to online users
+					this.socketService.onlineUsers$.subscribe((users: string[]) => {
+						if (users.includes(this.username)) {
+							this.userStatus = 'Online';
+						} else {
+							this.userStatus = 'Offline';
+						}
+					});
 					this.messages = data.result[0].messages.map(
 						(
 							message: Array<{
