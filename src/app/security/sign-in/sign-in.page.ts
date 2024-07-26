@@ -43,8 +43,29 @@ export class SignInPage implements OnInit {
 		this.router.navigate(['forgot-password']);
 	}
 
-	navigateToHome() {
-		this.router.navigate(['main-tab']);
+	async navigateToHome() {
+		await fetch('http://localhost:8000/auth/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: this.email,
+				password: this.password
+			})
+		}).then((response) => {
+			if (response.status == 200) {
+				response.json().then((data) => {
+					localStorage.setItem('token', data.token);
+					localStorage.setItem('email', this.email);
+					localStorage.setItem('username', data.userData.username);
+					localStorage.setItem('pfp', data.userData.url || '');
+					this.router.navigate(['main-tab']);
+				});
+			} else {
+				alert('Invalid email or password');
+			}
+		});
 	}
 
 	passwordChange(event: any) {

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
 import { Location } from '@angular/common';
 import { RecordButtonComponent } from 'src/components/chat/record-button/record-button.component';
+import { Params, Router } from '@angular/router';
 
 interface Message {
 	text: string; // URL to audio file or text message
@@ -14,6 +15,8 @@ interface Message {
 	isSent: boolean;
 	date: string;
 	isAudio: boolean; // New field to distinguish audio messages
+	user: boolean;
+	username?: string;
 }
 
 @Component({
@@ -33,64 +36,174 @@ interface Message {
 })
 export class ChatPage {
 	icon = 'assets/images/IMG_2751.png';
-	userName = 'John Doe';
+	yourUsername: string;
+	username = 'John Doe';
+	user: boolean = true;
 	userStatus = 'Online';
 	newMessage = '';
 	isInputStarted = false;
 	isRecording = false;
 	audioFile: Blob | null = null;
 	audioUrl: string | null = null;
-	messages: Message[] = [
-		{ text: 'Hello!', time: '10:00 AM', isSent: true, date: 'Tuesday, 15', isAudio: false },
-		{ text: 'Hi there!', time: '10:01 AM', isSent: false, date: 'Tuesday, 15', isAudio: false },
+	messages: Message[] = [];
+	testMessages = [
+		{
+			text: 'Hello!',
+			time: '10:00 AM',
+			isSent: true,
+			date: 'Tuesday, 15',
+			isAudio: false,
+			user: false
+		},
+		{
+			text: 'Hi there!',
+			time: '10:01 AM',
+			isSent: false,
+			date: 'Tuesday, 15',
+			isAudio: false,
+			user: false
+		},
 		{
 			text: 'How are you?',
 			time: '10:02 AM',
 			isSent: true,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		},
 		{
 			text: 'I am good, thank you!',
 			time: '10:03 AM',
 			isSent: false,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		},
 		{
 			text: 'What about you?',
 			time: '10:04 AM',
 			isSent: true,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		},
 		{
 			text: 'I am doing great!',
 			time: '10:05 AM',
 			isSent: false,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		},
 		{
 			text: 'How can I help you?',
 			time: '10:06 AM',
 			isSent: true,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		},
 		{
 			text: 'I need help with my homework.',
 			time: '10:07 AM',
 			isSent: false,
 			date: 'Wednesday, 16',
-			isAudio: false
+			isAudio: false,
+			user: false
 		}
 	];
 
 	private mediaRecorder: MediaRecorder | null = null;
 	private audioChunks: Blob[] = [];
 
-	constructor(private _location: Location) {}
+	constructor(
+		private _location: Location,
+		private router: Router
+	) {
+		this.yourUsername = localStorage.getItem('username') || '';
+		const queryParams = this.router.getCurrentNavigation()?.extractedUrl.queryParams as Params;
+		const { id, url } = queryParams;
+		this.icon = url;
+		fetch(`http://localhost:8000/chats/messages?chat=${id}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+				if (data.result[0].user) {
+					this.user = true;
+					const user = data.result[0].members.find(
+						(member: { username: string }) =>
+							member.username !== localStorage.getItem('username')
+					);
+					this.username = user.username;
+					this.messages = data.result[0].messages.map(
+						(
+							message: Array<{
+								message: string;
+								sender: string;
+								timestamp: string;
+								type: string;
+								_id: string;
+							}>
+						) => {
+							return {
+								text: message[0].message,
+								time: new Date(message[0].timestamp).toLocaleTimeString(undefined, {
+									hour: 'numeric',
+									minute: 'numeric',
+									hour12: true
+								}),
+								isSent: message[0].sender === localStorage.getItem('username'),
+								date: new Date(message[0].timestamp).toLocaleDateString('en-US', {
+									weekday: 'long',
+									day: 'numeric'
+								}),
+								isAudio: message[0].type === 'audio'
+							};
+						}
+					);
+				} else {
+					// Group chat case
+					this.user = false;
+					this.username = data.result[0].name;
+					this.userStatus = data.result[0].members.length + ' members';
+					this.messages = data.result[0].messages.map(
+						(
+							message: Array<{
+								message: string;
+								sender: string;
+								timestamp: string;
+								type: string;
+								_id: string;
+							}>
+						) => {
+							return {
+								text: message[0].message,
+								time: new Date(message[0].timestamp).toLocaleTimeString(undefined, {
+									hour: 'numeric',
+									minute: 'numeric',
+									hour12: true
+								}),
+								isSent: message[0].sender === localStorage.getItem('username'),
+								username: message[0].sender,
+								date: new Date(message[0].timestamp).toLocaleDateString('en-US', {
+									weekday: 'long',
+									day: 'numeric'
+								}),
+								isAudio: message[0].type === 'audio'
+							};
+						}
+					);
+				}
+			});
+	}
 
 	get groupedMessages() {
 		return this.messages.reduce((groups: { [key: string]: Message[] }, message) => {
@@ -121,7 +234,8 @@ export class ChatPage {
 					weekday: 'long',
 					day: 'numeric'
 				}),
-				isAudio: !!this.audioFile
+				isAudio: !!this.audioFile,
+				user: this.user
 			};
 
 			this.messages.push(message);

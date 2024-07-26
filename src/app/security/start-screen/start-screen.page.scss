@@ -29,7 +29,7 @@ ion-content {
 	flex-direction: row;
 	position: absolute;
 	left: 22px;
-	top: 425px;
+	top: 325px;
 	gap: 15px;
 	animation-delay: 0s;
 }
@@ -55,7 +55,7 @@ ion-content {
 	position: absolute;
 	width: 347px;
 	left: 22px;
-	top: 476px;
+	top: 376px;
 	font-family: 'BROmnySemiBold';
 	font-size: 46px;
 	display: flex;
@@ -72,7 +72,7 @@ ion-content {
 	position: absolute;
 	width: 347px;
 	left: 22px;
-	top: 527px;
+	top: 427px;
 	font-family: 'BROmnySemiBold';
 	font-size: 46px;
 	display: flex;
@@ -84,13 +84,13 @@ ion-content {
 .sign-up-button {
 	position: absolute;
 	left: 22px;
-	top: 630px;
+	bottom: 180px;
 	animation-delay: 0.6s;
 }
 
 .sign-in-button {
 	position: absolute;
 	left: 22px;
-	top: 704px;
+	bottom: 100px;
 	animation-delay: 0.8s;
 }

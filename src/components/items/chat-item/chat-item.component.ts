@@ -32,7 +32,7 @@ export class ChatItemComponent {
 	@Input() preview!: string;
 	@Input() time!: string;
 	@Input() icon!: string;
-	@Output() onPress: EventEmitter<void> = new EventEmitter<void>();
+	@Output() onPress: EventEmitter<any> = new EventEmitter<any>();
 
 	animationState: string = 'normal';
 
@@ -40,7 +40,7 @@ export class ChatItemComponent {
 		this.animationState = 'scaled';
 		setTimeout(() => {
 			this.animationState = 'normal';
-			this.onPress.emit();
+			this.onPress.emit({ id: this.id, icon: this.icon });
 		}, 200);
 	}
 }

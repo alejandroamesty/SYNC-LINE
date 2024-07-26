@@ -8,7 +8,7 @@
 			></app-control-button>
 			<img src="{{ icon }}" alt="icon" class="user-icon" />
 			<div class="user-details">
-				<div class="user-name">{{ userName }}</div>
+				<div class="user-name">{{ username }}</div>
 				<div class="user-status">{{ userStatus }}</div>
 			</div>
 		</div>
@@ -21,6 +21,8 @@
 						[ngClass]="{ 'align-end': message.isSent, 'align-start': !message.isSent }"
 					>
 						<app-chat-message
+							[user]="user"
+							[username]="message.username"
 							[text]="message.text"
 							[time]="message.time"
 							[isSent]="message.isSent"
