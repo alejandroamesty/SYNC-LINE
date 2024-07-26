@@ -130,7 +130,52 @@ export class EditAccountPage implements OnInit {
 	}
 
 	save() {
-		console.log('Save changes');
+		const formData = new FormData();
+		// check if file exists
+		if (
+			this.fileInput &&
+			this.fileInput.nativeElement &&
+			this.fileInput.nativeElement.files &&
+			this.fileInput.nativeElement.files.length > 0
+		) {
+			formData.append('file', this.fileInput.nativeElement.files[0]);
+			fetch('https://synclineserver.onrender.com/upload', {
+				method: 'POST',
+				headers: {
+					Authorization: localStorage.getItem('token') || ''
+				},
+				body: formData
+			}).then((response) => {
+				response.json().then((data: { messsage: string; url: string }) => {
+					if (response.status === 200) {
+						this.icon = data.url;
+						localStorage.setItem('pfp', data.url);
+						fetch('https://synclineserver.onrender.com/profile/edit', {
+							method: 'PUT',
+							headers: {
+								'Content-Type': 'application/json',
+								Authorization: localStorage.getItem('token') || ''
+							},
+							body: JSON.stringify({
+								email: localStorage.getItem('email') || '',
+								username: localStorage.getItem('username') || '',
+								url: this.icon
+							})
+						}).then((response) => {
+							if (response.status === 200) {
+								alert('Profile picture updated successfully');
+							} else {
+								response.json().then((data) => {
+									alert(data.message);
+								});
+							}
+						});
+					} else {
+						alert(data.messsage);
+					}
+				});
+			});
+		}
 		this.isEditable = false;
 	}
 
