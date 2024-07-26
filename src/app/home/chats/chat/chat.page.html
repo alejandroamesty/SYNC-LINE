@@ -11,6 +11,14 @@
 				<div class="user-name">{{ username }}</div>
 				<div class="user-status">{{ userStatus }}</div>
 			</div>
+			<ng-container *ngIf="!user">
+				<div class="info-button">
+					<app-send-button
+						source="assets/images/info.svg"
+						(sendClicked)="showDetail()"
+					></app-send-button>
+				</div>
+			</ng-container>
 		</div>
 		<div class="chat-container" #chatContainer>
 			<div *ngFor="let day of groupedMessages | keyvalue" class="day-group">

@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { RecordButtonComponent } from 'src/components/chat/record-button/record-button.component';
 import { Params, Router } from '@angular/router';
 import { SocketService } from 'src/app/services/socket-service.service';
+import { group } from '@angular/animations';
 
 interface Message {
 	text: string; // URL to audio file or text message
@@ -41,6 +42,8 @@ export class ChatPage implements AfterViewInit {
 	yourUsername: string;
 	username = 'John Doe';
 	user: boolean = true;
+	members: string[] | undefined;
+	description: string | undefined;
 	userStatus = 'Online';
 	newMessage = '';
 	isInputStarted = false;
@@ -127,35 +130,44 @@ export class ChatPage implements AfterViewInit {
 					// Group chat case
 					this.user = false;
 					this.username = data.result[0].name;
+					this.description = data.result[0].description;
 					this.userStatus = data.result[0].members.length + ' members';
-					this.messages = data.result[0].messages.map(
-						(
-							message: Array<{
-								message: string;
-								sender: string;
-								timestamp: string;
-								type: string;
-								_id: string;
-							}>
-						) => {
-							return {
-								text: message[0].message,
-								time: new Date(message[0].timestamp).toLocaleTimeString(undefined, {
-									hour: 'numeric',
-									minute: 'numeric',
-									hour12: true
-								}),
-								isSent: message[0].sender === localStorage.getItem('username'),
-								username: message[0].sender,
-								date: new Date(message[0].timestamp).toLocaleDateString('en-US', {
-									weekday: 'long',
-									day: 'numeric'
-								}),
-								isAudio: message[0].type === 'audio',
-								timestamp: message[0].timestamp // Add timestamp to Message object
-							};
-						}
-					);
+					this.members = data.result[0].members;
+					if (data.result[0].messages[0].length > 0)
+						this.messages = data.result[0].messages.map(
+							(
+								message: Array<{
+									message: string;
+									sender: string;
+									timestamp: string;
+									type: string;
+									_id: string;
+								}>
+							) => {
+								return {
+									text: message[0].message,
+									time: new Date(message[0].timestamp).toLocaleTimeString(
+										undefined,
+										{
+											hour: 'numeric',
+											minute: 'numeric',
+											hour12: true
+										}
+									),
+									isSent: message[0].sender === localStorage.getItem('username'),
+									username: message[0].sender,
+									date: new Date(message[0].timestamp).toLocaleDateString(
+										'en-US',
+										{
+											weekday: 'long',
+											day: 'numeric'
+										}
+									),
+									isAudio: message[0].type === 'audio',
+									timestamp: message[0].timestamp // Add timestamp to Message object
+								};
+							}
+						);
 					this.scrollToBottom();
 				}
 			});
@@ -309,5 +321,17 @@ export class ChatPage implements AfterViewInit {
 
 	navigateToMainTab() {
 		this._location.back();
+	}
+
+	showDetail() {
+		this.router.navigate(['/groupchat-detail'], {
+			state: {
+				groupId: this.chat,
+				url: this.icon,
+				name: this.username,
+				description: this.description,
+				members: this.members
+			}
+		});
 	}
 }

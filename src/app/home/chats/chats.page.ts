@@ -268,6 +268,34 @@ export class ChatsPage implements OnInit, AfterViewInit {
 				if (this.openCustomModal) {
 					document.body.appendChild(modalElement);
 					modalElement.style.display = 'block';
+					fetch('https://synclineserver.onrender.com/friends', {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: localStorage.getItem('token') || ''
+						}
+					})
+						.then((response) => {
+							return response.json();
+						})
+						.then((data) => {
+							const friends: Array<{
+								_id: string;
+								username: string;
+								friends: string[];
+								url: string;
+								status: any[];
+							}> = data.friends;
+							this.friends = friends.map((friend) => {
+								return {
+									id: friend._id,
+									name: friend.username,
+									userId: friend._id,
+									checked: false
+								};
+							});
+							this.filteredFriends = [...this.friends];
+						});
 				} else {
 					if (modalElement.parentElement === document.body) {
 						modalElement.style.display = 'none';
@@ -278,7 +306,38 @@ export class ChatsPage implements OnInit, AfterViewInit {
 	}
 
 	handleGroupCreation() {
-		console.log('Creating group...');
+		console.log('Create group');
+		console.log(
+			'name: ' + this.newTitle,
+			'\ndescription: ' + this.newDescription,
+			'\nimg: ' + this.groupImage
+		);
+
+		const checkedFriends = this.filteredFriends
+			.filter((friend) => friend.checked)
+			.map((friend) => friend.name);
+		console.log('Checked friends:', checkedFriends);
+
+		fetch('http://localhost:8000/group/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				name: this.newTitle,
+				description: this.newDescription || '',
+				picture: this.groupImage,
+				members: checkedFriends
+			})
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				alert(data.message);
+				this.fetchChats();
+			});
 	}
 
 	handleTitleChange(event: string) {
