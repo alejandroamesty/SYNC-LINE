@@ -5,15 +5,31 @@
 		<ng-container *ngIf="!user && !isSent">
 			<div class="username">{{ username }}</div>
 		</ng-container>
+
 		<ng-container *ngIf="!isAudio; else audioTemplate">
 			<div class="message-text">{{ text }}</div>
 		</ng-container>
 
 		<ng-template #audioTemplate>
-			<audio controls>
-				<source [src]="text" type="audio/mp3" />
-				Your browser does not support the audio element.
-			</audio>
+			<div class="audio-container">
+				<img
+					*ngIf="!isPlaying"
+					src="assets/images/play.png"
+					alt="Play"
+					(click)="togglePlay()"
+					class="audio-icon"
+				/>
+				<img
+					*ngIf="isPlaying"
+					src="assets/images/pause.png"
+					alt="Pause"
+					(click)="togglePlay()"
+					class="audio-icon"
+				/>
+				<span class="audio-duration">
+					{{ formatTime(currentTime) }} / {{ formatTime(duration) }}
+				</span>
+			</div>
 		</ng-template>
 	</div>
 </div>
