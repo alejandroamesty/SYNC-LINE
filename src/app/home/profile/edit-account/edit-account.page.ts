@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -35,15 +35,15 @@ export class EditAccountPage implements OnInit {
 	newPassword: string = '';
 	confirmPassword: string = '';
 	inputValue: string = '';
-	isEditable: boolean = false; // Track if in editing state
+	isEditable: boolean = false;
+
+	@ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
 	constructor(private _location: Location) {
 		this.icon = localStorage.getItem('pfp') || 'assets/images/icon.png';
 	}
 
 	ngOnInit() {}
-
-	uploadingTrack: boolean = false;
 
 	async goBack() {
 		this._location.back();
@@ -123,13 +123,25 @@ export class EditAccountPage implements OnInit {
 		console.log('Edit email button clicked');
 	}
 
-	toggleEdit(editMode: boolean) {
+	toggleEdit() {
 		console.log('Toggle edit mode');
-		this.isEditable = editMode;
+		this.isEditable = true;
+		this.fileInput.nativeElement.click();
 	}
 
 	save() {
 		console.log('Save changes');
 		this.isEditable = false;
+	}
+
+	onFileSelected(event: any) {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = (e: any) => {
+				this.icon = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
 	}
 }

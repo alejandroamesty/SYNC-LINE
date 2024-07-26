@@ -22,11 +22,13 @@
 
 .icon {
 	position: relative;
-	top: -0.1px;
 	width: 38px;
 	height: 38px;
 	border-radius: 50%;
-	background: #8e9fa9;
+	background-image: url('../../../assets/images/user-default.png');
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
 }
 
 .status-details {
