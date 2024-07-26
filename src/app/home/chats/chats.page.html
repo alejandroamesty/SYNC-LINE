@@ -1,5 +1,11 @@
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
 	<div id="container">
+		<div class="create-button">
+			<app-send-button
+				source="../../assets/images/add.png"
+				(sendClicked)="openModal()"
+			></app-send-button>
+		</div>
 		<div class="title">Chats</div>
 		<app-special-input
 			[placeholder]="'Search'"
@@ -17,5 +23,63 @@
 				class="chat-item"
 			></app-chat-item>
 		</div>
+		<ng-template #groupModalStep1>
+			<div class="custom-modal-content">
+				<app-search-input
+					[width]="'335px'"
+					[placeholder]="'Search for friends'"
+					[focusInput]="false"
+					class="filter-input"
+					backgroundColor="#E1E1E1"
+					(searchTermChanged)="handleSearchTermChanged($event)"
+				></app-search-input>
+				<div class="friends-list">
+					<app-list
+						[data]="filteredFriends"
+						(setExternalList)="updateFilteredItems($event)"
+					></app-list>
+				</div>
+			</div>
+		</ng-template>
+		<ng-template #groupModalStep2>
+			<div class="custom-modal-content">
+				<div class="group-icon-container">
+					<div class="overlay">
+						<button
+							(click)="toggleEdit(true)"
+							*ngIf="!isEditable"
+							class="action-button"
+						>
+							<mat-icon>add</mat-icon>
+						</button>
+						<button (click)="save()" *ngIf="isEditable" class="action-button">
+							<mat-icon>check</mat-icon>
+						</button>
+					</div>
+					<img src="{{ groupIcon }}" alt="user-icon" class="user-icon" />
+				</div>
+				<app-simple-input
+					[width]="335"
+					placeholder="Groupchat name"
+					[characterLimit]="50"
+					(onChangeText)="handleTitleChange($event)"
+				></app-simple-input>
+				<app-simple-input
+					[width]="335"
+					placeholder="Description"
+					[characterLimit]="50"
+					(onChangeText)="handleDescriptionChange($event)"
+				></app-simple-input>
+			</div>
+		</ng-template>
+		<app-double-step-modal
+			id="double-step-modal"
+			[visible]="openCustomModal"
+			[stepOneContent]="groupModalStep1"
+			[stepTwoContent]="groupModalStep2"
+			[title]="'Create a new group'"
+			(visibilityChange)="closeModal()"
+			(onDone)="handleGroupCreation()"
+		></app-double-step-modal>
 	</div>
 </ion-content>

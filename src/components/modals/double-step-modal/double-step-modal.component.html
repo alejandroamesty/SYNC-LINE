@@ -1,0 +1,22 @@
+<div class="modal-container" *ngIf="visible" (click)="closeModal()">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<div class="button-container">
+			<div *ngIf="currentStep === 1" (click)="onCancel()" [ngStyle]="{ color: cancelButtonColor }" class="button-left">
+				{{ cancelButtonName }}
+			</div>
+			<div *ngIf="currentStep === 2" (click)="previousStep()" [ngStyle]="{ color: cancelButtonColor }" class="button-left">
+				Back
+			</div>
+			<div *ngIf="currentStep === 1" (click)="nextStep()" [ngStyle]="{ color: doneButtonColor }" class="button-right">
+				Next
+			</div>
+			<div *ngIf="currentStep === 2" (click)="onDone()" [ngStyle]="{ color: doneButtonColor }" class="button-right">
+				Done
+			</div>
+		</div>
+		<h2 class="modal-text">{{ title }}</h2>
+		<div class="modal-content-body">
+			<ng-container *ngTemplateOutlet="currentStep === 1 ? stepOneContent : stepTwoContent"></ng-container>
+		</div>
+	</div>
+</div>
