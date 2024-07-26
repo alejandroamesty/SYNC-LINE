@@ -7,6 +7,7 @@ import { ControlButtonComponent } from 'src/components/buttons/control-button/co
 import { SaveButtonComponent } from 'src/components/buttons/save-button/save-button.component';
 import { BorderInputComponent } from 'src/components/inputs/border-input/border-input.component';
 import { ActionInputComponent } from 'src/components/inputs/action-input/action-input.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-edit-account',
@@ -23,15 +24,18 @@ import { ActionInputComponent } from 'src/components/inputs/action-input/action-
 		ControlButtonComponent,
 		SaveButtonComponent,
 		BorderInputComponent,
-		ActionInputComponent
+		ActionInputComponent,
+		MatIconModule
 	]
 })
 export class EditAccountPage implements OnInit {
+	icon: string = 'assets/images/IMG_2751.png';
 	email: string = '';
 	currentPassword: string = '';
 	newPassword: string = '';
 	confirmPassword: string = '';
 	inputValue: string = '';
+	isEditable: boolean = false; // Track if in editing state
 
 	constructor(private _location: Location) {}
 
@@ -74,5 +78,15 @@ export class EditAccountPage implements OnInit {
 
 	onEditEmail() {
 		console.log('Edit email button clicked');
+	}
+
+	toggleEdit(editMode: boolean) {
+		console.log('Toggle edit mode');
+		this.isEditable = editMode;
+	}
+
+	save() {
+		console.log('Save changes');
+		this.isEditable = false;
 	}
 }
