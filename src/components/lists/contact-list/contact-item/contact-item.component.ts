@@ -21,8 +21,8 @@ import { ControlButtonComponent } from 'src/components/buttons/control-button/co
 })
 export class ContactItemComponent implements AfterViewInit {
 	@Input() id: string = 'unknownId';
-	@Input() name: string = 'Default Name';
 	@Input() username: string = 'username';
+	@Input() status: string = 'status';
 	@Input() profilePicture: string = 'assets/images/IMG_2751.png';
 	@Output() onDelete = new EventEmitter<string>();
 	@Output() onAddToGroup = new EventEmitter<string>();

@@ -67,3 +67,60 @@ app-special-input {
 
 	color: #ffffff;
 }
+
+.uploadFile {
+	display: flex;
+	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
+	width: 349px;
+	height: 110px;
+	background: #E1E1E1;
+	border-radius: 30px;
+	gap: 28px;
+}
+
+.cloud-icon {
+	width: 57px;
+	height: 56px;
+	left: 77px;
+	top: 528px;
+}
+
+.placeholders {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.defaultTitle {
+	width: 174px;
+	font-family: 'BROmnySemiBold';
+	font-size: 15px;
+	color: #1c1c1c;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.defaultSubtitle {
+	width: 166px;
+	font-family: 'BROmnyRegular';
+	font-size: 12px;
+	color: #a3a3a9;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.uploadContainer {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	gap: 10px;
+}

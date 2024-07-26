@@ -1,4 +1,4 @@
-<div class="container" (click)="handlePress()">
+<div class="container">
 	<div
 		class="status-circle"
 		[ngStyle]="{ 'border-color': viewed ? '#E1E1E1' : '#72CAAF' }"
@@ -7,7 +7,7 @@
 	>
 		<div class="icon"></div>
 	</div>
-	<div class="status-details">
+	<div class="status-details" (click)="handleClick()">
 		<div class="name">{{ nombre }}</div>
 		<div class="time">{{ time }}</div>
 	</div>
@@ -15,6 +15,7 @@
 		<app-control-button
 			source="../../assets/images/add-photo.png"
 			[size]="25"
+			(onPress)="handleAddClick()"
 		></app-control-button>
 		<app-control-button
 			source="../../assets/images/add-text.png"

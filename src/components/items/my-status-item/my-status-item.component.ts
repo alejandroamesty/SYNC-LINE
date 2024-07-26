@@ -34,10 +34,7 @@ export class MyStatusItemComponent {
 	@Input() time: string = '0m ago';
 	@Input() viewed: boolean = false;
 	@Output() onPress = new EventEmitter<string>();
-
-	handlePress() {
-		this.onPress.emit(this.id);
-	}
+	@Output() onAddPress = new EventEmitter<string>();
 
 	animationState: string = 'normal';
 
@@ -47,5 +44,9 @@ export class MyStatusItemComponent {
 			this.animationState = 'normal';
 			this.onPress.emit(this.id);
 		}, 200);
+	}
+
+	handleAddClick() {
+		this.onAddPress.emit(this.id);
 	}
 }

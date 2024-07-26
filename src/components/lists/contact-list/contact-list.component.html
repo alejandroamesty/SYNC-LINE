@@ -3,8 +3,8 @@
 	<div *ngFor="let contact of letter.value" class="contact-item-wrapper">
 		<app-contact-item
 			[id]="contact.id"
-			[name]="contact.name"
 			[username]="contact.username"
+			[status]="contact.status"
 			[profilePicture]="contact.profilePicture"
 			(onDelete)="handleDelete($event)"
 			(onAddToGroup)="handleAddToGroup($event)"

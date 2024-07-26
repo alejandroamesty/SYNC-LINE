@@ -16,11 +16,13 @@ import { ConfirmationModalComponent } from 'src/components/modals/confirmation-m
 import { SendButtonComponent } from 'src/components/chat/send-button/send-button.component';
 import { CustomModalComponent } from 'src/components/modals/custom-modal/custom-modal.component';
 import { SimpleInputComponent } from 'src/components/inputs/simple-input/simple-input.component';
+import { ListComponent } from 'src/components/lists/list/list.component';
+import { SearchInputComponent } from 'src/components/inputs/search-input/search-input.component';
 
 interface Contact {
 	id: string;
-	name: string;
 	username: string;
+	status: string;
 	profilePicture: string;
 }
 
@@ -41,7 +43,9 @@ interface Contact {
 		ConfirmationModalComponent,
 		SendButtonComponent,
 		CustomModalComponent,
-		SimpleInputComponent
+		SimpleInputComponent,
+		ListComponent,
+		SearchInputComponent
 	]
 })
 export class ContactsPage implements OnInit, AfterViewInit {
@@ -63,47 +67,62 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	contacts: Contact[] = [
 		{
 			id: '1',
-			name: 'Alice',
 			username: 'alice123',
+			status: 'Online',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
-		{ id: '2', name: 'Bob', username: 'bob456', profilePicture: 'assets/images/IMG_2751.png' },
+		{
+			id: '2',
+			username: 'bob456',
+			status: 'Offline',
+			profilePicture: 'assets/images/IMG_2751.png'
+		},
 		{
 			id: '3',
-			name: 'Charlie',
 			username: 'charlie789',
+			status: 'Away',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
 		{
 			id: '4',
-			name: 'David',
 			username: 'david012',
+			status: 'Online',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
-		{ id: '5', name: 'Eve', username: 'eve345', profilePicture: 'assets/images/IMG_2751.png' },
+		{
+			id: '5',
+			username: 'eve345',
+			status: 'Offline',
+			profilePicture: 'assets/images/IMG_2751.png'
+		},
 		{
 			id: '6',
-			name: 'Frank',
 			username: 'frank678',
+			status: 'Online',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
 		{
 			id: '7',
-			name: 'Grace',
 			username: 'grace901',
+			status: 'Away',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
 		{
 			id: '8',
-			name: 'Hank',
 			username: 'hank234',
+			status: 'Online',
 			profilePicture: 'assets/images/IMG_2751.png'
 		},
-		{ id: '9', name: 'Ivy', username: 'ivy567', profilePicture: 'assets/images/IMG_2751.png' },
+		{
+			id: '9',
+			username: 'ivy567',
+			status: 'Offline',
+			profilePicture: 'assets/images/IMG_2751.png'
+		},
 		{
 			id: '10',
-			name: 'Jack',
 			username: 'jack890',
+			status: 'Online',
 			profilePicture: 'assets/images/IMG_2751.png'
 		}
 	];
@@ -157,7 +176,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	handleInputValue(value: string): void {
 		console.log('Input value:', value);
 		this.filteredContacts = this.contacts.filter((contact) =>
-			contact.name.toLowerCase().includes(value.toLowerCase())
+			contact.username.toLowerCase().includes(value.toLowerCase())
 		);
 	}
 
