@@ -121,34 +121,41 @@ export class ChatPage {
 					this.user = false;
 					this.username = data.result[0].name;
 					this.userStatus = data.result[0].members.length + ' members';
-					this.messages = data.result[0].messages.map(
-						(
-							message: Array<{
-								message: string;
-								sender: string;
-								timestamp: string;
-								type: string;
-								_id: string;
-							}>
-						) => {
-							return {
-								text: message[0].message,
-								time: new Date(message[0].timestamp).toLocaleTimeString(undefined, {
-									hour: 'numeric',
-									minute: 'numeric',
-									hour12: true
-								}),
-								isSent: message[0].sender === localStorage.getItem('username'),
-								username: message[0].sender,
-								date: new Date(message[0].timestamp).toLocaleDateString('en-US', {
-									weekday: 'long',
-									day: 'numeric'
-								}),
-								isAudio: message[0].type === 'audio',
-								timestamp: message[0].timestamp // Add timestamp to Message object
-							};
-						}
-					);
+					if (data.result[0].messages[0].length > 0)
+						this.messages = data.result[0].messages.map(
+							(
+								message: Array<{
+									message: string;
+									sender: string;
+									timestamp: string;
+									type: string;
+									_id: string;
+								}>
+							) => {
+								return {
+									text: message[0].message,
+									time: new Date(message[0].timestamp).toLocaleTimeString(
+										undefined,
+										{
+											hour: 'numeric',
+											minute: 'numeric',
+											hour12: true
+										}
+									),
+									isSent: message[0].sender === localStorage.getItem('username'),
+									username: message[0].sender,
+									date: new Date(message[0].timestamp).toLocaleDateString(
+										'en-US',
+										{
+											weekday: 'long',
+											day: 'numeric'
+										}
+									),
+									isAudio: message[0].type === 'audio',
+									timestamp: message[0].timestamp // Add timestamp to Message object
+								};
+							}
+						);
 				}
 			});
 	}
