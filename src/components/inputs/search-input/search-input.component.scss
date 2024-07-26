@@ -1,5 +1,5 @@
 .search-container {
-	position: absolute;
+	position: relative;
 	height: 44px;
 	border-radius: 100px;
 	display: flex;
@@ -21,7 +21,7 @@
 	background: none;
 	font-family: 'BROmnyRegular';
 	font-size: 17px;
-	color: #ffffff;
+	color: #000000;
 	margin-left: 8px;
 }
 
@@ -30,5 +30,5 @@
 }
 
 .search-input:focus {
-	color: #ffffff;
+	color: #000000;
 }
