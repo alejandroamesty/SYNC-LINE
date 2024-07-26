@@ -72,6 +72,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	openGroupModal: boolean = false;
 	newTitle: string = '';
 	newDescription: string = '';
+	selectedContactId: string = '';
 
 	contacts: Contact[] = [
 		{
@@ -138,7 +139,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 
 	filteredContacts = [...this.contacts];
 
-  groupChats: GroupChat[] = [
+	groupChats: GroupChat[] = [
 		{ id: '1', name: 'Group 1', userId: '1', checked: true },
 		{ id: '2', name: 'Group 2', userId: '2', checked: true },
 		{ id: '3', name: 'Group 3', userId: '3', checked: true },
@@ -157,12 +158,51 @@ export class ContactsPage implements OnInit, AfterViewInit {
 		this.filteredGroupChats = updatedItems;
 		this.cdr.detectChanges();
 	}
-  
+
 	constructor(
 		private cdr: ChangeDetectorRef,
 		private socketService: SocketService,
 		private router: Router
 	) {
+		this.updateFriends();
+		fetch('http://localhost:8000/groups', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			}
+		})
+			.then((resonse) => {
+				return resonse.json();
+			})
+			.then(
+				(data: {
+					groups: Array<{
+						name: string;
+						_id: string;
+						membersInfo: Array<{
+							username: string;
+							_id: string;
+						}>;
+					}>;
+				}) => {
+					this.groupChats = data.groups.map((group) => {
+						return {
+							id: group._id,
+							name: group.name,
+							userId: group.membersInfo[0]._id,
+							checked: false
+						};
+					});
+
+					this.filteredGroupChats = [...this.groupChats];
+				}
+			);
+	}
+
+	ngOnInit() {}
+
+	updateFriends() {
 		fetch('http://localhost:8000/friends', {
 			method: 'GET',
 			headers: {
@@ -181,7 +221,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 					url: string;
 					status: any[];
 				}> = data.friends;
-      
+
 				this.contacts = friends.map((friend) => {
 					return {
 						id: friend._id,
@@ -190,7 +230,7 @@ export class ContactsPage implements OnInit, AfterViewInit {
 						profilePicture: friend.url || 'assets/images/icon.png'
 					};
 				});
-				this.filteredContacts = [...this.contacts];
+				this.filteredContacts = this.contacts;
 				this.socketService.onlineUsers$.subscribe((users: string[]) => {
 					this.contacts = this.contacts.map((contact) => {
 						if (users.includes(contact.username)) {
@@ -209,8 +249,6 @@ export class ContactsPage implements OnInit, AfterViewInit {
 			});
 	}
 
-	ngOnInit() {}
-
 	ngAfterViewInit() {
 		this.moveModalToBody();
 		this.moveConfirmationModalToBody();
@@ -222,14 +260,75 @@ export class ContactsPage implements OnInit, AfterViewInit {
 		this.showDeleteModal = true;
 		this.moveConfirmationModalToBody();
 		this.cdr.detectChanges();
-		console.log('Delete contact with id:', event);
+		this.selectedContactId = event;
 	}
 
 	handleAddToGroup(event: any) {
 		this.openGroupModal = true;
 		this.moveGroupModalToBody();
 		this.cdr.detectChanges();
-		console.log('Add contact with id to group:', event);
+		this.selectedContactId = event;
+	}
+
+	handleAddToGroupAccept(event: any) {
+		const checkedGroupChats = this.filteredGroupChats.filter((groupChat) => groupChat.checked);
+
+		checkedGroupChats.forEach((groupChat) => {
+			fetch(`http://localhost:8000/group/addMembers`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: localStorage.getItem('token') || ''
+				},
+				body: JSON.stringify({
+					groupId: groupChat.id,
+					members: [this.selectedContactId]
+				})
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					alert(data.message);
+					this.updateFriends();
+				})
+				.catch((error) => {});
+		});
+	}
+
+	handleAddToGroupCancel(event: any) {
+		this.openGroupModal = false;
+		this.moveGroupModalToBody();
+		this.cdr.detectChanges();
+	}
+
+	handleAddFriendAccept(event: any) {
+		fetch(`http://localhost:8000/friends/add`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				friend: this.newDescription
+			})
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				alert(data.message);
+				this.updateFriends();
+			});
+		this.openCustomModal = false;
+		this.moveModalToBody();
+		this.cdr.detectChanges();
+	}
+
+	handleAddFriendCancel(event: any) {
+		this.openCustomModal = false;
+		this.moveModalToBody();
+		this.cdr.detectChanges();
 	}
 
 	handleViewChat(event: any) {
@@ -263,6 +362,23 @@ export class ContactsPage implements OnInit, AfterViewInit {
 	handleDeleteAccept() {
 		this.showDeleteModal = false;
 		this.cdr.detectChanges();
+		fetch(`http://localhost:8000/friends/delete`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('token') || ''
+			},
+			body: JSON.stringify({
+				friend: this.selectedContactId
+			})
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				alert(data.message);
+				this.updateFriends();
+			});
 	}
 
 	handleInputValue(value: string): void {

@@ -1,41 +1,41 @@
 .container {
 	overflow-y: auto;
-}
-
-.container::-webkit-scrollbar {
+  }
+  
+  .container::-webkit-scrollbar {
 	display: none;
-}
-
-.letter {
+  }
+  
+  .letter {
 	font-family: 'BROmnySemiBold';
 	font-size: 16px;
 	color: #7d7d7d;
 	margin-top: 16px;
-}
-
-.separator {
+  }
+  
+  .separator {
 	width: 100%;
 	height: 1px;
 	background-color: #747474;
 	margin: 8px 0;
-}
-
-.item-container {
+  }
+  
+  .item-container {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	padding: 10px 0;
 	width: 100%;
-}
-
-.item-text {
+  }
+  
+  .item-text {
 	font-family: 'BROmnyMedium';
 	font-size: 14px;
 	color: #000000;
-}
-
-.custom-checkbox {
+  }
+  
+  .custom-checkbox {
 	width: 17px;
 	height: 17px;
 	border-radius: 50%;
@@ -44,18 +44,19 @@
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-}
-
-.custom-checkbox.checked {
+  }
+  
+  .custom-checkbox.checked {
 	background-color: #33be99;
-}
-
-.custom-checkbox ion-icon {
+  }
+  
+  .custom-checkbox ion-icon {
 	color: white;
 	font-size: 14px;
 	display: none;
-}
-
-.custom-checkbox.checked ion-icon {
+  }
+  
+  .custom-checkbox.checked ion-icon {
 	display: block;
-}
+  }
+  
