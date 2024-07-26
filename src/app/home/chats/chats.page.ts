@@ -225,8 +225,9 @@ export class ChatsPage implements OnInit, AfterViewInit {
 	}
 
 	handleChatPress(event: any) {
+		console.log('Chat pressed:', event);
 		this.router.navigate(['chat'], {
-			queryParams: { id: event }
+			queryParams: { id: event.id, url: event.icon }
 		});
 	}
 
