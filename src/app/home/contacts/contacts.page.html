@@ -45,6 +45,21 @@
 				></app-simple-input>
 			</div>
 		</ng-template>
+		<ng-template #groupModalContent>
+			<div class="custom-modal-content">
+				<app-search-input
+					[width]="'335px'"
+					[placeholder]="'Search by groupchat name'"
+					[focusInput]="false"
+					class="filter-input"
+					backgroundColor="#E1E1E1"
+					(searchTermChanged)="handleSearchTermChanged($event)"
+				></app-search-input>
+				<div class="group-list">
+					<app-list [data]="filteredGroupChats" (setExternalList)="updateFilteredItems($event)"></app-list>
+				  </div>				  
+			</div>
+		</ng-template>
 		<app-custom-modal
 			id="custom-modal"
 			[visible]="openCustomModal"
@@ -56,7 +71,7 @@
 		<app-custom-modal
 			id="group-modal"
 			[visible]="openGroupModal"
-			[modalContent]="modalContent"
+			[modalContent]="groupModalContent"
 			(visibilityChange)="closeGroupModalFunc($event)"
 			title="Add friend to group"
 			(doneButtonAction)="closeGroupModalFunc($event)"
