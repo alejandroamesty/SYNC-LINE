@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -8,10 +8,11 @@ import { io } from 'socket.io-client';
 export class SocketService {
 	private socket: any;
 	private token = localStorage.getItem('token');
-	private onlineUsers: string[] = [];
+	private onlineUsers: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	private chatMessageSubject = new Subject<any>();
 
 	chatMessage$ = this.chatMessageSubject.asObservable();
+	onlineUsers$ = this.onlineUsers.asObservable();
 
 	constructor() {
 		this.socket = io('http://localhost:8000', {
@@ -49,12 +50,14 @@ export class SocketService {
 		});
 
 		this.socket.on('user-connected', (username: string) => {
-			this.onlineUsers.push(username);
+			const updatedUsers = [...this.onlineUsers.getValue(), username];
+			this.onlineUsers.next(updatedUsers);
 			console.log('User connected:', username);
 		});
 
 		this.socket.on('user-disconnected', (username: string) => {
-			this.onlineUsers = this.onlineUsers.filter((user) => user !== username);
+			const updatedUsers = this.onlineUsers.getValue().filter((user) => user !== username);
+			this.onlineUsers.next(updatedUsers);
 			console.log('User disconnected:', username);
 		});
 

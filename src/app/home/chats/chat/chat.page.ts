@@ -18,6 +18,7 @@ interface Message {
 	isAudio: boolean; // New field to distinguish audio messages
 	user: boolean;
 	username?: string;
+	timestamp: string; // Add timestamp to the interface for sorting
 }
 
 @Component({
@@ -80,6 +81,14 @@ export class ChatPage {
 							member.username !== localStorage.getItem('username')
 					);
 					this.username = user.username;
+					// subscribe to online users
+					this.socketService.onlineUsers$.subscribe((users: string[]) => {
+						if (users.includes(this.username)) {
+							this.userStatus = 'Online';
+						} else {
+							this.userStatus = 'Offline';
+						}
+					});
 					this.messages = data.result[0].messages.map(
 						(
 							message: Array<{
@@ -102,7 +111,8 @@ export class ChatPage {
 									weekday: 'long',
 									day: 'numeric'
 								}),
-								isAudio: message[0].type === 'audio'
+								isAudio: message[0].type === 'audio',
+								timestamp: message[0].timestamp // Add timestamp to Message object
 							};
 						}
 					);
@@ -134,7 +144,8 @@ export class ChatPage {
 									weekday: 'long',
 									day: 'numeric'
 								}),
-								isAudio: message[0].type === 'audio'
+								isAudio: message[0].type === 'audio',
+								timestamp: message[0].timestamp // Add timestamp to Message object
 							};
 						}
 					);
@@ -167,7 +178,8 @@ export class ChatPage {
 						}),
 						isAudio: message.messageType === 'audio',
 						user: this.user,
-						username: message.sender
+						username: message.sender,
+						timestamp: message.timestamp // Add timestamp to Message object
 					});
 				}
 			}
@@ -175,7 +187,7 @@ export class ChatPage {
 	}
 
 	get groupedMessages() {
-		return this.messages.reduce((groups: { [key: string]: Message[] }, message) => {
+		const groups = this.messages.reduce((groups: { [key: string]: Message[] }, message) => {
 			const date = message.date;
 			if (!groups[date]) {
 				groups[date] = [];
@@ -183,6 +195,14 @@ export class ChatPage {
 			groups[date].push(message);
 			return groups;
 		}, {});
+
+		// Sort messages within each group by timestamp
+		for (const date in groups) {
+			groups[date].sort(
+				(a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+			);
+		}
+		return groups;
 	}
 
 	handleTextEntered(text: string) {
@@ -211,7 +231,8 @@ export class ChatPage {
 					day: 'numeric'
 				}),
 				isAudio: !!this.audioUrl,
-				user: this.user
+				user: this.user,
+				timestamp: new Date().toISOString() // Add timestamp to new message
 			};
 
 			this.messages.push(message);
