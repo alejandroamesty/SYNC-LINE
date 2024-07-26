@@ -1,56 +1,50 @@
 <ion-content scroll-y="false">
 	<div class="arrow">
-	  <app-control-button
-		source="../../../assets/images/arrow-go-back-white.png"
-		[size]="40"
-		(onPress)="goBack()"
-	  ></app-control-button>
+		<app-control-button
+			source="../../../assets/images/arrow-go-back-white.png"
+			[size]="40"
+			(onPress)="goBack()"
+		></app-control-button>
 	</div>
 	<div class="title">Edit account</div>
-  
-	<!-- User Icon Container with Overlay -->
 	<div class="user-icon-container">
-	  <div class="overlay">
-		<button
-		  (click)="toggleEdit(true)"
-		  *ngIf="!isEditable"
-		  class="action-button"
-		>
-		  <mat-icon>edit</mat-icon>
-		</button>
-		<button
-		  (click)="save()"
-		  *ngIf="isEditable"
-		  class="action-button"
-		>
-		  <mat-icon>check</mat-icon>
-		</button>
-	  </div>
-	  <img src="{{icon}}" alt="user-icon" class="user-icon">
+		<div class="overlay">
+			<button (click)="toggleEdit()" *ngIf="!isEditable" class="action-button">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button (click)="save()" *ngIf="isEditable" class="action-button">
+				<mat-icon>check</mat-icon>
+			</button>
+		</div>
+		<img src="{{icon}}" alt="user-icon" class="user-icon" />
+		<input
+			type="file"
+			accept="image/*"
+			#fileInput
+			style="display: none"
+			(change)="onFileSelected($event)"
+		/>
 	</div>
-  
 	<div class="subtitle1">Username</div>
 	<app-action-input
-	  class="username"
-	  [placeholder]="'@username'"
-	  [value]="inputValue"
-	  [width]="335"
-	  [fontSize]="14"
-	  [backgroundColor]="'#E1E1E1'"
-	  (onEdit)="onEdit()"
-	  (onSave)="onSave($event)"
+		class="username"
+		[placeholder]="'@username'"
+		[value]="inputValue"
+		[width]="335"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		(onEdit)="onEdit()"
+		(onSave)="onSave($event)"
 	></app-action-input>
-  
 	<div class="subtitle2">Email</div>
 	<app-action-input
-	  class="email"
-	  [placeholder]="'Enter your email'"
-	  [value]="email"
-	  [width]="335"
-	  [fontSize]="14"
-	  [backgroundColor]="'#E1E1E1'"
-	  (onEdit)="onEditEmail()"
-	  (onSave)="updateEmail($event)"
+		class="email"
+		[placeholder]="'Enter your email'"
+		[value]="email"
+		[width]="335"
+		[fontSize]="14"
+		[backgroundColor]="'#E1E1E1'"
+		(onEdit)="onEditEmail()"
+		(onSave)="updateEmail($event)"
 	></app-action-input>
-  </ion-content>
-  
+</ion-content>
