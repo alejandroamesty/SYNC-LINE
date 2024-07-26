@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SocketService {
-	private socket: any;
+	private socket: Socket;
 	private token = localStorage.getItem('token');
 	private onlineUsers: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 	private chatMessageSubject = new Subject<any>();
@@ -26,6 +26,10 @@ export class SocketService {
 
 	connect() {
 		this.socket.connect();
+	}
+
+	disconnect() {
+		this.socket.disconnect();
 	}
 
 	sendChatMessage(message: { message: string; chat: string; type: string }) {

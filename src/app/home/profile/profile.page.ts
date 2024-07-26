@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ControlButtonComponent } from 'src/components/buttons/control-button/control-button.component';
 import { OptionCardComponent } from 'src/components/items/option-card/option-card.component';
 import { ConfirmationModalComponent } from 'src/components/modals/confirmation-modal/confirmation-modal.component';
+import { SocketService } from 'src/app/services/socket-service.service';
 
 @Component({
 	selector: 'app-profile',
@@ -33,7 +34,10 @@ export class ProfilePage implements OnInit, AfterViewInit {
 	name: string = '';
 	description: string = 'Online';
 
-	constructor(private router: Router) {
+	constructor(
+		private router: Router,
+		private socketService: SocketService
+	) {
 		this.name = localStorage.getItem('username') || '';
 		this.image = localStorage.getItem('pfp') || null;
 		this.description = localStorage.getItem('status') || 'Online';
@@ -77,8 +81,9 @@ export class ProfilePage implements OnInit, AfterViewInit {
 			if (res.status === 200) {
 				console.log('Deleted account');
 				localStorage.clear();
+				this.socketService.disconnect();
 				this.router.navigate(['start-screen']);
-        this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
+				this.moveConfirmationModalToBody('deleteModal', this.showDeleteModal);
 			} else {
 				alert('Failed to delete');
 			}
@@ -93,6 +98,7 @@ export class ProfilePage implements OnInit, AfterViewInit {
 	handleAccept() {
 		this.showModal = false;
 		localStorage.clear();
+		this.socketService.disconnect();
 		this.router.navigate(['start-screen']);
 		this.moveConfirmationModalToBody('logoutModal', this.showModal);
 	}
