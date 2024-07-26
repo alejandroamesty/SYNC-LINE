@@ -40,7 +40,7 @@ export class ChatItemComponent {
 		this.animationState = 'scaled';
 		setTimeout(() => {
 			this.animationState = 'normal';
-			this.onPress.emit({id: this.id, icon: this.icon});
+			this.onPress.emit({ id: this.id, icon: this.icon });
 		}, 200);
 	}
 }

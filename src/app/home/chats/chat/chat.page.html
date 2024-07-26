@@ -21,6 +21,8 @@
 						[ngClass]="{ 'align-end': message.isSent, 'align-start': !message.isSent }"
 					>
 						<app-chat-message
+							[user]="user"
+							[username]="message.username"
 							[text]="message.text"
 							[time]="message.time"
 							[isSent]="message.isSent"
